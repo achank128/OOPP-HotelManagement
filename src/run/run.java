@@ -4,7 +4,7 @@
  */
 package run;
 
-import view.Home;
+import view.HomeView;
 
 /**
  *
@@ -12,7 +12,7 @@ import view.Home;
  */
 public class run {
     public static void main(String[] args) {
-        Home home = new Home();
+        HomeView home = new HomeView();
         home.setVisible(true);
     }
 }
