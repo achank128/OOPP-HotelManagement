@@ -96,6 +96,11 @@ public class HomeView extends javax.swing.JFrame {
 
         btnRooms.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnRooms.setText("PHÒNG KHÁCH SẠN");
+        btnRooms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRoomsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,21 +178,23 @@ public class HomeView extends javax.swing.JFrame {
 
     private void btnBookHRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookHRActionPerformed
         this.dispose();
-        BookHotelRoomView bookHotelRoom = new BookHotelRoomView();
-        bookHotelRoom.setVisible(true);
+        new BookHotelRoomView().setVisible(true);
     }//GEN-LAST:event_btnBookHRActionPerformed
 
     private void btnCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckinActionPerformed
-         this.dispose();
-        CheckInView checkIn = new CheckInView();
-        checkIn.setVisible(true);
+         this.dispose();     
+        new CheckInView().setVisible(true);
     }//GEN-LAST:event_btnCheckinActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         this.dispose();
-        CheckOutView checkOut = new CheckOutView();
-        checkOut.setVisible(true);
+        new CheckOutView().setVisible(true);
     }//GEN-LAST:event_btnCheckOutActionPerformed
+
+    private void btnRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomsActionPerformed
+        this.dispose();
+        new HotelRoomView().setVisible(true);
+    }//GEN-LAST:event_btnRoomsActionPerformed
 
     /**
      * @param args the command line arguments
