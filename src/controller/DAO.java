@@ -19,8 +19,14 @@ public class DAO {
     public Connection DAO_DB(){
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbURL = "jdbc:sqlserver://localhost:1433;databasename=DoAn;"
+//<<<<<<< HEAD
+           //String dbURL = "jdbc:sqlserver://localhost:1433;databasename=DoAn;"
+                  //  + "username=sa;password=02102001;encrypt=true;trustServerCertificate=true;"; //;encrypt=true;trustServerCertificate=true;
+//==
+            String dbURL = "jdbc:sqlserver://localhost:1433;databasename=HotelManagement;"
                     + "username=sa;password=01042001;encrypt=true;trustServerCertificate=true;"; //;encrypt=true;trustServerCertificate=true;
+//>>>>>>> 116b8f6447296fb3a5e9c3029e4c9199283884fa
+
             conn = DriverManager.getConnection(dbURL);
             System.out.println("Ket noi sql server thanh cong");
             return conn;
