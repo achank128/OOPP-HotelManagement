@@ -177,23 +177,23 @@ public class HomeView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnBookHRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookHRActionPerformed
+        new BookRoomView().setVisible(true);
         this.dispose();
-        new BookHotelRoomView().setVisible(true);
     }//GEN-LAST:event_btnBookHRActionPerformed
 
     private void btnCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckinActionPerformed
-         this.dispose();     
         new CheckInView().setVisible(true);
+        this.dispose();     
     }//GEN-LAST:event_btnCheckinActionPerformed
 
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
-        this.dispose();
         new CheckOutView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
     private void btnRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomsActionPerformed
-        this.dispose();
         new HotelRoomView().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRoomsActionPerformed
 
     /**

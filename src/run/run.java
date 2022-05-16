@@ -11,8 +11,7 @@ import view.HomeView;
  * @author khacc
  */
 public class run {
-    public static void main(String[] args) {
-        HomeView home = new HomeView();
-        home.setVisible(true);
+    public static void main(String[] args) {       
+        new HomeView().setVisible(true);
     }
 }
