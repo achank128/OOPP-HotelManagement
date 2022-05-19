@@ -4,20 +4,47 @@
  */
 package view;
 
+import controller.BookingRoomDAO;
+import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.BookingRoom;
+import model.Custumer;
+import model.FindRoom;
+import model.HotelRoom;
 
-/**
- *
- * @author khacc
- */
 public class BookRoomView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form BookHotelRoom
-     */
+    private ArrayList<HotelRoom> roomFound;
+    private BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+    private int roomSelectedIndex;
+    DefaultTableModel modelRF;
+
     public BookRoomView() {
         initComponents();
         setLocationRelativeTo(null);
+        modelRF = (DefaultTableModel) tblRoomFind.getModel();
+    }
+
+    public void showRoomFound() {
+        for (HotelRoom r : roomFound) {
+            modelRF.addRow(new Object[]{
+                r.getID(), r.getName(), r.getType(), r.getNumberBed(), r.getPrice()
+            });
+        }
+    }
+
+    public void showResult() {
+        modelRF.setRowCount(0);
+        this.showRoomFound();
+    }
+
+    public void setCustData(Custumer c) {
+        txtCustumerId.setText(c.getCustID());
+        txtCustumerName.setText(c.getName());
+        txtPhoneNumber.setText(c.getPhone());
     }
 
     /**
@@ -31,13 +58,13 @@ public class BookRoomView extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblRoomList = new javax.swing.JTable();
+        tblRoomFind = new javax.swing.JTable();
         btnExit = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtDateFind = new javax.swing.JTextField();
+        txtDateFromFind = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtDateFindEnd = new javax.swing.JTextField();
+        txtDateToFind = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtBedFind = new javax.swing.JTextField();
@@ -53,21 +80,22 @@ public class BookRoomView extends javax.swing.JFrame {
         txtRoomName = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        txtBookingDate = new javax.swing.JTextField();
-        txtKindOfRoom = new javax.swing.JTextField();
+        txtDateForm = new javax.swing.JTextField();
+        txtType = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         txtBed = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         txtPrice = new javax.swing.JTextField();
         btnBook = new javax.swing.JButton();
-        cbKingofRoomFind = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        cbTypeFind = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         txtCustumerId = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        txtDateTo = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnChooseCust = new javax.swing.JButton();
+        btnChooseRoom = new javax.swing.JButton();
+        btnAddBookingId = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,24 +104,15 @@ public class BookRoomView extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ĐẶT PHÒNG");
 
-        tblRoomList.setModel(new javax.swing.table.DefaultTableModel(
+        tblRoomFind.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Mã Phòng", "Tên Phòng", "Loại Phòng", "Số Giường", "Giá"
             }
         ));
-        jScrollPane1.setViewportView(tblRoomList);
+        jScrollPane1.setViewportView(tblRoomFind);
 
         btnExit.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnExit.setText("Về Trang Chủ");
@@ -109,9 +128,9 @@ public class BookRoomView extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel3.setText("Tìm Phòng");
 
-        txtDateFind.addActionListener(new java.awt.event.ActionListener() {
+        txtDateFromFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDateFindActionPerformed(evt);
+                txtDateFromFindActionPerformed(evt);
             }
         });
 
@@ -123,6 +142,8 @@ public class BookRoomView extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Số Giường:");
+
+        txtBedFind.setText("1");
 
         btnFindRoom.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnFindRoom.setText("Tìm");
@@ -138,11 +159,19 @@ public class BookRoomView extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setText("Tên Khách Hàng:");
 
+        txtCustumerName.setEditable(false);
+
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel9.setText("Số Điện Thoại:");
 
+        txtPhoneNumber.setEditable(false);
+
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel10.setText("Mã Phòng:");
+
+        txtRoomId.setEditable(false);
+
+        txtRoomName.setEditable(false);
 
         jLabel11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel11.setText("Tên Phòng:");
@@ -150,9 +179,12 @@ public class BookRoomView extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel12.setText("Ngày Nhận:");
 
-        txtKindOfRoom.addActionListener(new java.awt.event.ActionListener() {
+        txtDateForm.setEditable(false);
+
+        txtType.setEditable(false);
+        txtType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKindOfRoomActionPerformed(evt);
+                txtTypeActionPerformed(evt);
             }
         });
 
@@ -162,8 +194,12 @@ public class BookRoomView extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel14.setText("Số Giường:");
 
+        txtBed.setEditable(false);
+
         jLabel15.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel15.setText("Giá Phòng Thuê(/đêm):");
+
+        txtPrice.setEditable(false);
 
         btnBook.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnBook.setText("Đặt Phòng");
@@ -173,17 +209,37 @@ public class BookRoomView extends javax.swing.JFrame {
             }
         });
 
-        cbKingofRoomFind.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Phòng Standard", "Phòng Superior", "Phòng Deluxe", "Phòng Suite" }));
-
-        jButton1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jButton1.setText("Thêm Mới Khách Hàng");
+        cbTypeFind.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard", "Superior", "Deluxe", "Suite" }));
 
         jLabel16.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel16.setText("Mã Khách Hàng:");
 
+        txtCustumerId.setEditable(false);
+
+        txtDateTo.setEditable(false);
+
         jLabel17.setText("Ngày Trả:");
 
-        jButton2.setText("Chọn Khách Hàng");
+        btnChooseCust.setText("Chọn Khách Hàng");
+        btnChooseCust.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChooseCustActionPerformed(evt);
+            }
+        });
+
+        btnChooseRoom.setText("Chọn Phòng");
+        btnChooseRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChooseRoomActionPerformed(evt);
+            }
+        });
+
+        btnAddBookingId.setText("Thêm Mã");
+        btnAddBookingId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddBookingIdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,12 +261,15 @@ public class BookRoomView extends javax.swing.JFrame {
                     .addComponent(btnFindRoom)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(txtBedFind)
-                        .addComponent(txtDateFindEnd)
-                        .addComponent(txtDateFind)
-                        .addComponent(cbKingofRoomFind, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDateToFind)
+                        .addComponent(txtDateFromFind)
+                        .addComponent(cbTypeFind, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnChooseRoom))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -229,15 +288,17 @@ public class BookRoomView extends javax.swing.JFrame {
                             .addComponent(txtCustumerName, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtBookingDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+                                .addComponent(txtDateTo, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtDateForm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtCustumerId, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtBookingId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
-                        .addGap(77, 77, 77)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnChooseCust, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAddBookingId))))
+                        .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel11)
                             .addComponent(jLabel15)
@@ -248,19 +309,17 @@ public class BookRoomView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtRoomName, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtKindOfRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtBed, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1)
-                                    .addComponent(btnBook)))))
+                                .addComponent(btnBook))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnExit)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,14 +331,15 @@ public class BookRoomView extends javax.swing.JFrame {
                     .addComponent(txtBookingId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel10)
-                    .addComponent(txtRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRoomId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddBookingId))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRoomName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel16)
                     .addComponent(txtCustumerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(btnChooseCust))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -293,14 +353,14 @@ public class BookRoomView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(txtBookingDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDateForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtKindOfRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,26 +373,25 @@ public class BookRoomView extends javax.swing.JFrame {
                                     .addComponent(jLabel15)
                                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(47, 47, 47)
                                 .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtDateFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDateFromFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDateFindEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtDateToFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addComponent(jLabel4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(cbKingofRoomFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbTypeFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -340,7 +399,9 @@ public class BookRoomView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFindRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(btnChooseRoom))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addGap(23, 23, 23)
@@ -351,28 +412,97 @@ public class BookRoomView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDateFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateFindActionPerformed
+    private void txtDateFromFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateFromFindActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDateFindActionPerformed
+    }//GEN-LAST:event_txtDateFromFindActionPerformed
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
-        // TODO add your handling code here:
+        BookingRoom booking = new BookingRoom();
+        booking.setBookingID(txtBookingId.getText());
+        booking.setCustID(txtCustumerId.getText());
+        booking.setRoomID(txtRoomId.getText());
+        try {
+            booking.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateForm.getText()));
+            booking.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateTo.getText()));
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        if(bookingRoomDAO.addBooking(booking)){
+            JOptionPane.showMessageDialog(rootPane,
+                    "Đặt phòng thành công!");      
+        }else{
+             JOptionPane.showMessageDialog(rootPane,
+                    "Đặt phòng không thành công! Vui lòng kiểm tra lại thông tin.");    
+        }       
     }//GEN-LAST:event_btnBookActionPerformed
 
-    private void txtKindOfRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKindOfRoomActionPerformed
+    private void txtTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtKindOfRoomActionPerformed
+    }//GEN-LAST:event_txtTypeActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn về trang chủ");
         this.dispose();
-        HomeView home = new HomeView();
-        home.setVisible(true);
+        new HomeView().setVisible(true);
+
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnFindRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindRoomActionPerformed
-        
+        String dateFrom = txtDateFromFind.getText();
+        if (dateFrom == "") {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Chưa có ngày nhận phòng!");
+            System.out.println("a" + dateFrom + "b");
+
+        } else if (txtDateToFind.getText() == "") {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Chưa có ngày trả phòng!");
+        } else {
+            FindRoom f = new FindRoom();
+            f.setType(String.valueOf(cbTypeFind.getSelectedItem()));
+            f.setBed(Integer.parseInt(txtBedFind.getText()));
+            try {
+                f.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateFromFind.getText()));
+                f.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateToFind.getText()));
+            } catch (ParseException ex) {
+                 JOptionPane.showMessageDialog(rootPane,
+                    "Ngày chưa đúng định dang dd/mm/yyyy!");
+                ex.printStackTrace();
+            }
+            roomFound = bookingRoomDAO.getRoomFound(f);
+            showResult();
+        }
+
     }//GEN-LAST:event_btnFindRoomActionPerformed
+
+    private void btnChooseRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseRoomActionPerformed
+        roomSelectedIndex = tblRoomFind.getSelectedRow();
+        if (roomFound.size() == 0) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Chưa tìm thấy phòng!");
+        } else if (roomSelectedIndex == -1) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Bạn chưa chọn phòng muốn đặt!");
+        } else {
+            HotelRoom roomSelect = new HotelRoom();
+            roomSelect = roomFound.get(roomSelectedIndex);
+            txtRoomId.setText(roomSelect.getID());
+            txtRoomName.setText(roomSelect.getName());
+            txtType.setText(roomSelect.getType());
+            txtBed.setText(String.valueOf(roomSelect.getNumberBed()));
+            txtPrice.setText(String.valueOf(roomSelect.getPrice()));
+            txtDateForm.setText(txtDateFromFind.getText());
+            txtDateTo.setText(txtDateToFind.getText());
+        }
+    }//GEN-LAST:event_btnChooseRoomActionPerformed
+
+    private void btnChooseCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseCustActionPerformed
+        new FindCustView().setVisible(true);
+    }//GEN-LAST:event_btnChooseCustActionPerformed
+
+    private void btnAddBookingIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBookingIdActionPerformed
+        txtBookingId.setText(String.valueOf(bookingRoomDAO.getBookingId()));  
+    }//GEN-LAST:event_btnAddBookingIdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -413,12 +543,13 @@ public class BookRoomView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddBookingId;
     private javax.swing.JButton btnBook;
+    private javax.swing.JButton btnChooseCust;
+    private javax.swing.JButton btnChooseRoom;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnFindRoom;
-    private javax.swing.JComboBox<String> cbKingofRoomFind;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> cbTypeFind;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -437,20 +568,20 @@ public class BookRoomView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tblRoomList;
+    private javax.swing.JTable tblRoomFind;
     private javax.swing.JTextField txtBed;
     private javax.swing.JTextField txtBedFind;
-    private javax.swing.JTextField txtBookingDate;
     private javax.swing.JTextField txtBookingId;
     private javax.swing.JTextField txtCustumerId;
     private javax.swing.JTextField txtCustumerName;
-    private javax.swing.JTextField txtDateFind;
-    private javax.swing.JTextField txtDateFindEnd;
-    private javax.swing.JTextField txtKindOfRoom;
+    private javax.swing.JTextField txtDateForm;
+    private javax.swing.JTextField txtDateFromFind;
+    private javax.swing.JTextField txtDateTo;
+    private javax.swing.JTextField txtDateToFind;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtRoomId;
     private javax.swing.JTextField txtRoomName;
+    private javax.swing.JTextField txtType;
     // End of variables declaration//GEN-END:variables
 }

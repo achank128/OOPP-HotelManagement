@@ -5,8 +5,8 @@
         <group>
             <file>file:/D:/Study/JAVA-OOP/OOPP/src/view/HotelRoomView.java</file>
             <file>file:/D:/Study/JAVA-OOP/OOPP/src/controller/BookingRoomDAO.java</file>
-            <file>file:/D:/Study/JAVA-OOP/OOPP/src/run/run.java</file>
-            <file>file:/D:/Study/JAVA-OOP/OOPP/src/controller/HotelRoomDAO.java</file>
+            <file>file:/D:/Study/JAVA-OOP/OOPP/src/view/BookingListView.java</file>
+            <file>file:/D:/Study/JAVA-OOP/OOPP/src/view/BookRoomView.java</file>
         </group>
     </open-files>
 </project-private>
