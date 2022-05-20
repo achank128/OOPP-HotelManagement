@@ -9,12 +9,28 @@ import java.util.Date;
  * @author khacc
  */
 public class BookingRoom {
-    private String bookingID, RoomID, CustID;
+    private String bookingID, RoomID, CustID, CustName, Phone; 
     private Date dateFrom, dateTo;
 
     public BookingRoom() {
     }
+    
+    public String getCustName() {
+        return CustName;
+    }
 
+    public void setCustName(String CustName) {
+        this.CustName = CustName;
+    }
+    
+     public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String Phone) {
+        this.Phone = Phone;
+    }
+    
     public String getBookingID() {
         return bookingID;
     }

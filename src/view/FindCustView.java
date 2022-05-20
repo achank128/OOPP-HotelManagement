@@ -28,19 +28,18 @@ public class FindCustView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelCF = (DefaultTableModel) tblCustFound.getModel();
+        //showResult();
     }
 
-    public void showCustFound() {
+   
+
+    public void showResult() {
+        modelCF.setRowCount(0);
         for (Custumer c : cust) {
             modelCF.addRow(new Object[]{
                 c.getCustID(), c.getName(), c.getPhone(), c.getAddress()
             });
         }
-    }
-
-    public void showResult() {
-        modelCF.setRowCount(0);
-        this.showCustFound();
     }
 
     /**
@@ -196,10 +195,7 @@ public class FindCustView extends javax.swing.JFrame {
 
     private void btnBookRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookRoomActionPerformed
         custSelectedIndex = tblCustFound.getSelectedRow();
-        if (cust.size() == 0) {
-            JOptionPane.showMessageDialog(rootPane,
-                    "Chưa tìm thấy khách hàng cần đặt phòng!");
-        } else if (custSelectedIndex == -1) {
+        if (custSelectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane,
                     "Bạn chưa chọn khách hàng cần đặt phòng!");
         } else { 
