@@ -46,20 +46,19 @@ create table tbl_KH(
 	ID_KH int primary key,
 	Ten_KH nvarchar(20),
 	DC_KH nvarchar(30),
-	SDT_KH varchar(10),
-	CCCD_KH char(12)
+	SDT_KH varchar(10),	
 )
 go
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH,CCCD_KH) values(2551,N'Hoàng Phương Mai',N'Hà Nội',N'0904864564',152364897235)
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH,CCCD_KH) values(3658,N'Thổ Văn Tả',N'Bắc Giang',N'0906967533',002364887236)
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH,CCCD_KH) values(6854,N'Lý Thất Dạ',N'Kon Tum',N'0904879463',162364852235)
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH,CCCD_KH) values(9587,N'Bùi Minh Đức',N'Thái Bình',N'0904834874',118364895230)
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH,CCCD_KH) values(6300,N'Hoàng Nhật Tân',N'Hà Tĩnh',N'0909854534',150363569831)
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH,CCCD_KH) values(5230,N'Nguyễn Khắc Cháng',N'Hà Nội 2',N'0904898560',102364827235)
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH,CCCD_KH) values(2034,N'Nguyễn Duy Việt',N'Nghệ An',N'0906987251',168424897210)
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH,CCCD_KH) values(6012,N'Trần Duy Chinh',N'Nam Định',N'0902543577',120364897200)
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH,CCCD_KH) values(8024,N'Trần Thị Liên',N'TP Hồ Chí Minh',N'0909685224',152568897230)
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH,CCCD_KH) values(6482,N'Trần Công Đại',N'Bắc Ninh',N'0906088493',125911587145)
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(2551,N'Hoàng Phương Mai',N'Hà Nội',N'0904864564')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(3658,N'Thổ Văn Tả',N'Bắc Giang',N'0906967533')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(6854,N'Lý Thất Dạ',N'Kon Tum',N'0904879463')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(9587,N'Bùi Minh Đức',N'Thái Bình',N'0904834874')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(6300,N'Hoàng Nhật Tân',N'Hà Tĩnh',N'0909854534')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(5230,N'Nguyễn Khắc Cháng',N'Hà Nội 2',N'0904898560')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(2034,N'Nguyễn Duy Việt',N'Nghệ An',N'0906987251')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(6012,N'Trần Duy Chinh',N'Nam Định',N'0902543577')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(8024,N'Trần Thị Liên',N'TP Hồ Chí Minh',N'0909685224')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(6482,N'Trần Công Đại',N'Bắc Ninh',N'0906088493')
 go
 
 --Phòng đã đặt
@@ -192,4 +191,36 @@ Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1
 Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1107,0003,'05/02/2022 08:34',1,N'Xe mui trần',0)
 Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1108,0001,'05/03/2022  19:07',1,N' ',0)
 Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1110,0006,'05/08/2022 09:34',1,N' ',0)
+go
+
+--Khách hàng tại phòng
+create table tbl_KH_stay(
+	ID_HD int not null,
+	Ten_KH_stay nvarchar(30),
+	CCCD_KH_stay varchar(20),
+	NgaySinh date,
+	QuocTich nvarchar(20),
+	constraint KN_ID_HD_KHS foreign key(ID_HD) references tbl_HD(ID_HD)
+)
+go
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1100,N'Hoàng Phương Mai',N'10204864564','08/25/2002',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1100,N'Thổ Văn Tả',N'002306967533','02/15/1992',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1101,N'Lý Thất Dạ',N'010904879463','09/02/1997',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1102,N'Bùi Minh Đức',N'002904834874','04/01/2001',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1102,N'Hoàng Nhật Tân',N'100909854534','10/02/2001',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1103,N'Nguyễn Khắc Cháng',N'0010904898560','08/12/2001',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1103,N'Nguyễn Duy Việt',N'010906987251','04/01/2001',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1104,N'Trần Duy Chinh',N'00120902543577','05/02/2001',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1104,N'Trần Thị Liên',N'0040909685224','12/23/1999',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1104,N'Lê Ngọc Ánh',N'0014727847325','10/21/1998',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1105,N'Justin Bieber',N'50933729814323','03/01/1994',N'Canada')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1106,N'Lý Công Minh',N'0198327176411','07/28/1993',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1106,N'Cao Minh Quốc',N'03934273472131','06/14/2004',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1107,N'Đào Hiệp Giang',N'01247267442232','09/27/1969',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1107,N'Nguyễn Hoàng Lan',N'00237482724224','10/30/2003',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1108,N'Lê Mai Hương Quỳnh',N'092371649321332','05/28/1996',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1108,N'Nguyễn Minh Hoàng Lâm',N'02237462164235','12/08/1998',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1109,N'Trần Quang Gà',N'0932717647234','01/02/1957',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1110,N'Nguyễn Lan Ngọc Linh',N'02544572728352','06/27/1999',N'Việt Nam')
+Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1110,N'Quanh Văn Hải',N'01408583765368','04/09/1998',N'Việt Nam')
 go
