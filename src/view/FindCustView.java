@@ -28,7 +28,7 @@ public class FindCustView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         modelCF = (DefaultTableModel) tblCustFound.getModel();
-        //showResult();
+        showResult();
     }
 
    
