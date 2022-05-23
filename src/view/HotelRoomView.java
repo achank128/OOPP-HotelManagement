@@ -5,14 +5,12 @@
 package view;
 
 //import java.util.HashSet;
-import controller.DAO;
+import controller.HotelRoomDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.HotelRoom;
 import java.sql.ResultSet;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 /**
  *
  * @author HP
@@ -24,21 +22,19 @@ public class HotelRoomView extends javax.swing.JFrame {
     
     private ArrayList<HotelRoom> list;
     DefaultTableModel model;
+    private int selectedIndex;
     /**
      * Creates new form HotelRoom
      */
     public HotelRoomView() {
-        DAO a = new DAO();
-        Connection conn = a.DAO_DB();
         initComponents();
         this.setLocationRelativeTo(null);
-//        list = new DAO().getListRoom();
-        list = a.getListRoom();
-        model =  (DefaultTableModel) jTable1.getModel();
+        HotelRoomDAO hotelRoomsDAO = new HotelRoomDAO();
+        list = hotelRoomsDAO.getListRoom();
+        model =  (DefaultTableModel) tblRoom.getModel();
         model.setColumnIdentifiers(new Object[]{
             "STT","ID","Name","Type","Bed","Price"
         });
-        //hien thi thong tin danh sach
         showTable();
     }
     
@@ -71,21 +67,24 @@ public class HotelRoomView extends javax.swing.JFrame {
         txtPrice = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         add = new javax.swing.JButton();
-        Edit = new javax.swing.JButton();
-        dele = new javax.swing.JButton();
+        edit = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        reset = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblRoom = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         txtID = new javax.swing.JTextField();
+        update = new javax.swing.JButton();
+        Exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HotelRoom");
 
-        jLabel1.setText("Room ID:");
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel1.setText("Mã Phòng:");
 
-        jLabel2.setText("Name:");
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel2.setText("Tên Phòng:");
 
         txtName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -93,7 +92,8 @@ public class HotelRoomView extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Type:");
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel3.setText("Loại Phòng:");
 
         txtType.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -101,7 +101,8 @@ public class HotelRoomView extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Bed:");
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel4.setText("Số giường:");
 
         txtBed.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -115,44 +116,40 @@ public class HotelRoomView extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Price:");
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel5.setText("Giá Phòng(/đêm):");
 
-        add.setText("Add");
+        add.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        add.setText("Thêm Mới");
         add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addActionPerformed(evt);
             }
         });
 
-        Edit.setText("Edit");
-        Edit.addActionListener(new java.awt.event.ActionListener() {
+        edit.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        edit.setText("Chỉnh Sửa");
+        edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditActionPerformed(evt);
+                editActionPerformed(evt);
             }
         });
 
-        dele.setText("Delete");
-        dele.addActionListener(new java.awt.event.ActionListener() {
+        delete.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        delete.setText("Xóa");
+        delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleActionPerformed(evt);
+                deleteActionPerformed(evt);
             }
         });
 
-        jLabel6.setBackground(new java.awt.Color(204, 255, 204));
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("ROOM INFORMATION");
+        jLabel6.setText("Thông Tin Phòng Khách Sạn");
         jLabel6.setToolTipText("");
         jLabel6.setOpaque(true);
 
-        reset.setText("Reset");
-        reset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblRoom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -160,7 +157,7 @@ public class HotelRoomView extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblRoom);
 
         txtID.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -173,61 +170,80 @@ public class HotelRoomView extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
+
+        update.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        update.setText("Cập Nhật");
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
+
+        Exit.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        Exit.setText("Về Trang Chủ");
+        Exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(add)
-                        .addGap(68, 68, 68)
-                        .addComponent(Edit)
-                        .addGap(66, 66, 66)
-                        .addComponent(dele)
-                        .addGap(39, 39, 39)
-                        .addComponent(reset)
-                        .addContainerGap(53, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(29, 29, 29)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(41, 41, 41)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtBed, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(47, 47, 47)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(add)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(delete)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2))
-                        .addContainerGap())))
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(edit)
+                                .addGap(18, 18, 18)
+                                .addComponent(update))
+                            .addComponent(txtBed, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 53, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Exit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,30 +252,38 @@ public class HotelRoomView extends javax.swing.JFrame {
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel3)
-                        .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(txtBed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(add)
-                    .addComponent(Edit)
-                    .addComponent(dele)
-                    .addComponent(reset))
-                .addContainerGap(8, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtBed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(add)
+                            .addComponent(delete)
+                            .addComponent(edit)
+                            .addComponent(update)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)))
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(Exit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -267,74 +291,44 @@ public class HotelRoomView extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:
-        //them phong
-        DAO a = new DAO();
-        Connection conn = a.DAO_DB();
+       HotelRoomDAO hotelRoomsDAO = new HotelRoomDAO();
         HotelRoom r = new HotelRoom();
         r.setID(txtID.getText());
         r.setName(txtName.getText());
         r.setType(txtType.getText());
         r.setNumberBed(Integer.parseInt(txtBed.getText()));
         r.setPrice(Float.parseFloat(txtPrice.getText())); 
-        //luu phong vao danh sach
-        if(a.addRoom(r)){
+        if(hotelRoomsDAO.addRoom(r)){
             JOptionPane.showMessageDialog(rootPane, "Add Success!");
             list.add(r);
         }else
         {
             JOptionPane.showMessageDialog(rootPane, "Add Fail!");
-        }
-        //hien thi thong tin phong       
+        }       
         showResult();
     }//GEN-LAST:event_addActionPerformed
         
     public void showResult(){
-        model.setRowCount(0);   //reset lai trong bang ve 0
-        int i = 1;
-        //HotelRoom r = list.get(list.size()-1);
+        model.setRowCount(0);   
+        int i = 1;     
         for(HotelRoom r : list){
-        model.addRow(new Object[]{
-            i++, r.getID(), r.getName(), r.getType(), r.getNumberBed(), r.getPrice()
-        });
-    }
-}
-    
-    private void deleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleActionPerformed
-        // TODO add your handling code here:
-//        HotelRoom r = new HotelRoom();
-//        int DelIndex = jTable1.getSelectedRow();
-//        Object connn = jTable1.getValueAt(jTable1.getSelectedRow(),0);
-//        //r.setID(connn.toString());
-//        if(new DAO().deleteRoom(r,connn)){
-//            list.remove(DelIndex);
-//            JOptionPane.showMessageDialog(rootPane, " Delete Success!");
-//            //clearAllFields();
-//        }else
-//        {
-//            JOptionPane.showMessageDialog(rootPane, "Delete Fail!");
-//        }
-//        //hien thi thong tin phong
-//        model.setRowCount(0);
-//        showResult();
-//        
-        try{
-            DAO a = new DAO();
-            Connection conn = a.DAO_DB();
-            String deleteQuery = "delete tbl_HotelRoom where ID_R =?" ;
-            PreparedStatement ps = conn.prepareStatement(deleteQuery); 
-            ps.setString(1, jTable1.getValueAt(jTable1.getSelectedRow(),1).toString());
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(rootPane, "Delete Success!");        
-            
-            int DelIndex = jTable1.getSelectedRow();   //no xoa het tat ca
-            list.remove(DelIndex);
-            showResult();
-        }catch(Exception e)
-        {
-            e.printStackTrace();
-            //JOptionPane.showMessageDialog(rootPane, "Delete Fail!");
+            model.addRow(new Object[]{
+                i++, r.getID(), r.getName(), r.getType(), r.getNumberBed(), r.getPrice()
+            });
         }
-    }//GEN-LAST:event_deleActionPerformed
+    }
+    
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+  
+        HotelRoomDAO hotelRoomsDAO = new HotelRoomDAO();  
+        String id = tblRoom.getValueAt(tblRoom.getSelectedRow(),1).toString();
+        hotelRoomsDAO.deleteRoom(id);
+        int DelIndex = tblRoom.getSelectedRow(); 
+        list.remove(DelIndex);
+        showResult();     
+        JOptionPane.showMessageDialog(rootPane, "Delete Success!");        
+    
+    }//GEN-LAST:event_deleteActionPerformed
 //
     private void clearAllFields()
     {
@@ -344,7 +338,7 @@ public class HotelRoomView extends javax.swing.JFrame {
         txtType.setText("");
         txtBed.setText("");
         txtPrice.setText("");
-        jTable1.clearSelection();
+        tblRoom.clearSelection();
         
     }
     
@@ -373,35 +367,47 @@ public class HotelRoomView extends javax.swing.JFrame {
        
     }//GEN-LAST:event_txtPriceMouseClicked
 
-    private void EditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditActionPerformed
-        // TODO add your handling code here:
-        DAO a = new DAO();
-        Connection conn = a.DAO_DB();
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        // TODO add your handling code here:        
+        HotelRoom roomSelect = new HotelRoom();      
+        selectedIndex = tblRoom.getSelectedRow();
+        roomSelect = list.get(selectedIndex);     
+        txtID.setText(roomSelect.getID());
+        txtName.setText(roomSelect.getName());
+        txtType.setText(roomSelect.getType());
+        txtBed.setText(String.valueOf(roomSelect.getNumberBed()));
+        txtPrice.setText(String.valueOf(roomSelect.getPrice()));      
+        showResult();
+    }//GEN-LAST:event_editActionPerformed
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        HotelRoomDAO hotelRoomsDAO = new HotelRoomDAO(); 
         HotelRoom r = new HotelRoom();
+        r.setID(txtID.getText());
         r.setName(txtName.getText());
         r.setType(txtType.getText());
         r.setNumberBed(Integer.parseInt(txtBed.getText()));
         r.setPrice(Float.parseFloat(txtPrice.getText())); 
-        if(new DAO().editRoom(r)){
-            JOptionPane.showMessageDialog(rootPane, "Edit Success!");
-            list.add(r);
-        }else
-        {
-            JOptionPane.showMessageDialog(rootPane, "Edit Fail!");
-        }
-        //hien thi thong tin phong
-        
+        hotelRoomsDAO.editRoom(r, txtID.getText());
+        JOptionPane.showMessageDialog(rootPane, "Update Success!");        
+        list.clear();
+        list = hotelRoomsDAO.getListRoom();
         showResult();
-    }//GEN-LAST:event_EditActionPerformed
-
-    private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        // TODO add your handling code here:
+        //reset text field
         txtID.setText("");
         txtName.setText("");
         txtType.setText("");
         txtBed.setText("");
-        txtPrice.setText("");
-    }//GEN-LAST:event_resetActionPerformed
+        txtPrice.setText("");    
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn về trang chủ");
+        this.dispose();
+        HomeView home = new HomeView();
+        home.setVisible(true);
+    }//GEN-LAST:event_ExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -442,9 +448,10 @@ public class HotelRoomView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Edit;
+    private javax.swing.JButton Exit;
     private javax.swing.JButton add;
-    private javax.swing.JButton dele;
+    private javax.swing.JButton delete;
+    private javax.swing.JButton edit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -453,12 +460,12 @@ public class HotelRoomView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JButton reset;
+    private javax.swing.JTable tblRoom;
     private javax.swing.JTextField txtBed;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtType;
+    private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

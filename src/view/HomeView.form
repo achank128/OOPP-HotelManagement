@@ -185,6 +185,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="TH&#xd4;NG TIN KH&#xc1;CH H&#xc0;NG"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCustumerActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEmployee">
       <Properties>
@@ -209,6 +212,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="PH&#xd2;NG KH&#xc1;CH S&#x1ea0;N"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRoomsActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
