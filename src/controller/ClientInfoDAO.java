@@ -4,7 +4,6 @@
  */
 package controller;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,12 +14,27 @@ import model.Client;
  *
  * @author Minh Duc
  */
-public class ClientInfomationDAO {
+public class ClientInfoDAO {
 
-     DAO DAO = new DAO();
+    DAO DAO = new DAO();
     public Connection conn = DAO.DAO_DB();
-    private ArrayList<Client> list;
-    private ArrayList<Client> list_TK;
+    
+    
+    public int getClientId() {
+        int id = 0;
+        String getMaxId = "select max(ID_KH) as MAX_ID from tbl_KH";
+        try {
+            PreparedStatement ps = conn.prepareStatement(getMaxId);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            id = rs.getInt("MAX_ID");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return id + 1;
+    }
+    
     public ArrayList<Client> getListClient(){
         ArrayList<Client> list = new ArrayList<>();
         String select = "Select * from tbl_KH";
@@ -33,7 +47,7 @@ public class ClientInfomationDAO {
                 r.setID(rs.getString("ID_KH"));
                 r.setName(rs.getString("Ten_KH"));
                 r.setAddress(rs.getString("DC_KH"));
-                r.setSDT(rs.getString("SDT_KH"));
+                r.setPhone(rs.getString("SDT_KH"));
                  
             //thêm vào trong danh sách
                 list.add(r);
@@ -54,7 +68,7 @@ public class ClientInfomationDAO {
             ps.setString(1, r.getID());
             ps.setString(2, r.getName());
             ps.setString(3, r.getAddress());
-            ps.setString(4, r.getSDT());
+            ps.setString(4, r.getPhone());
             //ps.setFloat(5, r.getPrice());
             return ps.executeUpdate() > 0;
         }catch(Exception e)
@@ -84,7 +98,7 @@ public class ClientInfomationDAO {
             PreparedStatement ps = conn.prepareStatement(editR);
             ps.setString(1, r.getName());
             ps.setString(2, r.getAddress());
-            ps.setString(3, r.getSDT());                   
+            ps.setString(3, r.getPhone());                   
             ps.setString(4, id); // id can sua = id sua  
             return ps.executeUpdate() > 0;
         }catch(Exception e)
@@ -110,7 +124,7 @@ public class ClientInfomationDAO {
                 KH.setID(rs.getString("ID_KH"));
                 KH.setName(rs.getString("Ten_KH"));
                 KH.setAddress(rs.getString("DC_KH"));
-                KH.setSDT(rs.getString("SDT_KH"));
+                KH.setPhone(rs.getString("SDT_KH"));
             //thêm vào trong danh sách
                 list_TK.add(KH);
             }

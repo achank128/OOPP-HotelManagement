@@ -2,19 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/view/HotelRoomView.java</file>
-            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/controller/HotelRoomDAO.java</file>
-            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/controller/ClientInfomationDAO.java</file>
-            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/view/HomeView.java</file>
-            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/view/ClientInformation.java</file>
-            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/model/Client.java</file>
-=======
-            <file>file:/D:/Study/JAVA-OOP/OOPP/src/run/run.java</file>
-            <file>file:/D:/Study/JAVA-OOP/OOPP/src/view/BookingListView.java</file>
-            <file>file:/D:/Study/JAVA-OOP/OOPP/src/view/HomeView.java</file>
->>>>>>> 8a292ef270c31e1b43917258f4f847ab831209a5
-        </group>
+        <group/>
     </open-files>
 </project-private>

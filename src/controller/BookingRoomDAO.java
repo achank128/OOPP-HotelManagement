@@ -11,7 +11,7 @@ import model.HotelRoom;
 import java.sql.Date;
 import java.sql.ResultSet;
 import model.BookingRoom;
-import model.Custumer;
+import model.Client;
 import model.FindRoom;
 
 public class BookingRoomDAO {
@@ -72,8 +72,8 @@ public class BookingRoomDAO {
         return roomFound;
     }
 
-    public ArrayList<Custumer> getCustFound(String ID, String name, String phone, String address) {
-        ArrayList<Custumer> cust = new ArrayList<Custumer>();
+    public ArrayList<Client> getCustFound(String ID, String name, String phone, String address) {
+        ArrayList<Client> cust = new ArrayList<Client>();
         String find = """
                  select * from tbl_KH where
                  ID_KH like ? and
@@ -90,9 +90,9 @@ public class BookingRoomDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Custumer c = new Custumer();
+                Client c = new Client();
 
-                c.setCustID(rs.getString("ID_KH"));
+                c.setID(rs.getString("ID_KH"));
                 c.setName(rs.getString("Ten_KH"));
                 c.setPhone(rs.getString("SDT_KH"));
                 c.setAddress(rs.getString("DC_KH"));

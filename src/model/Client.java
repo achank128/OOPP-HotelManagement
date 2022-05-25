@@ -9,8 +9,8 @@ package model;
  * @author Minh Duc
  */
 public class Client {
-    private String ID, Name, Address, SDT;
-    
+
+    private String ID, Name, Address, Phone;
 
     public String getID() {
         return ID;
@@ -36,14 +36,13 @@ public class Client {
         this.Address = Address;
     }
 
-    public String getSDT() {
-        return SDT;
+    public String getPhone() {
+        return Phone;
     }
 
-    public void setSDT(String SDT) {
-        this.SDT = SDT;
+    public void setPhone(String Phone) {
+        this.Phone = Phone;
     }
-    
 
     public void setVisible(boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

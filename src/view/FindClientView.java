@@ -5,29 +5,34 @@
 package view;
 
 import controller.BookingRoomDAO;
+import controller.ClientInfoDAO;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Custumer;
+import model.Client;
 
 
 /**
  *
  * @author khacc
  */
-public class FindCustView extends javax.swing.JFrame {
+public class FindClientView extends javax.swing.JFrame {
 
-    private ArrayList<Custumer> cust;
+    private ArrayList<Client> clients;
     private BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
-    private int custSelectedIndex;
+    private ClientInfoDAO clientInfoDAO = new ClientInfoDAO();    
+    private int clientSelectedIndex;
     DefaultTableModel modelCF;
     /**
      * Creates new form FindCustView
      */
-    public FindCustView() {
+    public FindClientView() {
         initComponents();
         setLocationRelativeTo(null);
-        modelCF = (DefaultTableModel) tblCustFound.getModel();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        modelCF = (DefaultTableModel) tblClientFound.getModel();
+        clients = clientInfoDAO.getListClient();
         showResult();
     }
 
@@ -35,9 +40,9 @@ public class FindCustView extends javax.swing.JFrame {
 
     public void showResult() {
         modelCF.setRowCount(0);
-        for (Custumer c : cust) {
+        for (Client c : clients) {
             modelCF.addRow(new Object[]{
-                c.getCustID(), c.getName(), c.getPhone(), c.getAddress()
+                c.getID(), c.getName(),  c.getAddress(), c.getPhone()
             });
         }
     }
@@ -52,7 +57,7 @@ public class FindCustView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCustFound = new javax.swing.JTable();
+        tblClientFound = new javax.swing.JTable();
         txtCustID = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -62,13 +67,14 @@ public class FindCustView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtPhone = new javax.swing.JTextField();
         btnBookRoom = new javax.swing.JButton();
-        btnAddNewCust = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        btnAddNewClient = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tblCustFound.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientFound.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -79,7 +85,7 @@ public class FindCustView extends javax.swing.JFrame {
                 "Mã Khách Hàng", "Tên Khách Hàng", "Ðịa Chỉ", "Số Điện Thoại"
             }
         ));
-        jScrollPane1.setViewportView(tblCustFound);
+        jScrollPane1.setViewportView(tblClientFound);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel1.setText("Mã Khách Hàng:");
@@ -101,12 +107,13 @@ public class FindCustView extends javax.swing.JFrame {
             }
         });
 
-        btnAddNewCust.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnAddNewCust.setText("Thêm Mới Khách Hàng");
-
-        jLabel5.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("CHỌN KHÁCH HÀNG");
+        btnAddNewClient.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnAddNewClient.setText("Thêm Mới Khách Hàng");
+        btnAddNewClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddNewClientActionPerformed(evt);
+            }
+        });
 
         btnSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnSearch.setText("Tìm Kiếm");
@@ -116,12 +123,33 @@ public class FindCustView extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(7, 38, 109));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("CHỌN KHÁCH HÀNG");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -129,38 +157,36 @@ public class FindCustView extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCustID, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(119, 119, 119)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(119, 119, 119))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtCustID, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 73, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAddNewCust, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(btnAddNewClient, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnBookRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCustID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
@@ -172,15 +198,15 @@ public class FindCustView extends javax.swing.JFrame {
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAddNewCust, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddNewClient, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnBookRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -188,25 +214,31 @@ public class FindCustView extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         
-        cust = bookingRoomDAO.getCustFound(txtCustID.getText(), txtName.getText(), 
+        clients = bookingRoomDAO.getCustFound(txtCustID.getText(), txtName.getText(), 
                 txtPhone.getText(), txtAddress.getText());
         showResult();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnBookRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookRoomActionPerformed
-        custSelectedIndex = tblCustFound.getSelectedRow();
-        if (custSelectedIndex == -1) {
+        clientSelectedIndex = tblClientFound.getSelectedRow();
+        if (clientSelectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane,
                     "Bạn chưa chọn khách hàng cần đặt phòng!");
         } else { 
-            Custumer custSelect = new Custumer();              
-            custSelect = cust.get(custSelectedIndex);     
+            Client custSelect = new Client();              
+            custSelect = clients.get(clientSelectedIndex);     
             BookRoomView bookRoomView = new BookRoomView();
             bookRoomView.setCustData(custSelect);
             bookRoomView.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_btnBookRoomActionPerformed
+
+    private void btnAddNewClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewClientActionPerformed
+        ClientInfoView clientInfoView = new ClientInfoView();
+        clientInfoView.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAddNewClientActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,35 +257,37 @@ public class FindCustView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FindCustView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FindClientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FindCustView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FindClientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FindCustView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FindClientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FindCustView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FindClientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FindCustView().setVisible(true);
+                new FindClientView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddNewCust;
+    private javax.swing.JButton btnAddNewClient;
     private javax.swing.JButton btnBookRoom;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblCustFound;
+    private javax.swing.JTable tblClientFound;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCustID;
     private javax.swing.JTextField txtName;
