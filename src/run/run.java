@@ -4,15 +4,14 @@
  */
 package run;
 
-import view.Home;
+import view.HomeView;
 
 /**
  *
  * @author khacc
  */
 public class run {
-    public static void main(String[] args) {
-        Home home = new Home();
-        home.setVisible(true);
+    public static void main(String[] args) {       
+        new HomeView().setVisible(true);
     }
 }

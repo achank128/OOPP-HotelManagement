@@ -3,18 +3,24 @@ package controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 
 
 public class DAO {
     private Connection conn;
+    ResultSet result = null;
     
-    public DAO(){
+     public Connection DAO_DB(){
         try {
-            String dbURL = "jdbc:sqlserver://localhost;databaseName=Student;user=sa;password=120801;encrypt=true;trustServerCertificate=true;";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String dbURL = "jdbc:sqlserver://localhost:1433;databasename=HotelManagement2;"
+                    + "username=sa;password=02102001;encrypt=true;trustServerCertificate=true;";
             conn = DriverManager.getConnection(dbURL);
-            System.out.println("Ket noi sql server thanh cong");
+            System.out.println("Ket noi SQLserver thanh cong!");
+            return conn;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
     
