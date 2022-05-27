@@ -115,25 +115,27 @@ create table tbl_HD(
 	ID_HD int primary key,
 	ID_BK int,
 	ID_NV int,
-	Checkin datetime2(0),
-	Checkout datetime2(0),
+	CheckinDate date,
+	CheckinTime  time,
+	CheckoutDate date,
+	CheckoutTime time,
 	SoDem tinyint,
 	constraint KN_ID_BK_HD foreign key(ID_BK) references tbl_BookedRoom(ID_BK),
 	constraint KN_ID_NV_HD foreign key(ID_NV) references tbl_NV(ID_NV)
 )
 go
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1100,1001,2506,'04/25/2022 13:27','04/27/2022 10:24',2)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1101,1002,2502,'04/27/2022 18:32','04/30/2022 08:58' ,3)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1102,1003,2506,'04/28/2022 15:24','04/30/2022 12:30',2)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1103,1004,2502,'04/29/2022 12:33','04/30/2022 10:24',1)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1104,1005,2502,'04/30/2022 12:21','05/02/2022 07:30',2)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1105,1006,2506,'04/30/2022 12:15','05/05/2022 10:21',5)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1106,2001,2506,'04/30/2022 16:25','05/03/2022 11:15',3)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1107,2002,2502,'05/01/2022 12:10','05/02/2022 12:30',1)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1108,2003,2506,'05/02/2022 19:07','05/04/2022 09:04',2)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1109,2004,2502,'05/05/2022 17:30','05/07/2022 10:24',2)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,Checkin,Checkout,SoDem) values(1110,2005,2506,'05/06/2022 11:54','05/10/2022 13:30',4)
-go
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1100,1001,2506,'04/25/2022', '13:27','04/27/2022', '10:24',2)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1101,1002,2502,'04/27/2022','18:32','04/30/2022','08:58' ,3)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1102,1003,2506,'04/28/2022','15:24','04/30/2022','12:30',2)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1103,1004,2502,'04/29/2022','12:33','04/30/2022','10:24',1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1104,1005,2502,'04/30/2022','12:21','05/02/2022','07:30',2)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1105,1006,2506,'04/30/2022','12:15','05/05/2022','10:21',5)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1106,2001,2506,'04/30/2022','16:25','05/03/2022','11:15',3)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1107,2002,2502,'05/01/2022','12:10','05/02/2022','12:30',1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1108,2003,2506,'05/02/2022','19:07','05/04/2022','09:04',2)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1109,2004,2502,'05/05/2022','17:30','05/07/2022','10:24',2)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1110,2005,2506,'05/06/2022','11:54','05/10/2022','13:30',4)
+--go
 
 --Dịch vụ
 create table tbl_DV(
@@ -224,3 +226,41 @@ Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values
 Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1110,N'Nguyễn Lan Ngọc Linh',N'02544572728352','06/27/1999',N'Việt Nam')
 Insert into tbl_KH_stay(ID_HD,Ten_KH_stay,CCCD_KH_stay,NgaySinh,QuocTich) values(1110,N'Quanh Văn Hải',N'01408583765368','04/09/1998',N'Việt Nam')
 go
+
+--Trinh trang phong
+create table tbl_RoomStatus(
+	ID_R int primary key,
+	statusRoom nvarchar(30),
+	constraint KN_ID_RS_R foreign key(ID_R) references tbl_RoomStatus(ID_R),
+)
+go
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(201,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(202,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(203,N'Đang sử dụng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(204,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(205,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(301,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(302,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(303,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(304,N'Chưa sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(305,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(401,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(402,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(403,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(404,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(405,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(501,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(502,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(503,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(504,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(505,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(601,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(602,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(603,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(604,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(605,N'Đang sử dụng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(701,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(702,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(703,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(704,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(705,N'Sẵn sàng')

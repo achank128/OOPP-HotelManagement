@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import model.BookingRoom;
 import model.Client;
 import model.FindRoom;
+import model.RoomStatus;
 
 public class BookingRoomDAO {
 
@@ -221,5 +222,47 @@ public class BookingRoomDAO {
         }
         return true;
     }
+    
+    public ArrayList<RoomStatus> getRoomStatus (){
+        ArrayList<RoomStatus> rstatus = new ArrayList<RoomStatus>();
+        String find = """
+                 select tbl_RoomStatus.ID_R, Ten_R, Loai_R, SoGiuong_R, Gia_R, statusRoom 
+                 from tbl_RoomStatus, tbl_HotelRoom
+                 where tbl_RoomStatus.ID_R = tbl_HotelRoom.ID_R
+                 """;
+        try {
+            PreparedStatement ps = conn.prepareStatement(find);      
+            ResultSet rs = ps.executeQuery();
 
+            while (rs.next()) {
+                RoomStatus r = new RoomStatus();
+                r.setID(rs.getString("ID_R"));
+                r.setName(rs.getString("Ten_R"));
+                r.setType(rs.getString("Loai_R"));
+                r.setNumberBed(rs.getInt("SoGiuong_R"));
+                r.setPrice(rs.getFloat("Gia_R"));          
+                r.setStatus(rs.getString("statusRoom"));
+                rstatus.add(r);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rstatus;
+    }
+    
+    public boolean updateStatusRoom(String status, String id){
+        try {
+            String update = "update tbl_RoomStatus set statusRoom = ? where  ID_R = ?";
+            PreparedStatement ps = conn.prepareStatement(update);
+            ps.setString(1, status);
+            ps.setString(2, id);
+            return ps.executeUpdate() > 0;
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }

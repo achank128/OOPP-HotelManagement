@@ -69,17 +69,17 @@ public class ClientInfoView extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnHome = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblClient = new javax.swing.JTable();
         btnSearch = new javax.swing.JButton();
         txtTK = new javax.swing.JTextField();
         btnUpdate = new javax.swing.JButton();
-        btnReset = new javax.swing.JButton();
         btnBook = new javax.swing.JButton();
         btnAddID = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnRefesh = new javax.swing.JLabel();
+        btnHome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,14 +119,6 @@ public class ClientInfoView extends javax.swing.JFrame {
             }
         });
 
-        btnHome.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnHome.setText("Trang chủ");
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHomeActionPerformed(evt);
-            }
-        });
-
         tblClient.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -153,14 +145,6 @@ public class ClientInfoView extends javax.swing.JFrame {
             }
         });
 
-        btnReset.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnReset.setText("Reset");
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
-
         btnBook.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         btnBook.setText("Đặt Phòng");
         btnBook.addActionListener(new java.awt.event.ActionListener() {
@@ -184,15 +168,42 @@ public class ClientInfoView extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("THÔNG TIN KHÁCH HÀNG");
 
+        btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-reset-32.png"))); // NOI18N
+        btnRefesh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRefeshMouseClicked(evt);
+            }
+        });
+
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-home-32-view.png"))); // NOI18N
+        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHomeMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnRefesh)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 838, Short.MAX_VALUE)
+                .addGap(1, 1, 1)
+                .addComponent(btnHome)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnRefesh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,7 +212,7 @@ public class ClientInfoView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -214,9 +225,7 @@ public class ClientInfoView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnReset))
+                                .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -230,8 +239,6 @@ public class ClientInfoView extends javax.swing.JFrame {
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnHome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
@@ -246,7 +253,7 @@ public class ClientInfoView extends javax.swing.JFrame {
                         .addContainerGap())))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnDelete, btnEdit, btnReset, btnUpdate});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdd, btnDelete, btnEdit, btnUpdate});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,13 +289,9 @@ public class ClientInfoView extends javax.swing.JFrame {
                             .addComponent(btnDelete)
                             .addComponent(btnEdit))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnReset)
-                            .addComponent(btnUpdate))
+                        .addComponent(btnUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -313,18 +316,18 @@ public class ClientInfoView extends javax.swing.JFrame {
             } else if (ClientsInfomationDAO.addClient(r)) {
                 list.add(r);
                 JOptionPane.showMessageDialog(rootPane, "Đã thêm khách hàng thành công!");
+                showResult();
+                txtID.setText("");
+                txtName.setText("");
+                txtAddress.setText("");
+                txtPhone.setText("");
             } else {
-                JOptionPane.showMessageDialog(rootPane, "LỖI!!!");
+                JOptionPane.showMessageDialog(rootPane, "Thêm khách hàng không thành công!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
 
-        showResult();
-        txtID.setText("");
-        txtName.setText("");
-        txtAddress.setText("");
-        txtPhone.setText("");
     }
 
     public void showResult() {
@@ -335,7 +338,6 @@ public class ClientInfoView extends javax.swing.JFrame {
                 i++, r.getID(), r.getName(), r.getAddress(), r.getPhone()
             });
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnAddActionPerformed
 
     public void showResultTK() {
@@ -371,25 +373,14 @@ public class ClientInfoView extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Bấm OK để xóa!");        // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        JOptionPane.showConfirmDialog(rootPane, "Bạn có chắc chắn muốn về trang chủ");
-        this.dispose();
-        HomeView home = new HomeView();
-        home.setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHomeActionPerformed
-
-//SERCH
+//SEARCH
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         ClientInfoDAO ClientsInfomationDAO = new ClientInfoDAO();
 
         if (txtTK.getText().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Hãy nhập thông tin khách hàng cần tìm!");
-        } else {
-            Client KH = new Client();
-            //listTK = ClientInfomationDAO.getListClient(txtTK.getText(),txtName.getText(),txtPhone.getText());
+        } else {      
             listTK = ClientsInfomationDAO.getListClienttk(txtTK.getText());
-           
             showResultTK();
         }
 
@@ -427,23 +418,14 @@ public class ClientInfoView extends javax.swing.JFrame {
         txtPhone.setText("");        // TODO add your handling code here:
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        ClientInfoDAO r  = new ClientInfoDAO();
-        txtID.setText("");
-        txtName.setText("");
-        txtAddress.setText("");
-        txtPhone.setText("");
-         showResult();
-    }//GEN-LAST:event_btnResetActionPerformed
-
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
         selectedIndex = tblClient.getSelectedRow();
         if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane,
                     "Bạn chưa chọn khách hàng cần đặt phòng!");
-        } else { 
-            Client clientSelect = new Client();              
-            clientSelect = list.get(selectedIndex);     
+        } else {
+            Client clientSelect = new Client();
+            clientSelect = list.get(selectedIndex);
             BookRoomView bookRoomView = new BookRoomView();
             bookRoomView.setCustData(clientSelect);
             bookRoomView.setVisible(true);
@@ -454,6 +436,26 @@ public class ClientInfoView extends javax.swing.JFrame {
     private void btnAddIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddIDActionPerformed
         txtID.setText(String.valueOf(clientsInfoDAO.getClientId()));
     }//GEN-LAST:event_btnAddIDActionPerformed
+
+    private void btnRefeshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefeshMouseClicked
+        txtTK.setText("");
+        txtID.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtPhone.setText("");
+        showResult();
+    }//GEN-LAST:event_btnRefeshMouseClicked
+
+    private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
+        int conf = JOptionPane.showConfirmDialog(null,
+                "Bạn có chắc chắn muốn về trang chủ?",
+                "Trang Chủ",
+                JOptionPane.YES_OPTION);
+        if (conf == 0) {
+            new HomeView().setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnHomeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -497,8 +499,8 @@ public class ClientInfoView extends javax.swing.JFrame {
     private javax.swing.JButton btnBook;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnHome;
-    private javax.swing.JButton btnReset;
+    private javax.swing.JLabel btnHome;
+    private javax.swing.JLabel btnRefesh;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
