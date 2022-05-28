@@ -5,7 +5,7 @@
 package view;
 
 import controller.BookingRoomDAO;
-import controller.ClientInfoDAO;
+import controller.ClientDAO;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,7 +20,7 @@ public class FindClientView extends javax.swing.JFrame {
 
     private ArrayList<Client> clients;
     private BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
-    private ClientInfoDAO clientInfoDAO = new ClientInfoDAO();
+    private ClientDAO clientInfoDAO = new ClientDAO();
     private int clientSelectedIndex;
     DefaultTableModel modelCF;
 
@@ -264,7 +264,7 @@ public class FindClientView extends javax.swing.JFrame {
         } else {
             Client custSelect = new Client();
             custSelect = clients.get(clientSelectedIndex);
-            BookRoomView bookRoomView = new BookRoomView();
+            BookingRoomView bookRoomView = new BookingRoomView();
             bookRoomView.setCustData(custSelect);
             bookRoomView.setVisible(true);
             this.dispose();
@@ -272,7 +272,7 @@ public class FindClientView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBookRoomActionPerformed
 
     private void btnAddNewClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewClientActionPerformed
-        ClientInfoView clientInfoView = new ClientInfoView();
+        ClientView clientInfoView = new ClientView();
         clientInfoView.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAddNewClientActionPerformed

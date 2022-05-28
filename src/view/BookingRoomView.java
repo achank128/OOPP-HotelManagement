@@ -5,7 +5,8 @@
 package view;
 
 import controller.BookingRoomDAO;
-import controller.HotelRoomDAO;
+import controller.ClientDAO;
+import controller.RoomDAO;
 import java.util.ArrayList;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,25 +16,25 @@ import javax.swing.table.DefaultTableModel;
 import model.BookingRoom;
 import model.Client;
 import model.FindRoom;
-import model.HotelRoom;
+import model.Room;
 
-public class BookRoomView extends javax.swing.JFrame {
+public class BookingRoomView extends javax.swing.JFrame {
 
-    private ArrayList<HotelRoom> roomFound;
+    private ArrayList<Room> roomFound;
     private BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
     private int roomSelectedIndex;
     private boolean isEdit = false;
     DefaultTableModel modelRF;
 
-    public BookRoomView() {
+    public BookingRoomView() {
         initComponents();
-         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         modelRF = (DefaultTableModel) tblRoomFind.getModel();
     }
 
     public void showRoomFound() {
-        for (HotelRoom r : roomFound) {
+        for (Room r : roomFound) {
             modelRF.addRow(new Object[]{
                 r.getID(), r.getName(), r.getType(), r.getNumberBed(), r.getPrice()
             });
@@ -53,25 +54,26 @@ public class BookRoomView extends javax.swing.JFrame {
     }
 
     public void setEditBooking(BookingRoom b) {
+        Client c = new ClientDAO().getClient(b.getCustID());
+        Room r = new RoomDAO().getRoom(b.getRoomID());
+
         isEdit = true;
         txtBookingId.setText(b.getBookingID());
         txtBookingId.setEditable(false);
+        
         txtClientId.setText(b.getCustID());
-        txtCustumerName.setText(b.getCustName());
-        txtPhoneNumber.setText(b.getPhone());
-        txtRoomId.setText(b.getRoomID());
+        txtCustumerName.setText(c.getName());
+        txtPhoneNumber.setText(c.getPhone());
+        
         txtDateForm.setText(b.getDateFrom().toString());
         txtDateTo.setText(b.getDateTo().toString());
-        ArrayList<HotelRoom> rList = new HotelRoomDAO().getListRoom();
-        for (HotelRoom r : rList) {
-            if (r.getID().equals(b.getRoomID())) {
-                txtRoomName.setText(r.getName());
-                txtType.setText(r.getType());
-                txtBed.setText(String.valueOf(r.getNumberBed()));
-                txtPrice.setText(String.valueOf(r.getPrice()));
-                break;
-            }
-        }
+
+        txtRoomId.setText(b.getRoomID());
+        txtRoomName.setText(r.getName());
+        txtType.setText(r.getType());
+        txtBed.setText(String.valueOf(r.getNumberBed()));
+        txtPrice.setText(String.valueOf(r.getPrice()));
+
         btnBook.setText("Lưu Lại");
     }
 
@@ -217,7 +219,7 @@ public class BookRoomView extends javax.swing.JFrame {
 
         txtPrice.setEditable(false);
 
-        btnBook.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
+        btnBook.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnBook.setText("Đặt Phòng");
         btnBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,8 +329,7 @@ public class BookRoomView extends javax.swing.JFrame {
                         .addGap(58, 58, 58)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(124, 124, 124)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -343,14 +344,15 @@ public class BookRoomView extends javax.swing.JFrame {
                             .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtBed)
-                                .addGap(57, 57, 57)))
-                        .addGap(43, 243, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(57, 57, 57)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1035, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBook))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(918, Short.MAX_VALUE)
+                        .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -379,7 +381,6 @@ public class BookRoomView extends javax.swing.JFrame {
                                 .addComponent(btnChooseRoom))
                             .addComponent(jScrollPane1))))
                 .addContainerGap())
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1041, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,8 +459,8 @@ public class BookRoomView extends javax.swing.JFrame {
                             .addComponent(btnChooseRoom))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(22, 22, 22)
-                .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBook, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -475,6 +476,7 @@ public class BookRoomView extends javax.swing.JFrame {
         booking.setBookingID(txtBookingId.getText());
         booking.setCustID(txtClientId.getText());
         booking.setRoomID(txtRoomId.getText());
+        booking.setStatus(false);
         try {
             booking.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateForm.getText()));
             booking.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateTo.getText()));
@@ -538,7 +540,7 @@ public class BookRoomView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane,
                     "Chưa chọn phòng muốn đặt!");
         } else {
-            HotelRoom roomSelect = new HotelRoom();
+            Room roomSelect = new Room();
             roomSelect = roomFound.get(roomSelectedIndex);
             txtRoomId.setText(roomSelect.getID());
             txtRoomName.setText(roomSelect.getName());
@@ -562,10 +564,10 @@ public class BookRoomView extends javax.swing.JFrame {
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
         int conf = JOptionPane.showConfirmDialog(null,
-            "Bạn có chắc chắn muốn về trang chủ?",
-            "Trang Chủ",
-            JOptionPane.YES_OPTION);
-        if(conf == 0){
+                "Bạn có chắc chắn muốn về trang chủ?",
+                "Trang Chủ",
+                JOptionPane.YES_OPTION);
+        if (conf == 0) {
             new HomeView().setVisible(true);
             this.dispose();
         }
@@ -578,16 +580,16 @@ public class BookRoomView extends javax.swing.JFrame {
         txtPhoneNumber.setText("");
         txtRoomId.setText("");
         txtDateForm.setText("");
-        txtDateTo.setText("");      
+        txtDateTo.setText("");
         txtRoomName.setText("");
         txtType.setText("");
         txtBed.setText("");
         txtPrice.setText("");
-        
+
         txtDateFromFind.setText("");
         txtDateToFind.setText("");
         txtBedFind.setText("1");
-     
+
         roomFound.clear();
         showResult();
     }//GEN-LAST:event_btnRefeshMouseClicked
@@ -609,14 +611,26 @@ public class BookRoomView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BookRoomView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingRoomView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BookRoomView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingRoomView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BookRoomView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingRoomView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BookRoomView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingRoomView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -625,7 +639,7 @@ public class BookRoomView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookRoomView().setVisible(true);
+                new BookingRoomView().setVisible(true);
             }
         });
     }

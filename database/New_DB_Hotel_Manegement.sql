@@ -46,18 +46,18 @@ create table tbl_KH(
 	ID_KH int primary key,
 	Ten_KH nvarchar(20),
 	DC_KH nvarchar(30),
-	SDT_KH varchar(10),	
+	SDT_KH varchar(20),	
 )
 go
 Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(2551,N'Hoàng Phương Mai',N'Hà Nội',N'0904864564')
 Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(3658,N'Thổ Văn Tả',N'Bắc Giang',N'0906967533')
 Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(6854,N'Lý Thất Dạ',N'Kon Tum',N'0904879463')
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(9587,N'Bùi Minh Đức',N'Thái Bình',N'0904834874')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(4587,N'Bùi Minh Đức',N'Thái Bình',N'0904834874')
 Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(6300,N'Hoàng Nhật Tân',N'Hà Tĩnh',N'0909854534')
 Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(5230,N'Nguyễn Khắc Cháng',N'Hà Nội 2',N'0904898560')
 Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(2034,N'Nguyễn Duy Việt',N'Nghệ An',N'0906987251')
 Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(6012,N'Trần Duy Chinh',N'Nam Định',N'0902543577')
-Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(8024,N'Trần Thị Liên',N'TP Hồ Chí Minh',N'0909685224')
+Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(6024,N'Trần Thị Liên',N'TP Hồ Chí Minh',N'0909685224')
 Insert into tbl_KH(ID_KH,Ten_KH,DC_KH,SDT_KH) values(6482,N'Trần Công Đại',N'Bắc Ninh',N'0906088493')
 go
 
@@ -68,27 +68,28 @@ create table tbl_BookedRoom(
 	ID_KH int,
 	NgayNhan date,
 	NgayTra date,
+	bkstatus bit,
 	constraint KN_ID_R_BK foreign key(ID_R) references tbl_HotelRoom(ID_R),
 	constraint KN_ID_KH_BK foreign key(ID_KH) references tbl_KH(ID_KH)
 )
 go
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(1001,502,6012,'04/25/2022','04/27/2022')
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(1002,601,5230,'04/27/2022','04/30/2022')
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(1003,305,9587,'04/28/2022','04/30/2022')
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(1004,403,6482,'04/29/2022','04/30/2022')
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(1005,204,8024,'04/30/2022','05/02/2022')
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(1006,404,6012,'04/30/2022','05/05/2022')
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(2001,205,6854,'04/30/2022','05/03/2022')
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(2002,402,2551,'05/01/2022','05/02/2022')
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(2003,304,3658,'05/02/2022','05/04/2022')
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(2004,503,2034,'05/05/2022','05/07/2022')
-Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) values(2005,701,6300,'05/06/2022','05/10/2022')
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(1001,502,6012,'04/25/2022','04/27/2022',1)
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(1002,601,5230,'04/27/2022','04/30/2022',1)
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(1003,305,4587,'04/28/2022','04/30/2022',1)
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(1004,403,6482,'04/29/2022','04/30/2022',1)
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(1005,204,6024,'04/30/2022','05/02/2022',1)
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(1006,404,6012,'04/30/2022','05/05/2022',1)
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(2001,205,6854,'04/30/2022','05/03/2022',1)
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(2002,402,2551,'05/01/2022','05/02/2022',1)
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(2003,304,3658,'05/02/2022','05/04/2022',1)
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(2004,503,2034,'05/05/2022','05/07/2022',1)
+Insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) values(2005,701,6300,'05/06/2022','05/10/2022',1)
 
 go
 
 --Nhân viên
 create table tbl_NV(
-	ID_NV int primary key,
+	ID_NV varchar(6) primary key,
 	Ho_NV nvarchar(20),
 	Ten_NV nvarchar(10),
 	CCCD_NV char(12),
@@ -99,42 +100,43 @@ create table tbl_NV(
 	SDT_NV varchar(10)
 )
 go
-Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values(2500,N'Trần Thị Thu',N'Phương',152654896570,N'Quản Lý',7000000,N'Nữ',N'Cà Mau',N'0904474544')
-Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values(2501,N'Bùi Minh',N'Đức',189642301040,N'Nhân Viên Vệ Sinh',3000000,N'Nam',N'Thái Bình',N'0907372351')
-Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values(2502,N'Hoàng Nhật',N'Tân',102354145570,N'Lễ Tân',4500000,N'Nữ',N'Hà Tĩnh',N'0907864582')
-Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values(2503,N'Trần Công',N'Đại',169853400524,N'Quản Lý',7000000,N'Nam',N'Bắc Ninh',N'0903348697')
-Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values(2504,N'Nguyễn Khắc',N'Cháng',112048965701,N'Giám Đốc',7000000,N'Nam',N'Hà Tây',N'0969630128')
-Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values(2505,N'Trần Thị Thanh',N'Trúc',139853400478,N'Nhân Viên Dịch Vụ',6000000,N'Nữ',N'Bắc Ninh',N'0905630421')
-Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values(2506,N'Trần Thị Thanh',N'Vân',169825471520,N'Lễ Tân',4000000,N'Nữ',N'Nghệ An',N'0904821530')
-Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values(2507,N'Trần Thị',N'Thảo',169858421520,N'Thu Ngân',8000000,N'Nữ',N'Nghệ An',N'0904842350')
-Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values(2508,N'Phạm Văn',N'Vân',135245474254,N'Thu Ngân',7500000,N'Nam',N'Nghệ An',N'0904856531')
+Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv01',N'Trần Thị Thu',N'Phương',152654896570,N'Quản Lý',7000000,N'Nữ',N'Cà Mau',N'0904474544')
+Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv02',N'Bùi Minh',N'Đức',189642301040,N'Nhân Viên Vệ Sinh',3000000,N'Nam',N'Thái Bình',N'0907372351')
+Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv03',N'Hoàng Nhật',N'Tân',102354145570,N'Lễ Tân',4500000,N'Nữ',N'Hà Tĩnh',N'0907864582')
+Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv04',N'Trần Công',N'Đại',169853400524,N'Quản Lý',8000000,N'Nam',N'Bắc Ninh',N'0903348697')
+Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv05',N'Nguyễn Khắc',N'Cháng',112048965701,N'Giám Đốc',10000000,N'Nam',N'Hà Tây',N'0969630128')
+Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv06',N'Trần Thị Thanh',N'Trúc',139853400478,N'Nhân Viên Dịch Vụ',6000000,N'Nữ',N'Bắc Ninh',N'0905630421')
+Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv07',N'Trần Thị Thanh',N'Vân',169825471520,N'Lễ Tân',4000000,N'Nữ',N'Nghệ An',N'0904821530')
+Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv08',N'Trần Thị',N'Thảo',169858421520,N'Thu Ngân',8000000,N'Nữ',N'Nghệ An',N'0904842350')
+Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv09',N'Phạm Văn',N'Vân',135245474254,N'Thu Ngân',7500000,N'Nam',N'Nghệ An',N'0904856531')
 go
 
 --Hóa đơn
 create table tbl_HD(
 	ID_HD int primary key,
 	ID_BK int,
-	ID_NV int,
+	ID_NV varchar(6),
 	CheckinDate date,
 	CheckinTime  time,
 	CheckoutDate date,
 	CheckoutTime time,
 	SoDem tinyint,
+	hdstatus bit,
 	constraint KN_ID_BK_HD foreign key(ID_BK) references tbl_BookedRoom(ID_BK),
 	constraint KN_ID_NV_HD foreign key(ID_NV) references tbl_NV(ID_NV)
 )
 go
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1100,1001,2506,'04/25/2022', '13:27','04/27/2022', '10:24',2)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1101,1002,2502,'04/27/2022','18:32','04/30/2022','08:58' ,3)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1102,1003,2506,'04/28/2022','15:24','04/30/2022','12:30',2)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1103,1004,2502,'04/29/2022','12:33','04/30/2022','10:24',1)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1104,1005,2502,'04/30/2022','12:21','05/02/2022','07:30',2)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1105,1006,2506,'04/30/2022','12:15','05/05/2022','10:21',5)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1106,2001,2506,'04/30/2022','16:25','05/03/2022','11:15',3)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1107,2002,2502,'05/01/2022','12:10','05/02/2022','12:30',1)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1108,2003,2506,'05/02/2022','19:07','05/04/2022','09:04',2)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1109,2004,2502,'05/05/2022','17:30','05/07/2022','10:24',2)
-Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem) values(1110,2005,2506,'05/06/2022','11:54','05/10/2022','13:30',4)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1100,1001,'nv03','04/25/2022', '13:27','04/27/2022', '10:24',2,1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1101,1002,'nv07','04/27/2022','18:32','04/30/2022','08:58' ,3,1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1102,1003,'nv07','04/28/2022','15:24','04/30/2022','12:30',2,1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1103,1004,'nv03','04/29/2022','12:33','04/30/2022','10:24',1,1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1104,1005,'nv07','04/30/2022','12:21','05/02/2022','07:30',2,1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1105,1006,'nv03','04/30/2022','12:15','05/05/2022','10:21',5,1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1106,2001,'nv03','04/30/2022','16:25','05/03/2022','11:15',3,1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1107,2002,'nv07','05/01/2022','12:10','05/02/2022','12:30',1,1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1108,2003,'nv03','05/02/2022','19:07','05/04/2022','09:04',2,1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1109,2004,'nv07','05/05/2022','17:30','05/07/2022','10:24',2,1)
+Insert into tbl_HD(ID_HD,ID_BK,ID_NV,CheckinDate,CheckinTime,CheckoutDate,CheckoutTime,SoDem,hdstatus) values(1110,2005,'nv07','05/06/2022','11:54','05/10/2022','13:30',4,1)
 --go
 
 --Dịch vụ
@@ -263,4 +265,18 @@ Insert into tbl_RoomStatus(ID_R, statusRoom) values(701,N'Sẵn sàng')
 Insert into tbl_RoomStatus(ID_R, statusRoom) values(702,N'Sẵn sàng')
 Insert into tbl_RoomStatus(ID_R, statusRoom) values(703,N'Sẵn sàng')
 Insert into tbl_RoomStatus(ID_R, statusRoom) values(704,N'Sẵn sàng')
-Insert into tbl_RoomStatus(ID_R, statusRoom) values(705,N'Sẵn sàng')
+Insert into tbl_RoomStatus(ID_R, statusRoom) values(705,N'Hỏng')
+
+--account
+create table tbl_Account(
+	username varchar(30) primary key,
+	pass varchar(30),
+	ten nvarchar(50),
+	chucvu nvarchar(20),
+	sdt varchar(20)
+)
+
+Insert into tbl_Account(username, pass, ten, chucvu, sdt) values('admin','admin', N'Quản lý', 'admin', '0969630128')
+Insert into tbl_Account(username, pass, ten, chucvu, sdt) values('tan','tan', N'Hoàng Nhật Tân', 'lt', '0943473854')
+Insert into tbl_Account(username, pass, ten, chucvu, sdt) values('dai','dai', N'Trần Công Đại', 'lt', '0846274372')
+Insert into tbl_Account(username, pass, ten, chucvu, sdt) values('duc','duc', N'Bùi Minh Đức', 'dv', '0948347453')

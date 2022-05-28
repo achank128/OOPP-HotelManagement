@@ -15,13 +15,20 @@ public class Bill {
     private Date DateFrom, DateTo;
     private String TimeFrom, TimeTo;
     private int SoDem;
+    private boolean status;
 
+   
     public Bill() {
     }
-
-    public Bill(String BillID, String BookingID, String employeeID, Date DateFrom, Date DateTo, int SoDem) {
- 
+    
+     public boolean isStatus() {
+        return status;
     }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
 
     public String getBillID() {
         return BillID;

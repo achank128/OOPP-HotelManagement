@@ -8,7 +8,7 @@ package model;
  *
  * @author HP
  */
-public class HotelRoom {
+public class Room {
     private String ID, Name, Type;
     private int NumberBed;
     private float Price;

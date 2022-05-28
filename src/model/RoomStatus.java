@@ -8,7 +8,7 @@ package model;
  *
  * @author khacc
  */
-public class RoomStatus extends HotelRoom {
+public class RoomStatus extends Room {
     private String status;
 
     public RoomStatus() {

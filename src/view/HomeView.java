@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.BookingRoomDAO;
+import controller.RoomDAO;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -25,7 +25,7 @@ import model.RoomStatus;
 public class HomeView extends javax.swing.JFrame {
 
     private ArrayList<RoomStatus> roomStatus = new ArrayList<RoomStatus>();
-    private BookingRoomDAO bookingRoomDAO = new BookingRoomDAO();
+    private RoomDAO roomDAO = new RoomDAO();
 
     /**
      * Creates new form Home
@@ -36,6 +36,9 @@ public class HomeView extends javax.swing.JFrame {
         login.setVisible(true);
         sroom.setVisible(false);
         signup.setVisible(false);
+        btnSR.setVisible(false);        
+        btnSS.setVisible(false);
+
         setRoomStatus();
     }
 
@@ -48,7 +51,7 @@ public class HomeView extends javax.swing.JFrame {
     }
 
     private void updateSRoom(String status, String id) {
-        if (bookingRoomDAO.updateStatusRoom(status, id)) {
+        if (roomDAO.updateStatusRoom(status, id)) {
             srContent.removeAll();
             sroom.setVisible(false);
             sroom.setVisible(true);
@@ -60,7 +63,7 @@ public class HomeView extends javax.swing.JFrame {
     }
 
     private void setRoomStatus() {
-        roomStatus = bookingRoomDAO.getRoomStatus();
+        roomStatus = roomDAO.getRoomStatus();
         srContent.setLayout(new GridLayout(6, 5, 4, 3));
         for (int i = 0; i < roomStatus.size(); i++) {
             String id = roomStatus.get(i).getID();
@@ -68,7 +71,7 @@ public class HomeView extends javax.swing.JFrame {
             rs.setCursor(new Cursor(Cursor.HAND_CURSOR));
             rs.setFont(new Font("Segeo UI", Font.ITALIC, 13));
             rs.setForeground(new Color(246, 246, 246));
-           
+
             if (roomStatus.get(i).getStatus().equals("Sẵn sàng")) {
                 rs.setBackground(new Color(0, 183, 54));
                 rs.addActionListener(new ActionListener() {
@@ -183,6 +186,8 @@ public class HomeView extends javax.swing.JFrame {
         btnRoom = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
+        btnSR = new javax.swing.JButton();
+        btnSS = new javax.swing.JButton();
         content = new javax.swing.JPanel();
         login = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -315,6 +320,9 @@ public class HomeView extends javax.swing.JFrame {
         btnCheckin.setBackground(new java.awt.Color(255, 255, 255));
         btnCheckin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCheckin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCheckinMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCheckinMouseEntered(evt);
             }
@@ -465,6 +473,9 @@ public class HomeView extends javax.swing.JFrame {
         btnCheckout.setBackground(new java.awt.Color(255, 255, 255));
         btnCheckout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCheckout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCheckoutMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCheckoutMouseEntered(evt);
             }
@@ -665,6 +676,9 @@ public class HomeView extends javax.swing.JFrame {
         btnStatistical.setBackground(new java.awt.Color(255, 255, 255));
         btnStatistical.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnStatistical.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnStatisticalMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnStatisticalMouseEntered(evt);
             }
@@ -702,6 +716,9 @@ public class HomeView extends javax.swing.JFrame {
         btnRoom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRoom.setPreferredSize(new java.awt.Dimension(261, 51));
         btnRoom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRoomMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnRoomMouseEntered(evt);
             }
@@ -736,6 +753,22 @@ public class HomeView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btnSR.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSR.setText("Theo Phòng");
+        btnSR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSRActionPerformed(evt);
+            }
+        });
+
+        btnSS.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSS.setText("Theo dịch vụ");
+        btnSS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -744,7 +777,14 @@ public class HomeView extends javax.swing.JFrame {
             .addComponent(btnEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnStatistical, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnRoom, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(btnSR)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSS, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnSR, btnSS});
+
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -755,10 +795,16 @@ public class HomeView extends javax.swing.JFrame {
                 .addComponent(btnEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnStatistical, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSR)
+                    .addComponent(btnSS, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEmployee, btnRoom, btnService, btnStatistical});
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSR, btnSS});
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -835,7 +881,7 @@ public class HomeView extends javax.swing.JFrame {
         loginLayout.setHorizontalGroup(
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginLayout.createSequentialGroup()
                 .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(loginLayout.createSequentialGroup()
@@ -953,7 +999,7 @@ public class HomeView extends javax.swing.JFrame {
         signupLayout.setHorizontalGroup(
             signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
             .addGroup(signupLayout.createSequentialGroup()
                 .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, signupLayout.createSequentialGroup()
@@ -1061,7 +1107,7 @@ public class HomeView extends javax.swing.JFrame {
         sroomLayout.setHorizontalGroup(
             sroomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
             .addComponent(srSroom, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
         );
         sroomLayout.setVerticalGroup(
@@ -1104,7 +1150,7 @@ public class HomeView extends javax.swing.JFrame {
                         .addComponent(Sidebar, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(Top, javax.swing.GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE))
+                    .addComponent(Top, javax.swing.GroupLayout.DEFAULT_SIZE, 947, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
         BackgroundLayout.setVerticalGroup(
@@ -1224,13 +1270,12 @@ public class HomeView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStatisticalMouseExited
 
     private void btnBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookMouseClicked
-        new BookRoomView().setVisible(true);
+        new BookingRoomView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBookMouseClicked
 
     private void btnCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckinActionPerformed
-        new SearchRoomBooking().setVisible(true);
-        this.dispose();     
+
     }//GEN-LAST:event_btnCheckinActionPerformed
 
     private void btnBookServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookServiceMouseClicked
@@ -1244,7 +1289,7 @@ public class HomeView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBookingListMouseClicked
 
     private void btnCustListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustListMouseClicked
-        new ClientInfoView().setVisible(true);
+        new ClientView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCustListMouseClicked
 
@@ -1279,6 +1324,36 @@ public class HomeView extends javax.swing.JFrame {
         signup.setVisible(false);
         login.setVisible(true);
     }//GEN-LAST:event_navLoginMouseClicked
+
+    private void btnCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMouseClicked
+        new BookingListView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCheckinMouseClicked
+
+    private void btnCheckoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckoutMouseClicked
+        new CheckOutView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCheckoutMouseClicked
+
+    private void btnRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRoomMouseClicked
+        new RoomView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRoomMouseClicked
+
+    private void btnSRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSRActionPerformed
+        new StatisticalRoomView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSRActionPerformed
+
+    private void btnSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSSActionPerformed
+        new StatisticalServiceView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSSActionPerformed
+
+    private void btnStatisticalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatisticalMouseClicked
+        btnSR.setVisible(true);        
+        btnSS.setVisible(true);
+    }//GEN-LAST:event_btnStatisticalMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1330,6 +1405,8 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JPanel btnEmployee;
     private javax.swing.JLabel btnLoginsi;
     private javax.swing.JPanel btnRoom;
+    private javax.swing.JButton btnSR;
+    private javax.swing.JButton btnSS;
     private javax.swing.JPanel btnService;
     private javax.swing.JPanel btnStatistical;
     private javax.swing.JPanel content;

@@ -10,23 +10,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.NV;
+import model.Employee;
 
-public class NVDAO {
+public class EmployeeDAO {
     DAO DAO = new DAO();
     public Connection conn = DAO.DAO_DB();
-    private ArrayList<NV> list;
-    private ArrayList<NV> list_TK;
-    private ArrayList<NV> list1, list2,list3;
+    private ArrayList<Employee> list;
+    private ArrayList<Employee> list_TK;
+    private ArrayList<Employee> list1, list2,list3;
     
-    public ArrayList<NV> getListNV(){
-        ArrayList<NV> list = new ArrayList<>();
+    public ArrayList<Employee> getListNV(){
+        ArrayList<Employee> list = new ArrayList<>();
         String select = "Select * from tbl_NV";
         try {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                NV nv = new NV();
+                Employee nv = new Employee();
             //doc du lieu tu sql ra java
                 nv.setID(rs.getString("ID_NV"));
                 nv.setHo(rs.getString("Ho_NV"));
@@ -48,14 +48,14 @@ public class NVDAO {
         return list;       
     }
     
-    public ArrayList<NV> getListCBBSX1(){
-        ArrayList<NV> list1 = new ArrayList<>();
+    public ArrayList<Employee> getListCBBSX1(){
+        ArrayList<Employee> list1 = new ArrayList<>();
         String select = "Select * from tbl_NV order by ID_NV DESC";
         try {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                NV nv = new NV();
+                Employee nv = new Employee();
             //doc du lieu tu sql ra java
                 nv.setID(rs.getString("ID_NV"));
                 nv.setHo(rs.getString("Ho_NV"));
@@ -77,14 +77,14 @@ public class NVDAO {
         return list1;       
     }
     
-    public ArrayList<NV> getListCBBSX2(){
-        ArrayList<NV> list2 = new ArrayList<>();
+    public ArrayList<Employee> getListCBBSX2(){
+        ArrayList<Employee> list2 = new ArrayList<>();
         String select = "Select * from tbl_NV order by ChucVu ASC";
         try {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                NV nv = new NV();
+                Employee nv = new Employee();
             //doc du lieu tu sql ra java
                 nv.setID(rs.getString("ID_NV"));
                 nv.setHo(rs.getString("Ho_NV"));
@@ -106,14 +106,14 @@ public class NVDAO {
         return list2;
     }
     
-    public ArrayList<NV> getListCBBSX3(){
-        ArrayList<NV> list3 = new ArrayList<>();
+    public ArrayList<Employee> getListCBBSX3(){
+        ArrayList<Employee> list3 = new ArrayList<>();
         String select = "Select * from tbl_NV order by Luong ASC";
         try {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                NV nv = new NV();
+                Employee nv = new Employee();
             //doc du lieu tu sql ra java
                 nv.setID(rs.getString("ID_NV"));
                 nv.setHo(rs.getString("Ho_NV"));
@@ -135,14 +135,14 @@ public class NVDAO {
         return list3;       
     }
     
-    public ArrayList<NV> getListCBBSX4(){
-        ArrayList<NV> list4 = new ArrayList<>();
+    public ArrayList<Employee> getListCBBSX4(){
+        ArrayList<Employee> list4 = new ArrayList<>();
         String select = "Select * from tbl_NV order by DC_NV ASC";
         try {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                NV nv = new NV();
+                Employee nv = new Employee();
             //doc du lieu tu sql ra java
                 nv.setID(rs.getString("ID_NV"));
                 nv.setHo(rs.getString("Ho_NV"));
@@ -165,9 +165,9 @@ public class NVDAO {
     }
     
     //public ArrayList<NV> getListTKNV(String id, String Ten, String CV )
-    public ArrayList<NV> getListTKNV(String string ){
+    public ArrayList<Employee> getListTKNV(String string ){
     //public ArrayList<HotelRoom> getListTKRoom(String id ){
-        ArrayList<NV> list_TK = new ArrayList<>();
+        ArrayList<Employee> list_TK = new ArrayList<>();
         //String TK = "select * from tbl_HotelRoom where ID_R like "+id+" and Loai_R like '%"+TypeR+"% and SoGiuong_R like '%"+SG+"%'";
         try {
             String TK = "select * from tbl_NV where ID_NV like ? or Ten_NV like ? or ChucVu like ? or Ho_NV like ?";
@@ -178,7 +178,7 @@ public class NVDAO {
             ps.setString(4, "%"+string+"%");
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                NV nv = new NV();              
+                Employee nv = new Employee();              
             //doc du lieu tu sql ra java
                 nv.setID(rs.getString("ID_NV"));
                 nv.setHo(rs.getString("Ho_NV"));
@@ -200,7 +200,7 @@ public class NVDAO {
         return list_TK;       
     }
     
-    public boolean addNV(NV r){
+    public boolean addNV(Employee r){
         String insert = "INSERT INTO tbl_NV(ID_NV, Ho_NV, Ten_NV, CCCD_NV, ChucVu,Luong,GT,DC_NV,SDT_NV)"
                 + " VALUES(?,?,?,?,?,?,?,?,?) ";
         try {
@@ -235,7 +235,7 @@ public class NVDAO {
         return true;
     }
     
-    public boolean editNV(NV r, String id)
+    public boolean editNV(Employee r, String id)
     {
         try {
             String editR = "update tbl_HotelRoom set "

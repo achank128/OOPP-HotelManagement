@@ -11,7 +11,7 @@ import java.util.Date;
  * @author HNT
  */
 public class CustomerStay {
-        private String id, Name, CCCD,QuocTich;
+        private String id, Name, CCCD, QuocTich;
         private Date dateOfBirth;
 
     public CustomerStay() {

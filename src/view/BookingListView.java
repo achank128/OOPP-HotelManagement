@@ -5,11 +5,13 @@
 package view;
 
 import controller.BookingRoomDAO;
+import controller.ClientDAO;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.BookingRoom;
+import model.Client;
 
 /**
  *
@@ -38,9 +40,18 @@ public class BookingListView extends javax.swing.JFrame {
         model.setRowCount(0);
         int i = 1;
         for (BookingRoom b : bookingList) {
+            Client c = new ClientDAO().getClient(b.getCustID());
             model.addRow(new Object[]{
-                i++, b.getBookingID(), b.getRoomID(), b.getCustID(), b.getCustName(),
-                b.getPhone(), b.getDateFrom(), b.getDateTo()});
+                i++, b.getBookingID(), b.getRoomID(), b.getCustID(), c.getName(),
+                c.getPhone(), b.getDateFrom(), b.getDateTo(), showStatus(b.isStatus())});
+        }
+    }
+    
+    public String showStatus(boolean status){
+        if(status){
+            return "Đã Check In";
+        }else{
+            return "Chưa Check In";
         }
     }
 
@@ -60,11 +71,12 @@ public class BookingListView extends javax.swing.JFrame {
         btnSearch = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCheckin = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnRefesh = new javax.swing.JLabel();
         btnHome = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,13 +85,14 @@ public class BookingListView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "STT", "Mã Đặt Phòng", "Mã Phòng", "Mã Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Ngày Nhận Phòng", "Ngày Trả Phòng"
+                "STT", "Mã Đặt Phòng", "Mã Phòng", "Mã Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Ngày Nhận Phòng", "Ngày Trả Phòng", "Trạng thái"
             }
         ));
         jScrollPane1.setViewportView(tblBookingList);
         if (tblBookingList.getColumnModel().getColumnCount() > 0) {
             tblBookingList.getColumnModel().getColumn(0).setMaxWidth(50);
             tblBookingList.getColumnModel().getColumn(4).setMinWidth(180);
+            tblBookingList.getColumnModel().getColumn(6).setPreferredWidth(120);
         }
 
         txtSearch.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -93,7 +106,7 @@ public class BookingListView extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Tìm Kiếm:");
 
-        btnSearch.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btnSearch.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSearch.setText("Tìm");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,7 +114,7 @@ public class BookingListView extends javax.swing.JFrame {
             }
         });
 
-        btnDelete.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnDelete.setText("Xóa Thông Tin Đặt Phòng");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,7 +122,7 @@ public class BookingListView extends javax.swing.JFrame {
             }
         });
 
-        btnEdit.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnEdit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnEdit.setText("Sửa Thông Tin Đặt Phòng");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,8 +130,13 @@ public class BookingListView extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        jButton1.setText("CHECK IN");
+        btnCheckin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCheckin.setText("CHECK IN");
+        btnCheckin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckinActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(7, 38, 109));
 
@@ -165,6 +183,8 @@ public class BookingListView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL", "Ðã Check In", "Chưa Check In" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -180,35 +200,51 @@ public class BookingListView extends javax.swing.JFrame {
                                 .addComponent(btnDelete)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 465, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 449, Short.MAX_VALUE)
+                                .addComponent(btnCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(28, 28, 28)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnSearch))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(btnSearch))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(btnCheckin, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                 .addGap(52, 52, 52))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSearch, jComboBox1});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCheckin, btnDelete, btnEdit});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -224,10 +260,7 @@ public class BookingListView extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         selectedIndex = tblBookingList.getSelectedRow();
-        if (bookingList.size() == 0) {
-            JOptionPane.showMessageDialog(rootPane,
-                    "Chưa có danh sách đặt phòng!");
-        } else if (selectedIndex == -1) {
+       if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane,
                     "Chưa chọn thông tin đặt phòng cần xóa!");
         } else {
@@ -242,15 +275,12 @@ public class BookingListView extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         selectedIndex = tblBookingList.getSelectedRow();
-        if (bookingList.size() == 0) {
-            JOptionPane.showMessageDialog(rootPane,
-                    "Chưa có danh sách đặt phòng!");
-        } else if (selectedIndex == -1) {
+        if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane,
                     "Chưa chọn thông tin đặt phòng cần sửa!");
         } else {
             BookingRoom booking = bookingList.get(selectedIndex);
-            BookRoomView bookRoomView = new BookRoomView();
+            BookingRoomView bookRoomView = new BookingRoomView();
             bookRoomView.setVisible(true);
             bookRoomView.setEditBooking(booking);
             this.dispose();
@@ -273,6 +303,20 @@ public class BookingListView extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnHomeMouseClicked
+
+    private void btnCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckinActionPerformed
+        selectedIndex = tblBookingList.getSelectedRow();
+        if (selectedIndex == -1) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Chưa chọn thông tin đặt phòng cần sửa!");
+        } else {
+            BookingRoom booking = bookingList.get(selectedIndex);
+            CheckInView View = new CheckInView();
+            View.TakeBooking(booking);
+            View.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnCheckinActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,12 +354,13 @@ public class BookingListView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCheckin;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnRefesh;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

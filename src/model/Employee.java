@@ -8,7 +8,7 @@ package model;
  *
  * @author HP
  */
-public class NV {
+public class Employee {
     private String ID, Ho, Ten,CCCD,CV,GT,DC,SDT;
     private float Luong;
 
