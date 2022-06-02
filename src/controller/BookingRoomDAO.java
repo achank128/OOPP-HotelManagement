@@ -7,12 +7,13 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import model.HotelRoom;
+import model.Room;
 import java.sql.Date;
 import java.sql.ResultSet;
 import model.BookingRoom;
-import model.Custumer;
+import model.Client;
 import model.FindRoom;
+import model.RoomStatus;
 
 public class BookingRoomDAO {
 
@@ -33,8 +34,8 @@ public class BookingRoomDAO {
         return id + 1;
     }
 
-    public ArrayList<HotelRoom> getRoomFound(FindRoom f) {
-        ArrayList<HotelRoom> roomFound = new ArrayList<HotelRoom>();
+    public ArrayList<Room> getRoomFound(FindRoom f) {
+        ArrayList<Room> roomFound = new ArrayList<Room>();
 
         String find = """
                       select * from tbl_HotelRoom where ID_R not in 
@@ -55,7 +56,7 @@ public class BookingRoomDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                HotelRoom r = new HotelRoom();
+                Room r = new Room();
 
                 r.setID(rs.getString("ID_R"));
                 r.setName(rs.getString("Ten_R"));
@@ -72,8 +73,8 @@ public class BookingRoomDAO {
         return roomFound;
     }
 
-    public ArrayList<Custumer> getCustFound(String ID, String name, String phone, String address) {
-        ArrayList<Custumer> cust = new ArrayList<Custumer>();
+    public ArrayList<Client> getCustFound(String ID, String name, String phone, String address) {
+        ArrayList<Client> cust = new ArrayList<Client>();
         String find = """
                  select * from tbl_KH where
                  ID_KH like ? and
@@ -90,9 +91,9 @@ public class BookingRoomDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Custumer c = new Custumer();
+                Client c = new Client();
 
-                c.setCustID(rs.getString("ID_KH"));
+                c.setID(rs.getString("ID_KH"));
                 c.setName(rs.getString("Ten_KH"));
                 c.setPhone(rs.getString("SDT_KH"));
                 c.setAddress(rs.getString("DC_KH"));
@@ -108,11 +109,7 @@ public class BookingRoomDAO {
 
     public ArrayList<BookingRoom> getBookingList() {
         ArrayList<BookingRoom> bookingList = new ArrayList<BookingRoom>();
-        String get = """
-                     select ID_BK, ID_R, tbl_KH.ID_KH, Ten_KH, SDT_KH, NgayNhan, NgayTra 
-                     from tbl_BookedRoom, tbl_KH where
-                     tbl_BookedRoom.ID_KH = tbl_KH.ID_KH
-                     """;
+        String get = "select * from tbl_BookedRoom";
         try {
             PreparedStatement ps = conn.prepareStatement(get);
             ResultSet rs = ps.executeQuery();
@@ -121,10 +118,9 @@ public class BookingRoomDAO {
                 b.setBookingID(rs.getString("ID_BK"));
                 b.setRoomID(rs.getString("ID_R"));
                 b.setCustID(rs.getString("ID_KH"));
-                b.setCustName(rs.getString("Ten_KH"));
-                b.setPhone(rs.getString("SDT_KH"));
-                b.setDateFrom(rs.getDate("NgayNhan"));               
+                b.setDateFrom(rs.getDate("NgayNhan"));
                 b.setDateTo(rs.getDate("NgayTra"));
+                b.setStatus(rs.getBoolean("bkstatus"));
                 bookingList.add(b);
             }
 
@@ -137,7 +133,7 @@ public class BookingRoomDAO {
     public ArrayList<BookingRoom> getBookingListFound(String search) {
         ArrayList<BookingRoom> bookingList = new ArrayList<BookingRoom>();
         String get = """
-                    select ID_BK, ID_R, tbl_KH.ID_KH, Ten_KH, SDT_KH, NgayNhan, NgayTra 
+                    select ID_BK, ID_R, tbl_KH.ID_KH, Ten_KH, SDT_KH, NgayNhan, NgayTra, bkstatus 
                     from tbl_BookedRoom inner join tbl_KH on tbl_BookedRoom.ID_KH = tbl_KH.ID_KH 
                     where ID_BK like ? or ID_R like ? 
                     or tbl_BookedRoom.ID_KH like ?
@@ -160,10 +156,10 @@ public class BookingRoomDAO {
                 b.setBookingID(rs.getString("ID_BK"));
                 b.setRoomID(rs.getString("ID_R"));
                 b.setCustID(rs.getString("ID_KH"));
-                b.setCustName(rs.getString("Ten_KH"));
-                b.setPhone(rs.getString("SDT_KH"));
-                b.setDateFrom(rs.getDate("NgayNhan"));               
+                b.setDateFrom(rs.getDate("NgayNhan"));
                 b.setDateTo(rs.getDate("NgayTra"));
+                b.setStatus(rs.getBoolean("bkstatus"));
+
                 bookingList.add(b);
             }
 
@@ -175,8 +171,8 @@ public class BookingRoomDAO {
 
     public boolean addBooking(BookingRoom booking) {
         String insert = """
-                        insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra) 
-                        values(?,?,?,?,?)
+                        insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) 
+                        values(?,?,?,?,?,?)
                         """;
         try {
             PreparedStatement ps = conn.prepareStatement(insert);
@@ -185,27 +181,28 @@ public class BookingRoomDAO {
             ps.setString(3, booking.getCustID());
             ps.setDate(4, new Date(booking.getDateFrom().getTime()));
             ps.setDate(5, new Date(booking.getDateTo().getTime()));
+            int status = booking.isStatus() ? 1 : 0;
+            ps.setString(6, String.valueOf(status));
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
-    
+
     public boolean deleteBooking(String id) {
         String insert = "delete tbl_BookedRoom where ID_BK = ? ";
         try {
             PreparedStatement ps = conn.prepareStatement(insert);
-            ps.setString(1, id);          
+            ps.setString(1, id);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return true;
     }
-    
-    public boolean editBooking(BookingRoom b)
-    {
+
+    public boolean editBooking(BookingRoom b) {
         try {
             String edit = "update tbl_BookedRoom set ID_R = ?, ID_KH = ?, NgayNhan = ?, NgayTra = ? where ID_BK = ?";
             PreparedStatement ps = conn.prepareStatement(edit);
@@ -215,8 +212,20 @@ public class BookingRoomDAO {
             ps.setDate(4, new Date(b.getDateTo().getTime()));
             ps.setString(5, b.getBookingID());
             return ps.executeUpdate() > 0;
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    
+     public boolean updateStatusBooking(String id) {
+        try {
+            String update = "update tbl_BookedRoom set bkstatus = 1 where ID_BK = ?";
+            PreparedStatement ps = conn.prepareStatement(update);
+            ps.setString(1, id);
+            
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
