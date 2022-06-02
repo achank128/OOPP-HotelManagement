@@ -1278,6 +1278,29 @@ public class HomeView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCheckinActionPerformed
 
+    private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
+        new CheckOutView_1().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCheckOutActionPerformed
+
+    private void btnRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomsActionPerformed
+        new RoomView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRoomsActionPerformed
+
+
+    private void btnCustumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustumerActionPerformed
+        this.dispose();
+        new ClientView().setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCustumerActionPerformed
+
+    private void btnBookingListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingListActionPerformed
+        new BookingListView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBookingListActionPerformed
+
+
     private void btnBookServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookServiceMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBookServiceMouseClicked
@@ -1354,6 +1377,7 @@ public class HomeView extends javax.swing.JFrame {
         btnSR.setVisible(true);        
         btnSS.setVisible(true);
     }//GEN-LAST:event_btnStatisticalMouseClicked
+
 
     /**
      * @param args the command line arguments

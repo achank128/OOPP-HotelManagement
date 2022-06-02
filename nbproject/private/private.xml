@@ -3,8 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/DO%20AN%20OOPP/OOPP-HotelManagement/src/view/BillView.java</file>
             <file>file:/D:/DO%20AN%20OOPP/OOPP-HotelManagement/src/controller/BillDAO.java</file>
+=======
+<<<<<<< HEAD
+            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/view/FindCustView.java</file>
+            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/view/CheckOutView.java</file>
+            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/view/HotelRoomView.java</file>
+            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/controller/HotelRoomDAO.java</file>
+            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/controller/DAO.java</file>
+            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/view/CheckInView.java</file>
+            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/controller/ClientInfomationDAO.java</file>
+            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/view/HomeView.java</file>
+            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/view/ClientInformation.java</file>
+            <file>file:/C:/Users/Minh%20Duc/Documents/NetBeansProjects/OOPP-HotelManagement/src/model/Client.java</file>
+=======
+            <file>file:/D:/Study/JAVA-OOP/OOPP/src/view/HomeView.java</file>
+>>>>>>> 2d838a806cac7014b1c3f48849c32a1c453aa78f
+>>>>>>> 30d74802dfd821fe0bef04ee3488bc13ef659464
         </group>
     </open-files>
 </project-private>
