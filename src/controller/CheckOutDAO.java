@@ -15,6 +15,7 @@ import java.util.Set;
 import model.Bill;
 import model.BookingRoom;
 import model.CheckOut;
+import model.Client;
 import model.ServiceBill;
 import model.ServiceCk;
 
@@ -51,6 +52,30 @@ public class CheckOutDAO {
         return bill;
     }
     
+     public ArrayList<Bill> FindCheckOutList(String ID) {
+        ArrayList<Bill> bill = new ArrayList<Bill>();
+        String get = "select * from tbl_HD,tbl_BookedRoom where tbl_BookedRoom.ID_BK = tbl_HD.ID_BK and  hdstatus=0 and tbl_BookedRoom.ID_R = ? ";
+        try {
+            PreparedStatement ps = conn.prepareStatement(get);
+            ps.setString(1, ID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bill b = new Bill();
+                b.setBillID(rs.getString("ID_HD"));
+                b.setBookingID(rs.getString("ID_BK"));
+                b.setDateFrom(rs.getDate("CheckinDate"));
+                b.setTimeFrom(rs.getString("CheckinTime"));
+                b.setStatus(rs.getBoolean("hdstatus"));
+                bill.add(b);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bill;
+    }
+    
+   
     public int getSodem(String id){
        int sodem = 0;
        String get = "select SoDem from tbl_HD where ID_HD = ?";

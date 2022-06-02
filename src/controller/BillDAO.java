@@ -11,6 +11,7 @@ import java.sql.Date;
 import model.Bill;
 import model.CustomerStay;
 import java.sql.ResultSet;
+import model.ServiceBill;
 
 /**
  *
@@ -97,5 +98,142 @@ public class BillDAO {
         }
 
         return list_TK;
+    }
+    
+     public ArrayList<Bill> getListBill() {
+        ArrayList<Bill> list = new ArrayList<>();
+        String select = "Select * from tbl_HD";
+        try {
+            PreparedStatement ps = conn.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bill b = new Bill();
+                //doc du lieu tu sql ra java
+                b.setBillID(rs.getString("ID_HD"));
+                b.setBookingID(rs.getString("ID_BK"));
+                b.setDateFrom(rs.getDate("CheckinDate"));
+                b.setTimeFrom(rs.getString("CheckinTime"));
+                b.setEmployeeID(rs.getString("ID_NV"));
+                b.setSoDem(rs.getInt("SoDem"));
+                b.setStatus(rs.getBoolean("hdstatus"));
+                b.setDateTo(rs.getDate("CheckoutDate"));
+                b.setTimeTo(rs.getString("CheckoutTime"));
+                //thêm vào trong danh sách
+                list.add(b);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+     public ArrayList<ServiceBill> getBillDetail(String ID) {
+        ArrayList<ServiceBill> svbilllist = new ArrayList<>();
+        String select = "Select * from tbl_ChiTietHD_DV,tbl_HD where tbl_HD.ID_HD = tbl_ChiTietHD_DV.ID_HD and tbl_ChiTietHD_DV.ID_HD = ? ";
+        try {
+            PreparedStatement ps = conn.prepareStatement(select);
+            ps.setString(1,ID);
+            ResultSet rs = ps.executeQuery();
+             
+            while (rs.next()) {
+                ServiceBill svb = new ServiceBill();
+                //doc du lieu tu sql ra java
+                svb.setBillID(rs.getString("ID_HD"));
+                svb.setServiceID(rs.getString("ID_DV"));
+                svb.setServiceDay(rs.getString("NgayDung"));
+                svb.setServiceAmount(rs.getInt("SoLuong"));
+                svb.setServiceNote(rs.getString("GhiChu"));
+                svb.setServiceDbu(rs.getFloat("DenBu"));
+                //thêm vào trong danh sách
+                svbilllist.add(svb);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return svbilllist;
+  }   
+        public ArrayList<Bill> getListCBB1() {
+        ArrayList<Bill> list1 = new ArrayList<>();
+        String select = "Select * from tbl_HD where hdstatus = 1";
+        try {
+            PreparedStatement ps = conn.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bill b = new Bill();
+                //doc du lieu tu sql ra java
+                b.setBillID(rs.getString("ID_HD"));
+                b.setBookingID(rs.getString("ID_BK"));
+                b.setDateFrom(rs.getDate("CheckinDate"));
+                b.setTimeFrom(rs.getString("CheckinTime"));
+                b.setEmployeeID(rs.getString("ID_NV"));
+                b.setSoDem(rs.getInt("SoDem"));
+                b.setStatus(rs.getBoolean("hdstatus"));
+                b.setDateTo(rs.getDate("CheckoutDate"));
+                b.setTimeTo(rs.getString("CheckoutTime"));
+                //thêm vào trong danh sách
+                list1.add(b);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list1;
+    }
+        
+         public ArrayList<Bill> getListCBB2() {
+        ArrayList<Bill> list2 = new ArrayList<>();
+        String select = "Select * from tbl_HD where hdstatus = 0";
+        try {
+            PreparedStatement ps = conn.prepareStatement(select);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Bill b = new Bill();
+                //doc du lieu tu sql ra java
+                b.setBillID(rs.getString("ID_HD"));
+                b.setBookingID(rs.getString("ID_BK"));
+                b.setDateFrom(rs.getDate("CheckinDate"));
+                b.setTimeFrom(rs.getString("CheckinTime"));
+                b.setEmployeeID(rs.getString("ID_NV"));
+                b.setSoDem(rs.getInt("SoDem"));
+                b.setStatus(rs.getBoolean("hdstatus"));
+                b.setDateTo(rs.getDate("CheckoutDate"));
+                b.setTimeTo(rs.getString("CheckoutTime"));
+                //thêm vào trong danh sách
+                list2.add(b);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list2;
+    }
+         
+         public ArrayList<Bill> SearchBill( Bill b) {
+        ArrayList<Bill> blist = new ArrayList<>();
+        try {
+            String TK = "Select * from tbl_HD where tbl_HD.CheckoutDate = ?";
+            PreparedStatement ps = conn.prepareStatement(TK);
+            ps.setDate(1, new Date(b.getDateTo().getTime()));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                //doc du lieu tu sql ra java
+                b.setBillID(rs.getString("ID_HD"));
+                b.setBookingID(rs.getString("ID_BK"));
+                b.setDateFrom(rs.getDate("CheckinDate"));
+                b.setTimeFrom(rs.getString("CheckinTime"));
+                b.setEmployeeID(rs.getString("ID_NV"));
+                b.setSoDem(rs.getInt("SoDem"));
+                b.setStatus(rs.getBoolean("hdstatus"));
+                b.setDateTo(rs.getDate("CheckoutDate"));
+                b.setTimeTo(rs.getString("CheckoutTime"));
+                //thêm vào trong danh sách
+                blist.add(b);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return blist;
     }
 }
