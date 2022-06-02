@@ -9,16 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.Room;
-import model.RoomStatus;
+import models.Room;
+import models.RoomStatus;
 
 public class RoomDAO {
 
     DAO DAO = new DAO();
     public Connection conn = DAO.DAO_DB();
-//    private ArrayList<HotelRoom> list;
-//    private ArrayList<HotelRoom> list_TK;
-//    private ArrayList<HotelRoom> list1, list2,list3,list4;
 
     public ArrayList<Room> getListRoom() {
         ArrayList<Room> list = new ArrayList<>();

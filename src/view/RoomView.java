@@ -9,7 +9,7 @@ import controller.RoomDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Room;
+import models.Room;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 
@@ -36,7 +36,7 @@ public class RoomView extends javax.swing.JFrame {
         list = roomDAO.getListRoom();
         model = (DefaultTableModel) tblRoom.getModel();
         model.setColumnIdentifiers(new Object[]{
-            "STT", "ID", "Name", "Type", "Bed", "Price"
+            "STT", "ID", "Tên phòng", "Loại phòng", "Số giường", "Giá"
         });
         showResult();
     }

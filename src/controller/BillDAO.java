@@ -8,8 +8,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.Date;
-import model.Bill;
-import model.CustomerStay;
+import models.Bill;
+import models.CustomerStay;
 import java.sql.ResultSet;
 
 /**

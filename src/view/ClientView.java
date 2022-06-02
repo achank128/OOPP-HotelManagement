@@ -8,7 +8,7 @@ import controller.ClientDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Client;
+import models.Client;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 
@@ -35,9 +35,11 @@ public class ClientView extends javax.swing.JFrame {
         list = clientsDAO.getListClient();
         model = (DefaultTableModel) tblClient.getModel();
         model.setColumnIdentifiers(new Object[]{
-            "STT", "ID", "Name", "Address", "SDT"
+            "STT", "ID", "Tên", "Địa chỉ", "SĐT"
         });
         showTable();
+        btnBook.setVisible(false);
+
     }
 
     public void showTable() {
@@ -76,7 +78,7 @@ public class ClientView extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnBook = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        txtTitle = new javax.swing.JLabel();
         btnRefesh = new javax.swing.JLabel();
         btnHome = new javax.swing.JLabel();
 
@@ -165,10 +167,10 @@ public class ClientView extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(7, 38, 109));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("THÔNG TIN KHÁCH HÀNG");
+        txtTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtTitle.setForeground(new java.awt.Color(255, 255, 255));
+        txtTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtTitle.setText("THÔNG TIN KHÁCH HÀNG");
 
         btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-reset-32.png"))); // NOI18N
         btnRefesh.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -192,14 +194,14 @@ public class ClientView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnRefesh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 838, Short.MAX_VALUE)
+                .addComponent(txtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 838, Short.MAX_VALUE)
                 .addGap(1, 1, 1)
                 .addComponent(btnHome)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(txtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,7 +322,7 @@ public class ClientView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Hãy điền đầy đủ thông tin!");
             } else if (ClientsInfomationDAO.addClient(r)) {
                 list.add(r);
-                JOptionPane.showMessageDialog(rootPane, "Đã thêm khách hàng thành công!");
+                JOptionPane.showMessageDialog(rootPane, "Thêm khách hàng thành công!");
                 showResult();
                 txtID.setText("");
                 txtName.setText("");
@@ -423,6 +425,11 @@ public class ClientView extends javax.swing.JFrame {
         txtPhone.setText("");
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    public void setBookingClient() {
+        txtTitle.setText("CHỌN KHÁCH HÀNG");
+        btnBook.setVisible(true);
+    }
+
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
         selectedIndex = tblClient.getSelectedRow();
         if (selectedIndex == -1) {
@@ -505,7 +512,6 @@ public class ClientView extends javax.swing.JFrame {
     private javax.swing.JLabel btnRefesh;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -518,5 +524,6 @@ public class ClientView extends javax.swing.JFrame {
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtTK;
+    private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables
 }

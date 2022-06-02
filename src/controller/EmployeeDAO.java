@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.Employee;
+import models.Employee;
 
 public class EmployeeDAO {
     DAO DAO = new DAO();

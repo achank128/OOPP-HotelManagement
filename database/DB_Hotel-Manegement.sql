@@ -104,7 +104,7 @@ Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) valu
 Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv02',N'Bùi Minh',N'Đức',189642301040,N'Nhân Viên Vệ Sinh',3000000,N'Nam',N'Thái Bình',N'0907372351')
 Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv03',N'Hoàng Nhật',N'Tân',102354145570,N'Lễ Tân',4500000,N'Nữ',N'Hà Tĩnh',N'0907864582')
 Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv04',N'Trần Công',N'Đại',169853400524,N'Quản Lý',8000000,N'Nam',N'Bắc Ninh',N'0903348697')
-Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv05',N'Nguyễn Khắc',N'Cháng',112048965701,N'Giám Đốc',10000000,N'Nam',N'Hà Tây',N'0969630128')
+Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv05',N'Nguyễn Khắc',N'Cháng',112048965701,N'Giám Đốc',1000000,N'Nam',N'Hà Tây',N'0969630128')
 Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv06',N'Trần Thị Thanh',N'Trúc',139853400478,N'Nhân Viên Dịch Vụ',6000000,N'Nữ',N'Bắc Ninh',N'0905630421')
 Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv07',N'Trần Thị Thanh',N'Vân',169825471520,N'Lễ Tân',4000000,N'Nữ',N'Nghệ An',N'0904821530')
 Insert into tbl_NV(ID_NV,Ho_NV,Ten_NV,CCCD_NV,ChucVu,Luong,GT,DC_NV,SDT_NV) values('nv08',N'Trần Thị',N'Thảo',169858421520,N'Thu Ngân',8000000,N'Nữ',N'Nghệ An',N'0904842350')
@@ -170,7 +170,7 @@ go
 create table tbl_ChiTietHD_DV(
 	ID_HD int not null,
 	ID_DV int not null,
-	NgayDung datetime2(0),
+	NgayDung date,
 	SoLuong tinyint,
 	GhiChu nvarchar(100),
 	DenBu int,
@@ -179,22 +179,22 @@ create table tbl_ChiTietHD_DV(
 	constraint KN_ID_DV_CT foreign key(ID_DV) references tbl_DV(ID_DV)
 )
 go
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1100,0011,'04/26/2022 06:24',1,N' ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1100,0005,'04/26/2022 13:39',1,N' ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1100,0009,'04/27/2022 07:34',3,N'Đặt vé du lịch Sapa',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1101,0000,'04/30/2022 06:58',1,N' ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1102,0003,'04/28/2022 15:24',1,N' ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1102,0013,'04/29/2022 10:37',2,N' ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1103,0005,'04/29/2022 17:39',1,N' ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1103,0014,'04/30/2022 10:30',1,N' ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1104,0004,'05/01/2022 12:21',1,N' Đặt tiệc cưới',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1104,0012,'05/01/2022 13:30',1,N'  ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1105,0002,'05/01/2022 07:15',1,N' ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1105,0008,'05/02/2022 13:30',1,N' ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1106,0007,'04/25/2021 09:10',1,N'Trẻ ngoan, lần sau anh chị đừng cho cháu đến, Vỡ 3 cái bình hoa: 100000',300000)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1107,0003,'05/02/2022 08:34',1,N'Xe mui trần',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1108,0001,'05/03/2022  19:07',1,N' ',0)
-Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1110,0006,'05/08/2022 09:34',1,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1100,0011,'04/26/2022',1,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1100,0005,'04/26/2022',1,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1100,0009,'04/27/2022',3,N'Đặt vé du lịch Sapa',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1101,0000,'04/30/2022',1,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1102,0003,'04/28/2022',1,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1102,0013,'04/29/2022',2,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1103,0005,'04/29/2022',1,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1103,0014,'04/30/2022',1,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1104,0004,'05/01/2022',1,N'Đặt tiệc cưới',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1104,0012,'05/01/2022',1,N'  ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1105,0002,'05/01/2022',1,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1105,0008,'05/02/2022',1,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1106,0007,'04/25/2021',1,N'Trẻ ngoan, lần sau anh chị đừng cho cháu đến, Vỡ 3 cái bình hoa: 300000',300000)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1107,0003,'05/02/2022',1,N'Xe mui trần',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1108,0001,'05/03/2022',1,N' ',0)
+Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(1110,0006,'05/08/2022',1,N' ',0)
 go
 
 --Khách hàng tại phòng

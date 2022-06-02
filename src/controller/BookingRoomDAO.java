@@ -7,13 +7,12 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import model.Room;
+import models.Room;
 import java.sql.Date;
 import java.sql.ResultSet;
-import model.BookingRoom;
-import model.Client;
-import model.FindRoom;
-import model.RoomStatus;
+import models.BookingRoom;
+import models.Client;
+import models.FindRoom;
 
 public class BookingRoomDAO {
 
@@ -73,40 +72,6 @@ public class BookingRoomDAO {
         return roomFound;
     }
 
-    public ArrayList<Client> getCustFound(String ID, String name, String phone, String address) {
-        ArrayList<Client> cust = new ArrayList<Client>();
-        String find = """
-                 select * from tbl_KH where
-                 ID_KH like ? and
-                 Ten_KH like ? and
-                 SDT_KH like ? and
-                 DC_KH like ?
-                 """;
-        try {
-            PreparedStatement ps = conn.prepareStatement(find);
-            ps.setString(1, "%" + ID + "%");
-            ps.setString(2, "%" + name + "%");
-            ps.setString(3, "%" + phone + "%");
-            ps.setString(4, "%" + address + "%");
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Client c = new Client();
-
-                c.setID(rs.getString("ID_KH"));
-                c.setName(rs.getString("Ten_KH"));
-                c.setPhone(rs.getString("SDT_KH"));
-                c.setAddress(rs.getString("DC_KH"));
-                cust.add(c);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return cust;
-    }
-
     public ArrayList<BookingRoom> getBookingList() {
         ArrayList<BookingRoom> bookingList = new ArrayList<BookingRoom>();
         String get = "select * from tbl_BookedRoom";
@@ -130,16 +95,21 @@ public class BookingRoomDAO {
         return bookingList;
     }
 
-    public ArrayList<BookingRoom> getBookingListFound(String search) {
+    public ArrayList<BookingRoom> getBookingListFound(String search, String status) {
         ArrayList<BookingRoom> bookingList = new ArrayList<BookingRoom>();
+        String fstatus = "and bkstatus = " + status;
+       if(status == ""){
+           fstatus = "";
+           
+       }
         String get = """
-                    select ID_BK, ID_R, tbl_KH.ID_KH, Ten_KH, SDT_KH, NgayNhan, NgayTra, bkstatus 
+                    select ID_BK, ID_R, tbl_KH.ID_KH, NgayNhan, NgayTra, bkstatus 
                     from tbl_BookedRoom inner join tbl_KH on tbl_BookedRoom.ID_KH = tbl_KH.ID_KH 
-                    where ID_BK like ? or ID_R like ? 
+                    where (ID_BK like ? or ID_R like ? 
                     or tbl_BookedRoom.ID_KH like ?
                     or Ten_KH like ? or SDT_KH like ? 
-                    or NgayNhan like ? or NgayTra like ?
-                     """;
+                    or NgayNhan like ? or NgayTra like ?)
+                     """ + fstatus;
         try {
             PreparedStatement ps = conn.prepareStatement(get);
             ps.setString(1, "%" + search + "%");
@@ -149,7 +119,7 @@ public class BookingRoomDAO {
             ps.setString(5, "%" + search + "%");
             ps.setString(6, "%" + search + "%");
             ps.setString(7, "%" + search + "%");
-
+            
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 BookingRoom b = new BookingRoom();
@@ -162,13 +132,13 @@ public class BookingRoomDAO {
 
                 bookingList.add(b);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return bookingList;
     }
-
+    
+    
     public boolean addBooking(BookingRoom booking) {
         String insert = """
                         insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) 
@@ -218,7 +188,9 @@ public class BookingRoomDAO {
         return true;
     }
     
-     public boolean updateStatusBooking(String id) {
+    
+    
+    public boolean updateStatusBooking(String id) {
         try {
             String update = "update tbl_BookedRoom set bkstatus = 1 where ID_BK = ?";
             PreparedStatement ps = conn.prepareStatement(update);

@@ -16,7 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import model.RoomStatus;
+import models.RoomStatus;
 
 /**
  *
@@ -640,6 +640,9 @@ public class HomeView extends javax.swing.JFrame {
         btnEmployee.setBackground(new java.awt.Color(255, 255, 255));
         btnEmployee.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEmployeeMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnEmployeeMouseEntered(evt);
             }
@@ -1326,7 +1329,9 @@ public class HomeView extends javax.swing.JFrame {
     }//GEN-LAST:event_navLoginMouseClicked
 
     private void btnCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMouseClicked
-        new BookingListView().setVisible(true);
+        BookingListView bookingListView = new BookingListView();
+        bookingListView.setVisible(true);
+        bookingListView.setCheckin();
         this.dispose();
     }//GEN-LAST:event_btnCheckinMouseClicked
 
@@ -1354,6 +1359,11 @@ public class HomeView extends javax.swing.JFrame {
         btnSR.setVisible(true);        
         btnSS.setVisible(true);
     }//GEN-LAST:event_btnStatisticalMouseClicked
+
+    private void btnEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmployeeMouseClicked
+        new EmployeeView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEmployeeMouseClicked
 
     /**
      * @param args the command line arguments

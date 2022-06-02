@@ -15,13 +15,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.CustomerStay;
+import models.CustomerStay;
 
 import javax.swing.JFrame;
-import model.Bill;
-import model.BookingRoom;
-import model.Client;
-import model.Room;
+import models.Bill;
+import models.BookingRoom;
+import models.Client;
+import models.Room;
 
 /**
  *
