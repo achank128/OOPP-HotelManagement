@@ -207,18 +207,18 @@ public class HomeView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRoomsActionPerformed
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
     private void btnCustumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustumerActionPerformed
         this.dispose();
         new ClientInformation().setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCustumerActionPerformed
-=======
+//=======
     private void btnBookingListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingListActionPerformed
         new BookingListView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBookingListActionPerformed
->>>>>>> 8a292ef270c31e1b43917258f4f847ab831209a5
+//>>>>>>> 8a292ef270c31e1b43917258f4f847ab831209a5
 
     /**
      * @param args the command line arguments
