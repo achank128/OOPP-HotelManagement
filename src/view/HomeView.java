@@ -16,7 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import models.RoomStatus;
+import model.RoomStatus;
 
 /**
  *
@@ -33,8 +33,8 @@ public class HomeView extends javax.swing.JFrame {
     public HomeView() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        login.setVisible(true);
-        sroom.setVisible(false);
+        login.setVisible(false);
+        sroom.setVisible(true);
         signup.setVisible(false);
         btnSR.setVisible(false);        
         btnSS.setVisible(false);
@@ -216,10 +216,9 @@ public class HomeView extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         sroom = new javax.swing.JPanel();
-        srSroom = new javax.swing.JScrollPane();
-        srContent = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        srContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -575,7 +574,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addComponent(btnBillList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCustList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBillList, btnBook, btnBookService, btnBookingList, btnCheckin, btnCheckout, btnCustList});
@@ -802,7 +801,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSR)
                     .addComponent(btnSS, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addContainerGap(437, Short.MAX_VALUE))
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEmployee, btnRoom, btnService, btnStatistical});
@@ -884,7 +883,7 @@ public class HomeView extends javax.swing.JFrame {
         loginLayout.setHorizontalGroup(
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginLayout.createSequentialGroup()
                 .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(loginLayout.createSequentialGroup()
@@ -905,7 +904,7 @@ public class HomeView extends javax.swing.JFrame {
                                 .addComponent(jLabel15)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 124, Short.MAX_VALUE)))
+                        .addGap(0, 176, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         loginLayout.setVerticalGroup(
@@ -928,7 +927,7 @@ public class HomeView extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap(441, Short.MAX_VALUE))
         );
 
         signup.setBackground(new java.awt.Color(255, 255, 255));
@@ -1002,7 +1001,7 @@ public class HomeView extends javax.swing.JFrame {
         signupLayout.setHorizontalGroup(
             signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
             .addGroup(signupLayout.createSequentialGroup()
                 .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, signupLayout.createSequentialGroup()
@@ -1070,27 +1069,6 @@ public class HomeView extends javax.swing.JFrame {
 
         sroom.setBackground(new java.awt.Color(255, 255, 255));
 
-        srSroom.setBorder(null);
-
-        srContent.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout srContentLayout = new javax.swing.GroupLayout(srContent);
-        srContent.setLayout(srContentLayout);
-        srContentLayout.setHorizontalGroup(
-            srContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 645, Short.MAX_VALUE)
-        );
-        srContentLayout.setVerticalGroup(
-            srContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 517, Short.MAX_VALUE)
-        );
-
-        srSroom.setViewportView(srContent);
-
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel29.setText("TRẠNG THÁI PHÒNG");
-
         jPanel7.setBackground(new java.awt.Color(7, 38, 109));
         jPanel7.setPreferredSize(new java.awt.Dimension(0, 1));
 
@@ -1098,20 +1076,40 @@ public class HomeView extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 699, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 8, Short.MAX_VALUE)
         );
 
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel29.setText("TRẠNG THÁI PHÒNG");
+
+        srContent.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout srContentLayout = new javax.swing.GroupLayout(srContent);
+        srContent.setLayout(srContentLayout);
+        srContentLayout.setHorizontalGroup(
+            srContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        srContentLayout.setVerticalGroup(
+            srContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 661, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout sroomLayout = new javax.swing.GroupLayout(sroom);
         sroom.setLayout(sroomLayout);
         sroomLayout.setHorizontalGroup(
             sroomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
-            .addComponent(srSroom, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sroomLayout.createSequentialGroup()
+                .addGroup(sroomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
+                    .addComponent(srContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         sroomLayout.setVerticalGroup(
             sroomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1119,8 +1117,8 @@ public class HomeView extends javax.swing.JFrame {
                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(srSroom, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(srContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
@@ -1131,7 +1129,7 @@ public class HomeView extends javax.swing.JFrame {
             .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(signup, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(sroom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(sroom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1153,7 +1151,7 @@ public class HomeView extends javax.swing.JFrame {
                         .addComponent(Sidebar, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(Top, javax.swing.GroupLayout.DEFAULT_SIZE, 947, Short.MAX_VALUE))
+                    .addComponent(Top, javax.swing.GroupLayout.DEFAULT_SIZE, 996, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
         BackgroundLayout.setVerticalGroup(
@@ -1162,7 +1160,7 @@ public class HomeView extends javax.swing.JFrame {
                 .addComponent(Top, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                    .addComponent(Sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE)
                     .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1281,6 +1279,29 @@ public class HomeView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCheckinActionPerformed
 
+    private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
+        new CheckOutView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCheckOutActionPerformed
+
+    private void btnRoomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomsActionPerformed
+        new RoomView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRoomsActionPerformed
+
+
+    private void btnCustumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustumerActionPerformed
+        this.dispose();
+        new ClientView().setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCustumerActionPerformed
+
+    private void btnBookingListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingListActionPerformed
+        new BookingListView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBookingListActionPerformed
+
+
     private void btnBookServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookServiceMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBookServiceMouseClicked
@@ -1331,12 +1352,12 @@ public class HomeView extends javax.swing.JFrame {
     private void btnCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMouseClicked
         BookingListView bookingListView = new BookingListView();
         bookingListView.setVisible(true);
-        bookingListView.setCheckin();
+        //bookingListView.setCheckin();
         this.dispose();
     }//GEN-LAST:event_btnCheckinMouseClicked
 
     private void btnCheckoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckoutMouseClicked
-        new CheckOutView().setVisible(true);
+        new BillCheckOutView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCheckoutMouseClicked
 
@@ -1360,10 +1381,12 @@ public class HomeView extends javax.swing.JFrame {
         btnSS.setVisible(true);
     }//GEN-LAST:event_btnStatisticalMouseClicked
 
+
     private void btnEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmployeeMouseClicked
         new EmployeeView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnEmployeeMouseClicked
+
 
     /**
      * @param args the command line arguments
@@ -1477,7 +1500,6 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JLabel navLogin;
     private javax.swing.JPanel signup;
     private javax.swing.JPanel srContent;
-    private javax.swing.JScrollPane srSroom;
     private javax.swing.JPanel sroom;
     // End of variables declaration//GEN-END:variables
 }

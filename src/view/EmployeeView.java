@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.Employee;
+import model.Employee;
 
 public class EmployeeView extends javax.swing.JFrame {
 

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.BookingRoom;
-import models.Client;
+import model.BookingRoom;
+import model.Client;
 
 /**
  *
@@ -33,7 +33,6 @@ public class BookingListView extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         bookingList = new BookingRoomDAO().getBookingList();
         model = (DefaultTableModel) tblBookingList.getModel();
-        btnCheckin.setVisible(true);
         showResult();
     }
 
@@ -47,11 +46,11 @@ public class BookingListView extends javax.swing.JFrame {
                 c.getPhone(), b.getDateFrom(), b.getDateTo(), showStatus(b.isStatus())});
         }
     }
-
-    public String showStatus(boolean status) {
-        if (status) {
+    
+    public String showStatus(boolean status){
+        if(status){
             return "Đã Check In";
-        } else {
+        }else{
             return "Chưa Check In";
         }
     }
@@ -74,10 +73,10 @@ public class BookingListView extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         btnCheckin = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        txtTitle = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         btnRefesh = new javax.swing.JLabel();
         btnHome = new javax.swing.JLabel();
-        cbFillter = new javax.swing.JComboBox<>();
+        cbFilter = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,10 +140,10 @@ public class BookingListView extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(7, 38, 109));
 
-        txtTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txtTitle.setForeground(new java.awt.Color(255, 255, 255));
-        txtTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        txtTitle.setText("DANH SÁCH ĐẶT PHÒNG");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("DANH SÁCH ĐẶT PHÒNG");
 
         btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-reset-32.png"))); // NOI18N
         btnRefesh.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,14 +167,14 @@ public class BookingListView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnRefesh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHome)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,10 +183,10 @@ public class BookingListView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        cbFillter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL", "Ðã Check In", "Chưa Check In" }));
-        cbFillter.addActionListener(new java.awt.event.ActionListener() {
+        cbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL", "Ðã Check In", "Chưa Check In" }));
+        cbFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbFillterActionPerformed(evt);
+                cbFilterActionPerformed(evt);
             }
         });
 
@@ -199,24 +198,22 @@ public class BookingListView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                        .addComponent(cbFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnDelete)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 449, Short.MAX_VALUE)
-                                .addComponent(btnCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbFillter, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())))
+                        .addComponent(btnDelete)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 449, Short.MAX_VALUE)
+                        .addComponent(btnCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,13 +227,13 @@ public class BookingListView extends javax.swing.JFrame {
                                 .addComponent(btnSearch))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbFillter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(cbFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(86, 86, 86)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,22 +242,16 @@ public class BookingListView extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(btnCheckin, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSearch, cbFillter});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSearch, cbFilter});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCheckin, btnDelete, btnEdit});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void setCheckin() {
-        txtTitle.setText("CHỌN THÔNG TIN ĐẶT PHÒNG CHECK IN");
-        btnCheckin.setVisible(true);
-        cbFillter.setSelectedIndex(2);
-    }
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
         // TODO add your handling code here:
@@ -268,13 +259,11 @@ public class BookingListView extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String status = "";
-        int index = cbFillter.getSelectedIndex();
-        if (index == 1) {
+        int index = cbFilter.getSelectedIndex();
+        if(index == 1){
             status = "1";
-        } else if (index == 2) {
+        }else if(index == 2){
             status = "0";
-        } else {
-            status = "";
         }
         bookingList = bookingRoomDAO.getBookingListFound(txtSearch.getText(), status);
         showResult();
@@ -282,7 +271,7 @@ public class BookingListView extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         selectedIndex = tblBookingList.getSelectedRow();
-        if (selectedIndex == -1) {
+       if (selectedIndex == -1) {
             JOptionPane.showMessageDialog(rootPane,
                     "Chưa chọn thông tin đặt phòng cần xóa!");
         } else {
@@ -311,7 +300,6 @@ public class BookingListView extends javax.swing.JFrame {
 
     private void btnRefeshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefeshMouseClicked
         txtSearch.setText("");
-        cbFillter.setSelectedIndex(0);
         bookingList = new BookingRoomDAO().getBookingList();
         showResult();
     }//GEN-LAST:event_btnRefeshMouseClicked
@@ -341,19 +329,17 @@ public class BookingListView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCheckinActionPerformed
 
-    private void cbFillterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFillterActionPerformed
+    private void cbFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFilterActionPerformed
         String status = "";
-        int index = cbFillter.getSelectedIndex();
-        if (index == 1) {
+        int index = cbFilter.getSelectedIndex();
+        if(index == 1){
             status = "1";
-        } else if (index == 2) {
+        }else if(index == 2){
             status = "0";
-        } else {
-            status = "";
         }
         bookingList = bookingRoomDAO.getBookingListFound(txtSearch.getText(), status);
         showResult();
-    }//GEN-LAST:event_cbFillterActionPerformed
+    }//GEN-LAST:event_cbFilterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,13 +383,13 @@ public class BookingListView extends javax.swing.JFrame {
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnRefesh;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox<String> cbFillter;
+    private javax.swing.JComboBox<String> cbFilter;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblBookingList;
     private javax.swing.JTextField txtSearch;
-    private javax.swing.JLabel txtTitle;
     // End of variables declaration//GEN-END:variables
 
 }

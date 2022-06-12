@@ -9,8 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import models.Room;
-import models.RoomStatus;
+import model.Room;
+import model.RoomStatus;
 
 public class RoomDAO {
 

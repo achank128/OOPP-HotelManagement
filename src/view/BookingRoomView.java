@@ -13,10 +13,10 @@ import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.BookingRoom;
-import models.Client;
-import models.FindRoom;
-import models.Room;
+import model.BookingRoom;
+import model.Client;
+import model.FindRoom;
+import model.Room;
 
 public class BookingRoomView extends javax.swing.JFrame {
 

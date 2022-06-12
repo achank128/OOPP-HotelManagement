@@ -7,12 +7,12 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import models.Room;
+import model.Room;
 import java.sql.Date;
 import java.sql.ResultSet;
-import models.BookingRoom;
-import models.Client;
-import models.FindRoom;
+import model.BookingRoom;
+import model.Employee;
+import model.FindRoom;
 
 public class BookingRoomDAO {
 
@@ -98,10 +98,10 @@ public class BookingRoomDAO {
     public ArrayList<BookingRoom> getBookingListFound(String search, String status) {
         ArrayList<BookingRoom> bookingList = new ArrayList<BookingRoom>();
         String fstatus = "and bkstatus = " + status;
-       if(status == ""){
-           fstatus = "";
-           
-       }
+        if (status == "") {
+            fstatus = "";
+
+        }
         String get = """
                     select ID_BK, ID_R, tbl_KH.ID_KH, NgayNhan, NgayTra, bkstatus 
                     from tbl_BookedRoom inner join tbl_KH on tbl_BookedRoom.ID_KH = tbl_KH.ID_KH 
@@ -119,7 +119,7 @@ public class BookingRoomDAO {
             ps.setString(5, "%" + search + "%");
             ps.setString(6, "%" + search + "%");
             ps.setString(7, "%" + search + "%");
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 BookingRoom b = new BookingRoom();
@@ -137,8 +137,7 @@ public class BookingRoomDAO {
         }
         return bookingList;
     }
-    
-    
+
     public boolean addBooking(BookingRoom booking) {
         String insert = """
                         insert into tbl_BookedRoom(ID_BK,ID_R,ID_KH,NgayNhan,NgayTra,bkstatus) 
@@ -187,20 +186,20 @@ public class BookingRoomDAO {
         }
         return true;
     }
-    
-    
-    
+
     public boolean updateStatusBooking(String id) {
         try {
             String update = "update tbl_BookedRoom set bkstatus = 1 where ID_BK = ?";
             PreparedStatement ps = conn.prepareStatement(update);
             ps.setString(1, id);
-            
+
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
     }
+
+   
 
 }

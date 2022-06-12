@@ -6,6 +6,7 @@ package view;
 
 import controller.BillDAO;
 import controller.BookingRoomDAO;
+import controller.CheckOutDAO;
 import controller.ClientDAO;
 import controller.RoomDAO;
 import java.awt.event.ActionEvent;
@@ -15,13 +16,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.CustomerStay;
+import model.CustomerStay;
 
 import javax.swing.JFrame;
-import models.Bill;
-import models.BookingRoom;
-import models.Client;
-import models.Room;
+import model.Bill;
+import model.BookingRoom;
+import model.Client;
+import model.Room;
 
 /**
  *
@@ -473,6 +474,7 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
             JOptionPane.showMessageDialog(rootPane, "Check In thành công!");
             new RoomDAO().updateStatusRoom("Đang sử dụng", txtRoomID.getText());
             new BookingRoomDAO().updateStatusBooking(b.getBookingID());
+            new CheckOutDAO().updateStatusBill(b.getBillID(), "0");
         } else {
             JOptionPane.showMessageDialog(rootPane, "Check In thất bại! Vui lòng kiểm tra lại thông tin.");
         }

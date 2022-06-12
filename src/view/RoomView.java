@@ -9,7 +9,7 @@ import controller.RoomDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.Room;
+import model.Room;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 

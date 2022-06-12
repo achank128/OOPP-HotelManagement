@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import controller.StatisticalDAO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import models.StatisticalRoom;
+import model.StatisticalRoom;
 
 /**
  *

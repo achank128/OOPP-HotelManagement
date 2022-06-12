@@ -8,7 +8,7 @@ import controller.ClientDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import models.Client;
+import model.Client;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 
