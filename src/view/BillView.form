@@ -50,54 +50,57 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel7" min="-2" pref="115" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="btnHome" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnBookService" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnHome" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnBookService" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel6" min="-2" pref="132" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel6" min="-2" pref="132" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="jScrollPane2" alignment="1" pref="682" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                              <Component id="cbbHDstatus" min="-2" pref="108" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="btnViewBill" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                              <Component id="btnrefresh" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jLabel4" min="-2" pref="97" max="-2" attributes="0"/>
-                                          <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
-                                          <Component id="txtDateTo" min="-2" pref="108" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="btnSearchBill" alignment="1" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel7" min="-2" pref="115" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="573" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel2" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
+                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cbbHDstatus" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Component id="txtMaPhong" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="btnViewBill" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="btnrefresh" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="btnSearchBill" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jLabel4" min="-2" pref="97" max="-2" attributes="0"/>
+                              <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtDateTo" max="32767" attributes="0"/>
+                                  <Component id="txtDateFrom" pref="108" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -114,11 +117,18 @@
                           <Component id="jLabel8" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                           <Component id="cbbHDstatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel2" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="txtMaPhong" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="txtDateTo" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="txtDateFrom" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="txtDateTo" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnSearchBill" min="-2" pref="28" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
@@ -160,7 +170,7 @@
         <Property name="text" type="java.lang.String" value="Ng&#xe0;y Tr&#x1ea3; Ph&#xf2;ng:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDateTo">
+    <Component class="javax.swing.JTextField" name="txtDateFrom">
     </Component>
     <Component class="javax.swing.JButton" name="btnSearchBill">
       <Properties>
@@ -278,6 +288,18 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnrefreshActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="M&#xe3; Ph&#xf2;ng:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtMaPhong">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMaPhongActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtDateTo">
     </Component>
   </SubComponents>
 </Form>

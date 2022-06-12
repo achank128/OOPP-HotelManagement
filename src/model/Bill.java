@@ -11,7 +11,7 @@ import java.util.Date;
  * @author HNT
  */
 public class Bill {
-    private String BillID, BookingID, employeeID;
+    private String BillID, BookingID, employeeID, RoomID;
     private Date DateFrom, DateTo;
     private String TimeFrom, TimeTo;
     private int SoDem;
@@ -92,6 +92,14 @@ public class Bill {
 
     public void setTimeTo(String TimeTo) {
         this.TimeTo = TimeTo;
+    }
+
+    public String getRoomID() {
+        return RoomID;
+    }
+
+    public void setRoomID(String RoomID) {
+        this.RoomID = RoomID;
     }
     
 }

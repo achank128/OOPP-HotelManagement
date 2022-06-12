@@ -11,6 +11,8 @@ import java.sql.Date;
 import model.Bill;
 import model.CustomerStay;
 import java.sql.ResultSet;
+import java.util.HashSet;
+import java.util.Set;
 import model.ServiceBill;
 
 /**
@@ -102,7 +104,7 @@ public class BillDAO {
     
      public ArrayList<Bill> getListBill() {
         ArrayList<Bill> list = new ArrayList<>();
-        String select = "Select * from tbl_HD";
+        String select = "Select * from tbl_HD, tbl_BookedRoom where tbl_HD.ID_BK = tbl_BookedRoom.ID_BK";
         try {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
@@ -110,6 +112,7 @@ public class BillDAO {
                 Bill b = new Bill();
                 //doc du lieu tu sql ra java
                 b.setBillID(rs.getString("ID_HD"));
+                b.setRoomID(rs.getString("ID_R"));
                 b.setBookingID(rs.getString("ID_BK"));
                 b.setDateFrom(rs.getDate("CheckinDate"));
                 b.setTimeFrom(rs.getString("CheckinTime"));
@@ -155,7 +158,7 @@ public class BillDAO {
   }   
         public ArrayList<Bill> getListCBB1() {
         ArrayList<Bill> list1 = new ArrayList<>();
-        String select = "Select * from tbl_HD where hdstatus = 1";
+        String select = "Select * from tbl_HD, tbl_BookedRoom where tbl_HD.ID_BK = tbl_BookedRoom.ID_BK and hdstatus = 1";
         try {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
@@ -163,6 +166,7 @@ public class BillDAO {
                 Bill b = new Bill();
                 //doc du lieu tu sql ra java
                 b.setBillID(rs.getString("ID_HD"));
+                b.setRoomID(rs.getString("ID_R"));
                 b.setBookingID(rs.getString("ID_BK"));
                 b.setDateFrom(rs.getDate("CheckinDate"));
                 b.setTimeFrom(rs.getString("CheckinTime"));
@@ -183,7 +187,7 @@ public class BillDAO {
         
          public ArrayList<Bill> getListCBB2() {
         ArrayList<Bill> list2 = new ArrayList<>();
-        String select = "Select * from tbl_HD where hdstatus = 0";
+        String select = "Select * from tbl_HD, tbl_BookedRoom where tbl_HD.ID_BK = tbl_BookedRoom.ID_BK and hdstatus = 0";
         try {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
@@ -192,6 +196,7 @@ public class BillDAO {
                 //doc du lieu tu sql ra java
                 b.setBillID(rs.getString("ID_HD"));
                 b.setBookingID(rs.getString("ID_BK"));
+                b.setRoomID(rs.getString("ID_R"));
                 b.setDateFrom(rs.getDate("CheckinDate"));
                 b.setTimeFrom(rs.getString("CheckinTime"));
                 b.setEmployeeID(rs.getString("ID_NV"));
@@ -212,13 +217,16 @@ public class BillDAO {
          public ArrayList<Bill> SearchBill( Bill b) {
         ArrayList<Bill> blist = new ArrayList<>();
         try {
-            String TK = "Select * from tbl_HD where tbl_HD.CheckoutDate = ?";
+            String TK = "Select * from tbl_HD,tbl_BookedRoom where tbl_HD.CheckinDate = ? and tbl_HD.CheckoutDate = ? AND tbl_HD.ID_BK = tbl_BookedRoom.ID_BK  and tbl_BookedRoom.ID_R = ?";
             PreparedStatement ps = conn.prepareStatement(TK);
-            ps.setDate(1, new Date(b.getDateTo().getTime()));
+            ps.setDate(1, new Date(b.getDateFrom().getTime()));
+            ps.setDate(2, new Date(b.getDateTo().getTime()));
+            ps.setString(3,b.getRoomID() );
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 //doc du lieu tu sql ra java
                 b.setBillID(rs.getString("ID_HD"));
+                b.setRoomID(rs.getString("ID_R"));
                 b.setBookingID(rs.getString("ID_BK"));
                 b.setDateFrom(rs.getDate("CheckinDate"));
                 b.setTimeFrom(rs.getString("CheckinTime"));
