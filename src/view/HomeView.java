@@ -1278,6 +1278,10 @@ public class HomeView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCheckinActionPerformed
 
+//<<<<<<< HEAD
+//<<<<<<< HEAD
+//=======
+//>>>>>>> 667ff76ba43efd420567dcb4b9a721621832da16
     private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
         new CheckOutView_1().setVisible(true);
         this.dispose();
@@ -1299,8 +1303,13 @@ public class HomeView extends javax.swing.JFrame {
         new BookingListView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBookingListActionPerformed
+//<<<<<<< HEAD
+//>>>>>>> 8a292ef270c31e1b43917258f4f847ab831209a5
+//=======
+//=======
 
 
+//>>>>>>> 667ff76ba43efd420567dcb4b9a721621832da16
     private void btnBookServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookServiceMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBookServiceMouseClicked
@@ -1377,7 +1386,11 @@ public class HomeView extends javax.swing.JFrame {
         btnSR.setVisible(true);        
         btnSS.setVisible(true);
     }//GEN-LAST:event_btnStatisticalMouseClicked
+//<<<<<<< HEAD
+//>>>>>>> 2d838a806cac7014b1c3f48849c32a1c453aa78f
+//=======
 
+//>>>>>>> 667ff76ba43efd420567dcb4b9a721621832da16
 
     /**
      * @param args the command line arguments
