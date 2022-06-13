@@ -24,6 +24,7 @@ import model.ServiceBill;
  */
 public class BillView extends javax.swing.JFrame {
   private ArrayList<Bill> bills;
+  private ArrayList<Bill> billTK;
   private ArrayList<ServiceBill> svbills;
   private BookingRoomDAO bkromDao = new BookingRoomDAO();
     private BillDAO billDAO = new BillDAO();
@@ -43,22 +44,13 @@ public class BillView extends javax.swing.JFrame {
             "STT", "Mã Hóa Đơn","Mã Phòng", "Mã Đặt Phòng", "Mã Nhân Viên", "Ngày Check In", "Giờ Check In", "Ngày Chẹck Out", "Giờ Check Out",
              "Số Đêm", "Trạng Thái"
         });
-        showTableBill();
+        showResultBill();
         
         model2= (DefaultTableModel) tblService.getModel();
         model2.setColumnIdentifiers(new Object[]{
             "STT", "Mã Hóa Đơn", "Mã Dich Vu", "Ngày Dùng", "Số Lượng", "Ghi Chú", "Đền Bù"
         });
-    }
-    
-     public void showTableBill() {
-        int i = 1;
-        for (Bill b : bills) {
-            model1.addRow(new Object[]{
-                i++, b.getBillID(),b.getRoomID(),b.getBookingID(),b.getEmployeeID(),b.getDateFrom(),b.getTimeFrom(),b.getDateTo(),b.getTimeTo()
-                    ,b.getSoDem(),showStatus(b.isStatus())});
-        }
-    }
+    } 
     public void showResultBill() {
         model1.setRowCount(0);
         int i = 1;
@@ -66,6 +58,15 @@ public class BillView extends javax.swing.JFrame {
             model1.addRow(new Object[]{
                 i++, b.getBillID(),b.getRoomID(),b.getBookingID(),b.getEmployeeID(),b.getDateFrom(),b.getTimeFrom(),b.getDateTo(),b.getTimeTo()
                     ,b.getSoDem(),showStatus(b.isStatus())});
+        }
+    }
+     public void showResultBillTK() {
+        model1.setRowCount(0);
+        int i = 1;
+        for (Bill bt : billTK) {
+            model1.addRow(new Object[]{
+                i++, bt.getBillID(),bt.getRoomID(),bt.getBookingID(),bt.getEmployeeID(),bt.getDateFrom(),bt.getTimeFrom(),bt.getDateTo(),bt.getTimeTo()
+                    ,bt.getSoDem(),showStatus(bt.isStatus())});
         }
     }
     private ArrayList<Bill> list1, list2;
@@ -123,6 +124,7 @@ public class BillView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtMaPhong = new javax.swing.JTextField();
         txtDateTo = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,8 +145,8 @@ public class BillView extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("QUẢN LÝ HÓA ĐƠN ");
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Ngày Trả Phòng:");
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Ngày Nhận Phòng:");
 
         btnSearchBill.setText("Tìm Kiếm");
         btnSearchBill.addActionListener(new java.awt.event.ActionListener() {
@@ -222,6 +224,8 @@ public class BillView extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Ngày Trả Phòng:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -245,7 +249,7 @@ public class BillView extends javax.swing.JFrame {
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(573, 573, 573)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,8 +265,12 @@ public class BillView extends javax.swing.JFrame {
                                     .addComponent(btnrefresh))
                                 .addComponent(btnSearchBill, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtDateTo)
                                     .addComponent(txtDateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))))))
@@ -289,7 +297,9 @@ public class BillView extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
@@ -334,8 +344,10 @@ public class BillView extends javax.swing.JFrame {
 
     private void cbbHDstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbHDstatusActionPerformed
         int index = cbbHDstatus.getSelectedIndex();
-            showTableBill();
-        if (index == 1) {
+        if (index == 0){
+            showResultBill();
+        }
+         if (index == 1) {
             list1 = billDAO.getListCBB1();
             showResultBillSort(list1);
         } else if (index == 2) {
@@ -347,21 +359,19 @@ public class BillView extends javax.swing.JFrame {
     private void btnSearchBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchBillActionPerformed
       try {
           Bill b = new Bill();
-          b.setRoomID(txtMaPhong.getText());
-          bills = billDAO.SearchBill(b);
-          
-          b.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateFrom.getText()));
-          b.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateTo.getText()));
-          
-          bills = billDAO.SearchBill(b);
-          showResultBill();
+          b.setRoomID(txtMaPhong.getText()); 
+          b.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateFrom.getText()));   
+          b.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateTo.getText()));  
+          billTK = new BillDAO().SearchBill(b);
+          showResultBillTK();
       } catch (ParseException ex) {
           Logger.getLogger(BillView.class.getName()).log(Level.SEVERE, null, ex);
       }
+
     }//GEN-LAST:event_btnSearchBillActionPerformed
 
     private void btnrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrefreshActionPerformed
-       showTableBill();
+       showResultBill();
     }//GEN-LAST:event_btnrefreshActionPerformed
 
     private void txtMaPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaPhongActionPerformed
@@ -412,6 +422,7 @@ public class BillView extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbbHDstatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

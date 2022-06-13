@@ -146,6 +146,11 @@ public class ClientView extends javax.swing.JFrame {
         });
 
         txtTK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTKActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnUpdate.setText("Cập nhật");
@@ -460,6 +465,10 @@ public class ClientView extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnHomeMouseClicked
+
+    private void txtTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTKActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTKActionPerformed
 
     /**
      * @param args the command line arguments
