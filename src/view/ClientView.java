@@ -438,7 +438,7 @@ public class ClientView extends javax.swing.JFrame {
         } else {
             Client clientSelect = new Client();
             clientSelect = list.get(selectedIndex);
-            BookingRoomView bookRoomView = new BookingRoomView();
+            BookRoomView bookRoomView = new BookRoomView();
             bookRoomView.setCustData(clientSelect);
             bookRoomView.setVisible(true);
             this.dispose();

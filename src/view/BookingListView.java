@@ -291,7 +291,7 @@ public class BookingListView extends javax.swing.JFrame {
                     "Chưa chọn thông tin đặt phòng cần sửa!");
         } else {
             BookingRoom booking = bookingList.get(selectedIndex);
-            BookingRoomView bookRoomView = new BookingRoomView();
+            BookRoomView bookRoomView = new BookRoomView();
             bookRoomView.setVisible(true);
             bookRoomView.setEditBooking(booking);
             this.dispose();

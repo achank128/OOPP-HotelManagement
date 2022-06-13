@@ -1271,7 +1271,7 @@ public class HomeView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStatisticalMouseExited
 
     private void btnBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookMouseClicked
-        new BookingRoomView().setVisible(true);
+        new BookRoomView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBookMouseClicked
 
@@ -1357,7 +1357,7 @@ public class HomeView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCheckinMouseClicked
 
     private void btnCheckoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckoutMouseClicked
-        new BillCheckOutView().setVisible(true);
+        new ListBillView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCheckoutMouseClicked
 
