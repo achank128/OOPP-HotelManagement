@@ -4,11 +4,11 @@
  */
 package view;
 
-import controller.ClientDAO;
+import controller.CustomerDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Client;
+import model.Customer;
 import java.sql.ResultSet;
 import javax.swing.JFrame;
 
@@ -16,19 +16,19 @@ import javax.swing.JFrame;
  *
  * @author Minh Duc
  */
-public class ClientView extends javax.swing.JFrame {
+public class CustomerView extends javax.swing.JFrame {
 
     ResultSet result;
-    private ClientDAO clientsDAO = new ClientDAO();
-    private ArrayList<Client> list;
-    private ArrayList<Client> listTK;
+    private CustomerDAO clientsDAO = new CustomerDAO();
+    private ArrayList<Customer> list;
+    private ArrayList<Customer> listTK;
     DefaultTableModel model;
     private int selectedIndex;
 
     /**
      * Creates new form ClientInformation
      */
-    public ClientView() {
+    public CustomerView() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -44,7 +44,7 @@ public class ClientView extends javax.swing.JFrame {
 
     public void showTable() {
         int i = 1;
-        for (Client r : list) {
+        for (Customer r : list) {
             model.addRow(new Object[]{
                 i++, r.getID(), r.getName(), r.getAddress(), r.getPhone()
             });
@@ -148,6 +148,11 @@ public class ClientView extends javax.swing.JFrame {
         });
 
         txtTK.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTKActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnUpdate.setText("Cập nhật");
@@ -309,8 +314,8 @@ public class ClientView extends javax.swing.JFrame {
 
 //ADD
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        ClientDAO ClientsInfomationDAO = new ClientDAO();
-        Client r = new Client();
+        CustomerDAO ClientsInfomationDAO = new CustomerDAO();
+        Customer r = new Customer();
         txtID.setText(String.valueOf(clientsDAO.getClientId()));
         r.setID(txtID.getText());
         r.setName(txtName.getText());
@@ -340,7 +345,7 @@ public class ClientView extends javax.swing.JFrame {
     public void showResult() {
         model.setRowCount(0);
         int i = 1;
-        for (Client r : list) {
+        for (Customer r : list) {
             model.addRow(new Object[]{
                 i++, r.getID(), r.getName(), r.getAddress(), r.getPhone()
             });
@@ -350,7 +355,7 @@ public class ClientView extends javax.swing.JFrame {
     public void showResultTK() {
         model.setRowCount(0);
         int i = 1;
-        for (Client KH : listTK) {
+        for (Customer KH : listTK) {
             model.addRow(new Object[]{
                 i++, KH.getID(), KH.getName(), KH.getAddress(), KH.getPhone()});
         }
@@ -358,7 +363,7 @@ public class ClientView extends javax.swing.JFrame {
 
 //EDIT
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        Client clientSelect = new Client();
+        Customer clientSelect = new Customer();
         selectedIndex = tblClient.getSelectedRow();
         clientSelect = list.get(selectedIndex);
         txtID.setText(clientSelect.getID());
@@ -397,7 +402,7 @@ public class ClientView extends javax.swing.JFrame {
 
 //UPDATE
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Client r = new Client();
+        Customer r = new Customer();
         r.setID(txtID.getText());
         r.setName(txtName.getText());
         r.setAddress(txtAddress.getText());
@@ -436,7 +441,7 @@ public class ClientView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane,
                     "Bạn chưa chọn khách hàng cần đặt phòng!");
         } else {
-            Client clientSelect = new Client();
+            Customer clientSelect = new Customer();
             clientSelect = list.get(selectedIndex);
             BookRoomView bookRoomView = new BookRoomView();
             bookRoomView.setCustData(clientSelect);
@@ -465,6 +470,10 @@ public class ClientView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnHomeMouseClicked
 
+    private void txtTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTKActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTKActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -482,14 +491,18 @@ public class ClientView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClientView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -498,7 +511,7 @@ public class ClientView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ClientView().setVisible(true);
+                new CustomerView().setVisible(true);
             }
         });
     }

@@ -8,13 +8,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.Client;
+import model.Customer;
 
 /**
  *
  * @author Minh Duc
  */
-public class ClientDAO {
+public class CustomerDAO {
 
     DAO DAO = new DAO();
     public Connection conn = DAO.DAO_DB();
@@ -34,14 +34,14 @@ public class ClientDAO {
         return id + 1;
     }
 
-    public ArrayList<Client> getListClient() {
-        ArrayList<Client> list = new ArrayList<>();
+    public ArrayList<Customer> getListClient() {
+        ArrayList<Customer> list = new ArrayList<>();
         String select = "Select * from tbl_KH";
         try {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Client r = new Client();
+                Customer r = new Customer();
                 r.setID(rs.getString("ID_KH"));
                 r.setName(rs.getString("Ten_KH"));
                 r.setAddress(rs.getString("DC_KH"));
@@ -57,8 +57,8 @@ public class ClientDAO {
         return list;
     }
 
-    public Client getClient(String id) {
-        Client client = new Client();
+    public Customer getClient(String id) {
+        Customer client = new Customer();
         String select = "Select * from tbl_KH where ID_KH = ? ";
         try {
             PreparedStatement ps = conn.prepareStatement(select);
@@ -77,7 +77,7 @@ public class ClientDAO {
         return client;
     }
 
-    public boolean addClient(Client r) {
+    public boolean addClient(Customer r) {
         String insert = "INSERT INTO tbl_KH(ID_KH, Ten_KH, DC_KH, SDT_KH)"
                 + " VALUES(?,?,?,?) ";
         try {
@@ -106,7 +106,7 @@ public class ClientDAO {
         return true;
     }
 
-    public boolean editClient(Client r, String id) {
+    public boolean editClient(Customer r, String id) {
         try {
             String editR = "Update tbl_KH set Ten_KH=?, DC_KH=?, SDT_KH=? where ID_KH=?";
             PreparedStatement ps = conn.prepareStatement(editR);
@@ -121,8 +121,8 @@ public class ClientDAO {
         return true;
     }
 
-    public ArrayList<Client> getListClienttk(String tk) {
-        ArrayList<Client> list_TK = new ArrayList<>();
+    public ArrayList<Customer> getListClienttk(String tk) {
+        ArrayList<Customer> list_TK = new ArrayList<>();
         try {
             String TK = "select * from tbl_KH where ID_KH like ? or Ten_KH like ? or SDT_KH like ?";
             PreparedStatement ps = conn.prepareStatement(TK);
@@ -131,7 +131,7 @@ public class ClientDAO {
             ps.setString(3, "%" + tk + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Client KH = new Client();
+                Customer KH = new Customer();
                 //doc du lieu tu sql ra java
                 KH.setID(rs.getString("ID_KH"));
                 KH.setName(rs.getString("Ten_KH"));

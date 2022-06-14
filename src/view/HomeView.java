@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.AccountDAO;
 import controller.RoomDAO;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -16,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.Account;
 import model.RoomStatus;
 
 /**
@@ -26,6 +28,8 @@ public class HomeView extends javax.swing.JFrame {
 
     private ArrayList<RoomStatus> roomStatus = new ArrayList<RoomStatus>();
     private RoomDAO roomDAO = new RoomDAO();
+    private AccountDAO accountDAO = new AccountDAO();
+    private String position;
 
     /**
      * Creates new form Home
@@ -36,7 +40,7 @@ public class HomeView extends javax.swing.JFrame {
         login.setVisible(false);
         sroom.setVisible(true);
         signup.setVisible(false);
-        btnSR.setVisible(false);        
+        btnSR.setVisible(false);
         btnSS.setVisible(false);
 
         setRoomStatus();
@@ -89,11 +93,13 @@ public class HomeView extends javax.swing.JFrame {
                     }
                 });
             } else if (roomStatus.get(i).getStatus().equals("Đang sử dụng")) {
+                String roomID = roomStatus.get(i).getID();
                 rs.setBackground(new Color(18, 102, 241));
                 rs.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                        String info = accountDAO.statusRoomInfo(roomID);
                         JOptionPane.showMessageDialog(null,
-                                "Khách hàng: ", "Thông tin phòng hiện tại",
+                                "Khách hàng: "+ info, "Thông tin phòng hiện tại",
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
                 });
@@ -192,29 +198,29 @@ public class HomeView extends javax.swing.JFrame {
         login = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtUsernameLogin = new javax.swing.JTextField();
+        btnLogin = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        txtPasswordLogin = new javax.swing.JPasswordField();
         signup = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         btnLoginsi = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel33 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtPhone = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtPosition = new javax.swing.JTextField();
         sroom = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
@@ -436,6 +442,9 @@ public class HomeView extends javax.swing.JFrame {
         btnBillList.setBackground(new java.awt.Color(255, 255, 255));
         btnBillList.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBillList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBillListMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnBillListMouseEntered(evt);
             }
@@ -603,6 +612,9 @@ public class HomeView extends javax.swing.JFrame {
         btnService.setBackground(new java.awt.Color(255, 255, 255));
         btnService.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnServiceMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnServiceMouseEntered(evt);
             }
@@ -847,22 +859,20 @@ public class HomeView extends javax.swing.JFrame {
             .addGap(0, 8, Short.MAX_VALUE)
         );
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel11.setText("Password:");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel15.setText("Username:");
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtUsernameLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setText("Log in");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnLogin.setText("Log in");
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnLoginActionPerformed(evt);
             }
         });
 
@@ -877,6 +887,8 @@ public class HomeView extends javax.swing.JFrame {
         });
 
         jSeparator1.setForeground(new java.awt.Color(102, 102, 102));
+
+        txtPasswordLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout loginLayout = new javax.swing.GroupLayout(login);
         login.setLayout(loginLayout);
@@ -897,13 +909,15 @@ public class HomeView extends javax.swing.JFrame {
                             .addGroup(loginLayout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addGap(18, 18, 18)
-                                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(loginLayout.createSequentialGroup()
+                                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(187, 187, 187))
+                                    .addComponent(txtPasswordLogin)))
                             .addGroup(loginLayout.createSequentialGroup()
                                 .addComponent(jLabel15)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtUsernameLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 176, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -919,14 +933,14 @@ public class HomeView extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsernameLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addGap(18, 18, 18)
                 .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(txtPasswordLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(441, Short.MAX_VALUE))
         );
 
@@ -953,12 +967,12 @@ public class HomeView extends javax.swing.JFrame {
         jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel31.setText("Username:");
 
-        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel32.setText("Password:");
 
-        jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("Sign up");
@@ -984,17 +998,17 @@ public class HomeView extends javax.swing.JFrame {
         jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel33.setText("Họ Tên:");
 
-        jTextField5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel34.setText("Số điện thoại:");
 
-        jTextField6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPhone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel35.setText("Chức vụ:");
 
-        jTextField7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPosition.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout signupLayout = new javax.swing.GroupLayout(signup);
         signup.setLayout(signupLayout);
@@ -1021,11 +1035,11 @@ public class HomeView extends javax.swing.JFrame {
                                     .addComponent(jLabel33))
                                 .addGap(18, 18, 18)
                                 .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(signupLayout.createSequentialGroup()
                                 .addGap(171, 171, 171)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1044,23 +1058,23 @@ public class HomeView extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel33))
                 .addGap(18, 18, 18)
                 .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel31))
                 .addGap(18, 18, 18)
                 .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel32))
                 .addGap(18, 18, 18)
                 .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel34)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel35))
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1292,7 +1306,7 @@ public class HomeView extends javax.swing.JFrame {
 
     private void btnCustumerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustumerActionPerformed
         this.dispose();
-        new ClientView().setVisible(true);
+        new CustomerView().setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCustumerActionPerformed
 
@@ -1303,7 +1317,10 @@ public class HomeView extends javax.swing.JFrame {
 
 
     private void btnBookServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookServiceMouseClicked
-        // TODO add your handling code here:
+        ListBillView lv = new ListBillView();
+        lv.setVisible(true);
+        lv.setBookService();
+        this.dispose();
     }//GEN-LAST:event_btnBookServiceMouseClicked
 
 
@@ -1313,13 +1330,35 @@ public class HomeView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBookingListMouseClicked
 
     private void btnCustListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustListMouseClicked
-        new ClientView().setVisible(true);
+        new CustomerView().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCustListMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        login.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        if (txtUsernameLogin.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,
+                    "Username không được để trống!", "Login không thành công", JOptionPane.ERROR_MESSAGE);
+        } else if (txtPasswordLogin.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,
+                    "Password không được để trống!", "Login không thành công", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Account accLogin = new Account();
+            accLogin.setUsername(txtUsernameLogin.getText());
+            accLogin.setPassword(txtPasswordLogin.getText());
+            Account account = accountDAO.login(accLogin);
+            if (account == null) {
+                JOptionPane.showMessageDialog(null,
+                        "Username hoặc password không chính xác!", "Login không thành công", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Xin chào " + account.getName(), "Login thành công", JOptionPane.INFORMATION_MESSAGE);
+                this.position = account.getPosition();
+                login.setVisible(false);
+                signup.setVisible(false);
+                sroom.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
         login.setVisible(false);
@@ -1352,12 +1391,14 @@ public class HomeView extends javax.swing.JFrame {
     private void btnCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMouseClicked
         BookingListView bookingListView = new BookingListView();
         bookingListView.setVisible(true);
-        //bookingListView.setCheckin();
+        bookingListView.setCheckin();
         this.dispose();
     }//GEN-LAST:event_btnCheckinMouseClicked
 
     private void btnCheckoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckoutMouseClicked
-        new ListBillView().setVisible(true);
+        ListBillView lv = new ListBillView();
+        lv.setVisible(true);
+        lv.setCheckOut();
         this.dispose();
     }//GEN-LAST:event_btnCheckoutMouseClicked
 
@@ -1377,7 +1418,7 @@ public class HomeView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSSActionPerformed
 
     private void btnStatisticalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatisticalMouseClicked
-        btnSR.setVisible(true);        
+        btnSR.setVisible(true);
         btnSS.setVisible(true);
     }//GEN-LAST:event_btnStatisticalMouseClicked
 
@@ -1387,6 +1428,15 @@ public class HomeView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnEmployeeMouseClicked
 
+    private void btnServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServiceMouseClicked
+        new ServiceView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnServiceMouseClicked
+
+    private void btnBillListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBillListMouseClicked
+        new BillView().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBillListMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1436,6 +1486,7 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JPanel btnCheckout;
     private javax.swing.JPanel btnCustList;
     private javax.swing.JPanel btnEmployee;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel btnLoginsi;
     private javax.swing.JPanel btnRoom;
     private javax.swing.JButton btnSR;
@@ -1443,7 +1494,6 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JPanel btnService;
     private javax.swing.JPanel btnStatistical;
     private javax.swing.JPanel content;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1488,18 +1538,18 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JPanel login;
     private javax.swing.JLabel navHome;
     private javax.swing.JLabel navLogin;
     private javax.swing.JPanel signup;
     private javax.swing.JPanel srContent;
     private javax.swing.JPanel sroom;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPasswordLogin;
+    private javax.swing.JTextField txtPhone;
+    private javax.swing.JTextField txtPosition;
+    private javax.swing.JTextField txtUsername;
+    private javax.swing.JTextField txtUsernameLogin;
     // End of variables declaration//GEN-END:variables
 }

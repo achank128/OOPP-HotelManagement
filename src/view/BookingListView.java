@@ -5,13 +5,13 @@
 package view;
 
 import controller.BookingRoomDAO;
-import controller.ClientDAO;
+import controller.CustomerDAO;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.BookingRoom;
-import model.Client;
+import model.Customer;
 
 /**
  *
@@ -40,7 +40,7 @@ public class BookingListView extends javax.swing.JFrame {
         model.setRowCount(0);
         int i = 1;
         for (BookingRoom b : bookingList) {
-            Client c = new ClientDAO().getClient(b.getCustID());
+            Customer c = new CustomerDAO().getClient(b.getCustID());
             model.addRow(new Object[]{
                 i++, b.getBookingID(), b.getRoomID(), b.getCustID(), c.getName(),
                 c.getPhone(), b.getDateFrom(), b.getDateTo(), showStatus(b.isStatus())});
@@ -53,6 +53,13 @@ public class BookingListView extends javax.swing.JFrame {
         }else{
             return "Chưa Check In";
         }
+    }
+    
+    public void setCheckin(){
+        title.setText("DANH SÁCH ĐẶT PHÒNG CHECK IN");
+        cbFilter.setSelectedIndex(2);
+        bookingList = bookingRoomDAO.getBookingListFound(txtSearch.getText(), "0");
+        showResult();
     }
 
     /**
@@ -73,7 +80,7 @@ public class BookingListView extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         btnCheckin = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         btnRefesh = new javax.swing.JLabel();
         btnHome = new javax.swing.JLabel();
         cbFilter = new javax.swing.JComboBox<>();
@@ -140,10 +147,10 @@ public class BookingListView extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(7, 38, 109));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("DANH SÁCH ĐẶT PHÒNG");
+        title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        title.setForeground(new java.awt.Color(255, 255, 255));
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("DANH SÁCH ĐẶT PHÒNG");
 
         btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-reset-32.png"))); // NOI18N
         btnRefesh.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -167,14 +174,14 @@ public class BookingListView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnRefesh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHome)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +190,7 @@ public class BookingListView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        cbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ALL", "Ðã Check In", "Chưa Check In" }));
+        cbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất Cả", "Ðã Check In", "Chưa Check In" }));
         cbFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbFilterActionPerformed(evt);
@@ -384,11 +391,11 @@ public class BookingListView extends javax.swing.JFrame {
     private javax.swing.JLabel btnRefesh;
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> cbFilter;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblBookingList;
+    private javax.swing.JLabel title;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 

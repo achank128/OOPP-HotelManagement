@@ -5,7 +5,7 @@
 package view;
 
 import controller.BookingRoomDAO;
-import controller.ClientDAO;
+import controller.CustomerDAO;
 import controller.RoomDAO;
 import java.util.ArrayList;
 import java.text.ParseException;
@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.BookingRoom;
-import model.Client;
+import model.Customer;
 import model.FindRoom;
 import model.Room;
 
@@ -46,7 +46,7 @@ public class BookRoomView extends javax.swing.JFrame {
         this.showRoomFound();
     }
 
-    public void setCustData(Client c) {
+    public void setCustData(Customer c) {
         txtClientId.setText(c.getID());
         txtCustumerName.setText(c.getName());
         txtPhoneNumber.setText(c.getPhone());
@@ -54,7 +54,7 @@ public class BookRoomView extends javax.swing.JFrame {
     }
 
     public void setEditBooking(BookingRoom b) {
-        Client c = new ClientDAO().getClient(b.getCustID());
+        Customer c = new CustomerDAO().getClient(b.getCustID());
         Room r = new RoomDAO().getRoom(b.getRoomID());
 
         isEdit = true;
@@ -163,7 +163,7 @@ public class BookRoomView extends javax.swing.JFrame {
 
         txtBedFind.setText("1");
 
-        btnFindRoom.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        btnFindRoom.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnFindRoom.setText("Tìm");
         btnFindRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -523,7 +523,7 @@ public class BookRoomView extends javax.swing.JFrame {
             f.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateToFind.getText()));
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(rootPane,
-                    "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)  \n Vui lòng điền đầy đủ và chính xác.");
+                    "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)");
             ex.printStackTrace();
         }
         roomFound = bookingRoomDAO.getRoomFound(f);
@@ -555,7 +555,7 @@ public class BookRoomView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane,
                     "Không thể thay đổi thông tin khách hàng!");
         } else {
-            ClientView clientView = new ClientView();
+            CustomerView clientView = new CustomerView();
             clientView.setVisible(true);
             clientView.setBookingClient();
             this.dispose();

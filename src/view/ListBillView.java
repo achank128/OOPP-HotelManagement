@@ -46,6 +46,18 @@ public class ListBillView extends javax.swing.JFrame {
                 i++, bill.getBillID(), bookingRoom.getRoomID(), bill.getDateFrom(), bill.getTimeFrom(), bookingRoom.getDateTo()});
         }
     }
+    
+    public void setCheckOut(){
+        title.setText("CHỌN HÓA ĐƠN THUÊ PHÒNG CHECK OUT");
+        btnBookService.setVisible(false);
+        btnCheckOut.setVisible(true);
+    }    
+    
+      public void setBookService(){
+        title.setText("CHỌN HÓA ĐƠN THUÊ PHÒNG ĐẶT DỊCH VỤ");
+        btnCheckOut.setVisible(false);
+        btnBookService.setVisible(true);
+    } 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -66,7 +78,7 @@ public class ListBillView extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         btnCheckOut = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         btnHome2 = new javax.swing.JLabel();
         btnRefesh1 = new javax.swing.JLabel();
         btnBookService = new javax.swing.JButton();
@@ -123,10 +135,10 @@ public class ListBillView extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(7, 38, 109));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("CHỌN HÓA ĐƠN THUÊ PHÒNG CHECK OUT");
+        title.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        title.setForeground(new java.awt.Color(255, 255, 255));
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("CHỌN HÓA ĐƠN THUÊ PHÒNG CHECK OUT");
 
         btnHome2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-home-32-view.png"))); // NOI18N
         btnHome2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -150,14 +162,14 @@ public class ListBillView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnRefesh1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHome2)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -339,12 +351,12 @@ public class ListBillView extends javax.swing.JFrame {
     private javax.swing.JButton btnSearchBill;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblBill;
+    private javax.swing.JLabel title;
     private javax.swing.JTextField txtTenPhong;
     // End of variables declaration//GEN-END:variables
 

@@ -4,18 +4,18 @@
  */
 package view;
 
-import controller.BillDAO;
+import controller.CheckInDAO;
 import controller.BookingRoomDAO;
+import controller.CheckOutDAO;
+import controller.ServiceDAO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Bill;
-import model.BookingRoom;
+import model.Service;
 import model.ServiceBill;
 
 /**
@@ -23,13 +23,17 @@ import model.ServiceBill;
  * @author HNT
  */
 public class BillView extends javax.swing.JFrame {
-  private ArrayList<Bill> bills;
-  private ArrayList<ServiceBill> svbills;
-  private BookingRoomDAO bkromDao = new BookingRoomDAO();
-    private BillDAO billDAO = new BillDAO();
+
+    private ArrayList<Bill> billList;
+    private ArrayList<Bill> billTK;
+    private ArrayList<ServiceBill> svbills;
+    private CheckInDAO checkinDAO = new CheckInDAO();
+    private CheckOutDAO checkoutDAO = new CheckOutDAO();
+    private ServiceDAO ServiceDAO = new ServiceDAO();
     private int selectedIndex;
     DefaultTableModel model1;
     DefaultTableModel model2;
+
     /**
      * Creates new form BillView
      */
@@ -37,62 +41,47 @@ public class BillView extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        bills = new BillDAO().getListBill();
-         model1= (DefaultTableModel) tblBill.getModel();
-         model1.setColumnIdentifiers(new Object[]{
-            "STT", "Mã Hóa Đơn","Mã Phòng", "Mã Đặt Phòng", "Mã Nhân Viên", "Ngày Check In", "Giờ Check In", "Ngày Chẹck Out", "Giờ Check Out",
-             "Số Đêm", "Trạng Thái"
-        });
-        showTableBill();
-        
-        model2= (DefaultTableModel) tblService.getModel();
+        billList = checkinDAO.getListBill();
+        model1 = (DefaultTableModel) tblBill.getModel();
+        model1.setColumnIdentifiers(new Object[]{
+            "STT", "Mã Hóa Đơn", "Mã Phòng", "Mã Đặt Phòng", "Mã Nhân Viên", "Ngày Check In", "Giờ Check In", "Ngày Chẹck Out", "Giờ Check Out",
+            "Số Đêm", "Trạng Thái"
+        });      
+        model2 = (DefaultTableModel) tblService.getModel();
         model2.setColumnIdentifiers(new Object[]{
-            "STT", "Mã Hóa Đơn", "Mã Dich Vu", "Ngày Dùng", "Số Lượng", "Ghi Chú", "Đền Bù"
+            "STT", "Mã Dịch Vụ", "Tên Dịch Vụ", "Ngày Dùng", "Đơn Giá", "Số Lượng", "Ghi Chú", "Đền Bù"
         });
+        showResult();
     }
-    
-     public void showTableBill() {
-        int i = 1;
-        for (Bill b : bills) {
-            model1.addRow(new Object[]{
-                i++, b.getBillID(),b.getRoomID(),b.getBookingID(),b.getEmployeeID(),b.getDateFrom(),b.getTimeFrom(),b.getDateTo(),b.getTimeTo()
-                    ,b.getSoDem(),showStatus(b.isStatus())});
-        }
-    }
-    public void showResultBill() {
+
+    public void showResult() {
         model1.setRowCount(0);
         int i = 1;
-        for (Bill b : bills) {
+        for (Bill b : billList) {
             model1.addRow(new Object[]{
-                i++, b.getBillID(),b.getRoomID(),b.getBookingID(),b.getEmployeeID(),b.getDateFrom(),b.getTimeFrom(),b.getDateTo(),b.getTimeTo()
-                    ,b.getSoDem(),showStatus(b.isStatus())});
+                i++, b.getBillID(), b.getRoomID(), b.getBookingID(), b.getEmployeeID(), b.getDateFrom(), b.getTimeFrom(), b.getDateTo(), b.getTimeTo(),
+                b.getSoDem(), showStatus(b.isStatus())});
         }
     }
-    private ArrayList<Bill> list1, list2;
-        public void showResultBillSort(ArrayList<Bill> l) {
-        model1.setRowCount(0);
-        int i = 1;
-        for (Bill b : l) {
-            model1.addRow(new Object[]{
-              i++, b.getBillID(), b.getRoomID(),b.getBookingID(),b.getEmployeeID(),b.getDateFrom(),b.getTimeFrom(),b.getDateTo(),b.getTimeTo()
-                    ,b.getSoDem(),showStatus(b.isStatus())});
-        }
-    }
+
     public void showResultService() {
         model2.setRowCount(0);
         int i = 1;
-        for (ServiceBill b : svbills) {
+        for (ServiceBill sb : svbills) {
+            Service s = ServiceDAO.getSerivce(sb.getServiceID());
             model2.addRow(new Object[]{
-                i++,b.getBillID(),b.getServiceID(),b.getServiceDay(),b.getServiceAmount(),b.getServiceNote(),b.getServiceDbu()});
+                i++, sb.getServiceID(), s.getName(), sb.getServiceDay(), s.getPrice(), sb.getServiceAmount(), sb.getServiceNote(), sb.getCompensation()});
         }
     }
-    public String showStatus(boolean status){
-        if(status){
+
+    public String showStatus(boolean status) {
+        if (status) {
             return "Đã Thanh Toán";
-        }else{
+        } else {
             return "Chưa Thanh Toán";
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,7 +93,6 @@ public class BillView extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtDateFrom = new javax.swing.JTextField();
         btnSearchBill = new javax.swing.JButton();
@@ -114,15 +102,16 @@ public class BillView extends javax.swing.JFrame {
         tblService = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        btnBookService = new javax.swing.JButton();
         btnViewBill = new javax.swing.JButton();
-        btnHome = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        cbbHDstatus = new javax.swing.JComboBox<>();
-        btnrefresh = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        txtMaPhong = new javax.swing.JTextField();
+        cbStatus = new javax.swing.JComboBox<>();
+        txtSearch = new javax.swing.JTextField();
         txtDateTo = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        btnHome1 = new javax.swing.JLabel();
+        btnRefesh = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -139,13 +128,13 @@ public class BillView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("QUẢN LÝ HÓA ĐƠN ");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setText("Ngày Check In:");
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Ngày Trả Phòng:");
+        txtDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        btnSearchBill.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnSearchBill.setText("Tìm Kiếm");
         btnSearchBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,17 +162,13 @@ public class BillView extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(tblService);
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setText("Danh sách dịch vụ");
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Danh sách hóa đơn");
 
-        btnBookService.setText("Đặt Dịch Vụ");
-        btnBookService.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBookServiceActionPerformed(evt);
-            }
-        });
-
+        btnViewBill.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnViewBill.setText("Xem Chi Tiết");
         btnViewBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,134 +176,152 @@ public class BillView extends javax.swing.JFrame {
             }
         });
 
-        btnHome.setText("Trang Chủ");
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel8.setText("Trạng Thái:");
+
+        cbStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Tất Cả", "Ðã Thanh Toán", "Chưa Thanh Toán" }));
+        cbStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHomeActionPerformed(evt);
+                cbStatusActionPerformed(evt);
             }
         });
 
-        jLabel8.setText("Trạng Thái Hóa Đơn:");
-
-        cbbHDstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " Tất Cả", "Ðã Thanh Toán", "Chưa Thanh Toán", " " }));
-        cbbHDstatus.addActionListener(new java.awt.event.ActionListener() {
+        txtSearch.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbHDstatusActionPerformed(evt);
+                txtSearchActionPerformed(evt);
             }
         });
 
-        btnrefresh.setText("ReFresh");
-        btnrefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnrefreshActionPerformed(evt);
+        txtDateTo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Ngày Check Out:");
+
+        jPanel1.setBackground(new java.awt.Color(7, 38, 109));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("DANH SÁCH HÓA ĐƠN THUÊ PHÒNG");
+
+        btnHome1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-home-32-view.png"))); // NOI18N
+        btnHome1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHome1MouseClicked(evt);
             }
         });
 
-        jLabel2.setText("Mã Phòng:");
-
-        txtMaPhong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaPhongActionPerformed(evt);
+        btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-reset-32.png"))); // NOI18N
+        btnRefesh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRefeshMouseClicked(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnRefesh)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHome1)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnHome1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRefesh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnHome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBookService))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(573, 573, 573)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8))
-                                .addGap(22, 22, 22)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbbHDstatus, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMaPhong)))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnViewBill)
-                                    .addGap(32, 32, 32)
-                                    .addComponent(btnrefresh))
-                                .addComponent(btnSearchBill, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtDateTo)
-                                    .addComponent(txtDateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE))))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addGap(12, 12, 12)
+                                            .addComponent(jLabel4)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txtDateFrom))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txtDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(310, 575, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnViewBill))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbbHDstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMaPhong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnViewBill, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnrefresh))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
-                        .addComponent(btnBookService, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnHome))))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(btnViewBill, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtDateFrom, txtDateTo});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnBookServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookServiceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBookServiceActionPerformed
-
-    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnViewBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewBillActionPerformed
         selectedIndex = tblBill.getSelectedRow();
@@ -327,46 +330,103 @@ public class BillView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane,
                     "Chưa chọn thông tin cần xem!");
         } else {
-            svbills = billDAO.getBillDetail(svbills1);
+            svbills = checkoutDAO.getSerivceBill(svbills1);
             showResultService();
         }
     }//GEN-LAST:event_btnViewBillActionPerformed
 
-    private void cbbHDstatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbHDstatusActionPerformed
-        int index = cbbHDstatus.getSelectedIndex();
-            showTableBill();
-        if (index == 1) {
-            list1 = billDAO.getListCBB1();
-            showResultBillSort(list1);
-        } else if (index == 2) {
-            list2 = billDAO.getListCBB2();
-            showResultBillSort(list2);
+    private void cbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbStatusActionPerformed
+        Bill b = new Bill();     
+        if (txtDateFrom.getText().equals("")) {
+            b.setDateFrom(null);
+        } else {
+            try {
+                b.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateFrom.getText()));
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(rootPane,
+                        "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)");
+                ex.printStackTrace();
+            }
         }
-    }//GEN-LAST:event_cbbHDstatusActionPerformed
+        if (txtDateTo.getText().equals("")) {
+            b.setDateTo(null);
+        } else {
+            try {
+                b.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateTo.getText()));
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(rootPane,
+                        "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)");
+                ex.printStackTrace();
+            }
+        }
+        String status = "";
+        int index = cbStatus.getSelectedIndex();
+        if (index == 1) {
+            status = "1";
+        } else if (index == 2) {
+            status = "0";
+        }
+        billList = checkinDAO.getBillFound(txtSearch.getText(), b ,status);
+        showResult();
+    }//GEN-LAST:event_cbStatusActionPerformed
 
     private void btnSearchBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchBillActionPerformed
-      try {
-          Bill b = new Bill();
-          b.setRoomID(txtMaPhong.getText());
-          bills = billDAO.SearchBill(b);
-          
-          b.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateFrom.getText()));
-          b.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateTo.getText()));
-          
-          bills = billDAO.SearchBill(b);
-          showResultBill();
-      } catch (ParseException ex) {
-          Logger.getLogger(BillView.class.getName()).log(Level.SEVERE, null, ex);
-      }
+
+        Bill b = new Bill();
+        b.setRoomID(txtSearch.getText());
+        if (txtDateFrom.getText().equals("")) {
+            b.setDateFrom(null);
+        } else {
+            try {
+                b.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateFrom.getText()));
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(rootPane,
+                        "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)");
+                ex.printStackTrace();
+            }
+        }
+        if (txtDateTo.getText().equals("")) {
+            b.setDateTo(null);
+        } else {
+            try {
+                b.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateTo.getText()));
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(rootPane,
+                        "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)");
+                ex.printStackTrace();
+            }
+        }
+        String status = "";
+        int index = cbStatus.getSelectedIndex();
+        if (index == 1) {
+            status = "1";
+        } else if (index == 2) {
+            status = "0";
+        }
+        billList = new CheckInDAO().getBillFound(txtSearch.getText(), b, status);
+        showResult();
     }//GEN-LAST:event_btnSearchBillActionPerformed
 
-    private void btnrefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrefreshActionPerformed
-       showTableBill();
-    }//GEN-LAST:event_btnrefreshActionPerformed
-
-    private void txtMaPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaPhongActionPerformed
+    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaPhongActionPerformed
+    }//GEN-LAST:event_txtSearchActionPerformed
+
+    private void btnHome1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHome1MouseClicked
+        int conf = JOptionPane.showConfirmDialog(null,
+                "Bạn có chắc chắn muốn về trang chủ?",
+                "Trang Chủ",
+                JOptionPane.YES_OPTION);
+        if (conf == 0) {
+            new HomeView().setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnHome1MouseClicked
+
+    private void btnRefeshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefeshMouseClicked
+        txtDateFrom.setText("");
+        txtDateTo.setText("");
+
+    }//GEN-LAST:event_btnRefeshMouseClicked
 
     /**
      * @param args the command line arguments
@@ -404,18 +464,18 @@ public class BillView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBookService;
-    private javax.swing.JButton btnHome;
+    private javax.swing.JLabel btnHome1;
+    private javax.swing.JLabel btnRefesh;
     private javax.swing.JButton btnSearchBill;
     private javax.swing.JButton btnViewBill;
-    private javax.swing.JButton btnrefresh;
-    private javax.swing.JComboBox<String> cbbHDstatus;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox<String> cbStatus;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -424,6 +484,6 @@ public class BillView extends javax.swing.JFrame {
     private javax.swing.JTable tblService;
     private javax.swing.JTextField txtDateFrom;
     private javax.swing.JTextField txtDateTo;
-    private javax.swing.JTextField txtMaPhong;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

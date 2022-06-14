@@ -4,27 +4,21 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author HNT
  */
 public class ServiceBill {
-    private String  billID, serviceID, serviceDay, serviceNote;
+    private String  billID, serviceID,  serviceNote;
+    private Date serviceDay;
     private int  serviceAmount; 
-    private float serviceDbu, serviceSalary;
+    private float Compensation;
 
 
     public ServiceBill() {
     }
-    
-    public float getServiceDbu() {
-        return serviceDbu;
-    }
-
-    public void setServiceDbu(float serviceDbu) {
-        this.serviceDbu = serviceDbu;
-    }
-
    
     public String getBillID() {
         return billID;
@@ -43,12 +37,20 @@ public class ServiceBill {
         this.serviceID = serviceID;
     }
 
-    public String getServiceDay() {
+    public Date getServiceDay() {
         return serviceDay;
     }
 
-    public void setServiceDay(String serviceDay) {
+    public void setServiceDay(Date serviceDay) {
         this.serviceDay = serviceDay;
+    }
+
+    public float getCompensation() {
+        return Compensation;
+    }
+
+    public void setCompensation(float Compensation) {
+        this.Compensation = Compensation;
     }
 
     public String getServiceNote() {
@@ -65,17 +67,5 @@ public class ServiceBill {
 
     public void setServiceAmount(int serviceAmount) {
         this.serviceAmount = serviceAmount;
-    }
-
-    public float getServiceSalary() {
-        return serviceSalary;
-    }
-
-    public void setServiceSalary(float serviceSalary) {
-        this.serviceSalary = serviceSalary;
-    }
-
-    
-
-    
+    }  
 }

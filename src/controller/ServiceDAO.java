@@ -5,20 +5,22 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import model.Service;
+import model.ServiceBill;
 
 /**
  *
  * @author Minh Duc
  */
 public class ServiceDAO {
-    
+
     DAO DAO = new DAO();
     public Connection conn = DAO.DAO_DB();
-    
+
     public int getServiceId() {
         int id = 0;
         String getMaxId = "select max(ID_DV) as MAX_ID from tbl_DV";
@@ -56,27 +58,27 @@ public class ServiceDAO {
 
         return list;
     }
-    
-    public Service getService(String id) {
-        Service service = new Service();
-        String select = "Select * from tbl_DV where ID_DV = ? ";
+
+    public Service getSerivce(String id) {
+        Service s = new Service();
+        String get = "select * from tbl_DV where ID_DV = ?";
         try {
-            PreparedStatement ps = conn.prepareStatement(select);
+            PreparedStatement ps = conn.prepareStatement(get);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            service.setID(rs.getString("ID_DV"));
-            service.setName(rs.getString("Ten_DV"));
-            service.setPrice(rs.getString("Gia_DV"));
-            service.setNote(rs.getString("GhiChu_DV"));
+            s.setID(rs.getString("ID_DV"));
+            s.setName(rs.getString("Ten_DV"));
+            s.setPrice(rs.getString("Gia_DV"));
+            s.setNote(rs.getString("GhiChu_DV"));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return service;
+        return s;
     }
-    
+
     public boolean addService(Service r) {
         String insert = "INSERT INTO tbl_DV(ID_DV, Ten_DV, Gia_DV, GhiChu_DV)"
                 + " VALUES(?,?,?,?) ";
@@ -92,7 +94,24 @@ public class ServiceDAO {
         }
         return false;
     }
-    
+
+    public boolean addServiceBill(ServiceBill sb) {
+        String insert = "Insert into tbl_ChiTietHD_DV(ID_HD,ID_DV,NgayDung,SoLuong,GhiChu,DenBu) values(?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(insert);
+            ps.setString(1, sb.getBillID());
+            ps.setString(2, sb.getServiceID());
+            ps.setDate(3, new Date(sb.getServiceDay().getTime()));
+            ps.setInt(4, sb.getServiceAmount());
+            ps.setString(5, sb.getServiceNote());
+            ps.setFloat(6, sb.getCompensation());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean deleteService(String id) {
         try {
             String delete = "delete tbl_DV where ID_DV =?";
@@ -104,7 +123,7 @@ public class ServiceDAO {
         }
         return true;
     }
-    
+
     public boolean editService(Service r, String id) {
         try {
             String editR = "Update tbl_DV set Ten_DV=?, Gia_DV=?, GhiChu_DV=? where ID_DV=?";
@@ -112,14 +131,14 @@ public class ServiceDAO {
             ps.setString(1, r.getName());
             ps.setString(2, r.getPrice());
             ps.setString(3, r.getNote());
-            ps.setString(4, id);  
+            ps.setString(4, id);
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
     }
-    
+
     public ArrayList<Service> getListServicetk(String tk) {
         ArrayList<Service> list_TK = new ArrayList<>();
         try {

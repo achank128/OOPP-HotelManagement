@@ -4,20 +4,16 @@
  */
 package controller;
 
-import java.math.BigDecimal;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import model.Bill;
 import model.BookingRoom;
-import model.Client;
 import model.CustomerStay;
 import model.ServiceBill;
-import model.ServiceCk;
 
 /**
  *
@@ -29,7 +25,7 @@ public class CheckOutDAO {
     public Connection conn = DAO.DAO_DB();
 
     public ArrayList<Bill> getCheckOutList() {
-        ArrayList<Bill> bill = new ArrayList<Bill>();
+        ArrayList<Bill> bill = new ArrayList();
         String get = "select * from tbl_HD where hdstatus=0";
         try {
             PreparedStatement ps = conn.prepareStatement(get);
@@ -52,7 +48,7 @@ public class CheckOutDAO {
     }
 
     public ArrayList<Bill> FindCheckOutList(String ID) {
-        ArrayList<Bill> bill = new ArrayList<Bill>();
+        ArrayList<Bill> bill = new ArrayList();
         String get = "select * from tbl_HD,tbl_BookedRoom where tbl_BookedRoom.ID_BK = tbl_HD.ID_BK and  hdstatus=0 and tbl_BookedRoom.ID_R = ? ";
         try {
             PreparedStatement ps = conn.prepareStatement(get);
@@ -112,28 +108,8 @@ public class CheckOutDAO {
         return b;
     }
 
-    public ServiceCk getSerivce(String id) {
-        ServiceCk s = new ServiceCk();
-        String get = "select * from tbl_DV where ID_DV = ?";
-        try {
-            PreparedStatement ps = conn.prepareStatement(get);
-            ps.setString(1, id);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            s.setServiceID(rs.getString("ID_DV"));
-            s.setName(rs.getString("Ten_DV"));
-            s.setServiceID(rs.getString("Gia_DV"));
-            s.setServiceID(rs.getString("GhiChu_DV"));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return s;
-    }
-
     public ArrayList<ServiceBill> getSerivceBill(String id) {
-        ArrayList<ServiceBill> slist = new ArrayList<>();
+        ArrayList<ServiceBill> slist = new ArrayList();
         String get = "select * from tbl_ChiTietHD_DV where ID_HD = ?";
         System.out.println(id);
         try {
@@ -145,19 +121,19 @@ public class CheckOutDAO {
                 s.setBillID(rs.getString("ID_HD"));
                 s.setServiceID(rs.getString("ID_DV"));
                 s.setServiceAmount(rs.getInt("SoLuong"));
+                s.setServiceDay(rs.getDate("NgayDung"));
                 s.setServiceNote(rs.getString("GhiChu"));
-                s.setServiceDbu(rs.getFloat("Denbu"));
+                s.setCompensation(rs.getFloat("Denbu"));
                 slist.add(s);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return slist;
     }
     
     public ArrayList<CustomerStay> getCustStay(String id) {
-        ArrayList<CustomerStay> clist = new ArrayList<>();
+        ArrayList<CustomerStay> clist = new ArrayList();
         String get = "select * from tbl_KH_stay where ID_HD = ?";
         System.out.println(id);
         try {
@@ -176,20 +152,17 @@ public class CheckOutDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return clist;
     }
 
     public boolean addBillToPay(Bill b) {
-        String insert = " update tbl_HD set ID_NV = ? , CheckoutDate = ? , CheckoutTime = ? where ID_HD like ? ";
+        String insert = " update tbl_HD set ID_NV = ?, CheckoutDate = ?, CheckoutTime = ? where ID_HD like ? ";
         try {
             PreparedStatement ps = conn.prepareStatement(insert);
             ps.setString(1, b.getEmployeeID());
             ps.setDate(2, new Date(b.getDateTo().getTime()));
             ps.setString(3, b.getTimeTo());
-
             ps.setString(4, b.getBillID());
-
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();

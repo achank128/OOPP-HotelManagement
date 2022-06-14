@@ -8,7 +8,7 @@ package model;
  *
  * @author Minh Duc
  */
-    public class Client {
+    public class Customer {
 
     private String ID, Name, Address, Phone;
 

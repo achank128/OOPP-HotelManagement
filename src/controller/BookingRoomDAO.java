@@ -11,7 +11,6 @@ import model.Room;
 import java.sql.Date;
 import java.sql.ResultSet;
 import model.BookingRoom;
-import model.Employee;
 import model.FindRoom;
 
 public class BookingRoomDAO {
@@ -34,14 +33,14 @@ public class BookingRoomDAO {
     }
 
     public ArrayList<Room> getRoomFound(FindRoom f) {
-        ArrayList<Room> roomFound = new ArrayList<Room>();
+        ArrayList<Room> roomFound = new ArrayList();
 
         String find = """
                       select * from tbl_HotelRoom where ID_R not in 
                       (select tbl_BookedRoom.ID_R from tbl_BookedRoom, tbl_HotelRoom 
                       where tbl_BookedRoom.ID_R = tbl_HotelRoom.ID_R 
                       and ? between NgayNhan and NgayTra 
-                      and ? between NgayNhan and NgayTra ) 
+                      or ? between NgayNhan and NgayTra ) 
                       and tbl_HotelRoom.Loai_R like ?
                       and tbl_HotelRoom.SoGiuong_R like ?
                       """;
@@ -73,8 +72,8 @@ public class BookingRoomDAO {
     }
 
     public ArrayList<BookingRoom> getBookingList() {
-        ArrayList<BookingRoom> bookingList = new ArrayList<BookingRoom>();
-        String get = "select * from tbl_BookedRoom";
+        ArrayList<BookingRoom> bookingList = new ArrayList();
+        String get = "select * from tbl_BookedRoom order by ID_BK desc";
         try {
             PreparedStatement ps = conn.prepareStatement(get);
             ResultSet rs = ps.executeQuery();
@@ -96,11 +95,10 @@ public class BookingRoomDAO {
     }
 
     public ArrayList<BookingRoom> getBookingListFound(String search, String status) {
-        ArrayList<BookingRoom> bookingList = new ArrayList<BookingRoom>();
+        ArrayList<BookingRoom> bookingList = new ArrayList();
         String fstatus = "and bkstatus = " + status;
         if (status == "") {
             fstatus = "";
-
         }
         String get = """
                     select ID_BK, ID_R, tbl_KH.ID_KH, NgayNhan, NgayTra, bkstatus 
@@ -109,7 +107,7 @@ public class BookingRoomDAO {
                     or tbl_BookedRoom.ID_KH like ?
                     or Ten_KH like ? or SDT_KH like ? 
                     or NgayNhan like ? or NgayTra like ?)
-                     """ + fstatus;
+                     """ + fstatus + "order by ID_BK desc";
         try {
             PreparedStatement ps = conn.prepareStatement(get);
             ps.setString(1, "%" + search + "%");
