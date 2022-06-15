@@ -8,6 +8,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import controller.StatisticalDAO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.StatisticalRoom;
@@ -49,6 +51,16 @@ public class StatisticalRoomView extends javax.swing.JFrame {
             });
         }
     }
+    public void showTable1() {
+        int i = 1;
+        model.setRowCount(0);
+        for (StatisticalRoom r : list1) {
+            model.addRow(new Object[]{
+                i++, r.getID(), r.getTen_R(), r.getLoai_R(), r.getSoGiuong_R(), r.getGia_R(),
+                r.getNgayNhan(), r.getNgayTra(), r.getSoDem(), r.getThanhtien()
+            });
+        }
+    }
 
     public void SumDT() {
         DecimalFormat x = new DecimalFormat("###,###,###,###,###,###,###,###,###");
@@ -76,6 +88,12 @@ public class StatisticalRoomView extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         btnHome4 = new javax.swing.JLabel();
         btnRefesh4 = new javax.swing.JLabel();
+        Tutxt = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        Dentxt = new javax.swing.JTextField();
+        ThongKe = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,6 +157,19 @@ public class StatisticalRoomView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel1.setText("Từ:");
+
+        jLabel3.setText("Đến:");
+
+        ThongKe.setText("Thống kê");
+        ThongKe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ThongKeActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Vui lòng điền thông tin ngày theo định dạng mm/dd/yyyy :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,18 +180,45 @@ public class StatisticalRoomView extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(txtDT, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Tutxt, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Dentxt, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(ThongKe)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Tutxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(Dentxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(ThongKe))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,6 +242,36 @@ public class StatisticalRoomView extends javax.swing.JFrame {
     private void btnRefesh4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefesh4MouseClicked
 
     }//GEN-LAST:event_btnRefesh4MouseClicked
+    private ArrayList<StatisticalRoom> list1;
+    private void ThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongKeActionPerformed
+
+        if (Tutxt.getText().equals("")||Dentxt.getText().equals("")) {
+            JOptionPane.showMessageDialog(rootPane,
+                        "Ban chua dien thong tin hoac ban dien thieu ");
+            JOptionPane.showMessageDialog(rootPane,
+                        "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(mm/dd/yyyy)");
+        } else {           
+                list1 = stDAO.getListDT(Tutxt.getText(),Dentxt.getText());
+                showTable1();
+                SumDT();
+                     
+        }
+//        if (Dentxt.getText().equals("")) {
+//            st.setDateTo(null);
+//        } else {
+//            try {
+//                st.setDateTo(new SimpleDateFormat("MM/dd/yyyy").parse(Dentxt.getText()));
+//            } catch (ParseException ex) {
+//                JOptionPane.showMessageDialog(rootPane,
+//                        "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(mm/dd/yyyy)");
+//                ex.printStackTrace();
+//            }
+//        }
+//        
+            // TODO add your handling code here:
+            
+            
+    }//GEN-LAST:event_ThongKeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,10 +309,16 @@ public class StatisticalRoomView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Dentxt;
+    private javax.swing.JButton ThongKe;
+    private javax.swing.JTextField Tutxt;
     private javax.swing.JLabel btnHome4;
     private javax.swing.JLabel btnRefesh4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTHK;

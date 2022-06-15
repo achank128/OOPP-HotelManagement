@@ -459,7 +459,6 @@ public class RoomView extends javax.swing.JFrame {
     private void btnTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTKActionPerformed
         listTK = roomDAO.getListTKRoom(txtID.getText(), txtType.getText(), txtBed.getText());
         showResultTK();
-
     }//GEN-LAST:event_btnTKActionPerformed
 
     private ArrayList<Room> list1, list2, list3, list4;
