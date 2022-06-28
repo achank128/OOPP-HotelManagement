@@ -71,8 +71,7 @@
                       <Component id="jScrollPane2" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnBookingList" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="btnNhanPhong" min="-2" pref="136" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -221,10 +220,7 @@
                   <Component id="jScrollPane2" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btnNhanPhong" pref="42" max="32767" attributes="0"/>
-                  <Component id="btnBookingList" max="32767" attributes="0"/>
-              </Group>
+              <Component id="btnNhanPhong" min="-2" pref="42" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -521,17 +517,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="yyyy-dd-mm"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnBookingList">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n th&#xf4;ng tin &#x111;&#x1eb7;t ph&#xf2;ng"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBookingListActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

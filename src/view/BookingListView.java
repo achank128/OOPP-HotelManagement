@@ -33,6 +33,7 @@ public class BookingListView extends javax.swing.JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         bookingList = new BookingRoomDAO().getBookingList();
         model = (DefaultTableModel) tblBookingList.getModel();
+        btnCheckin.setVisible(false);
         showResult();
     }
 
@@ -58,6 +59,7 @@ public class BookingListView extends javax.swing.JFrame {
     public void setCheckin(){
         title.setText("DANH SÁCH ĐẶT PHÒNG CHECK IN");
         cbFilter.setSelectedIndex(2);
+        btnCheckin.setVisible(true);
         bookingList = bookingRoomDAO.getBookingListFound(txtSearch.getText(), "0");
         showResult();
     }

@@ -120,7 +120,6 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
         btnHome = new javax.swing.JLabel();
         btnRefesh = new javax.swing.JLabel();
         lbDateFrom = new javax.swing.JLabel();
-        btnBookingList = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CHECK IN");
@@ -274,14 +273,6 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
 
         lbDateFrom.setText("yyyy-dd-mm");
 
-        btnBookingList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnBookingList.setText("Chọn thông tin đặt phòng");
-        btnBookingList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBookingListActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -319,8 +310,7 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnBookingList)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNhanPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -436,9 +426,7 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
                         .addComponent(txtAddKHStay, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnNhanPhong, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                    .addComponent(btnBookingList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnNhanPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -520,13 +508,6 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
         showResultStay();
     }//GEN-LAST:event_btnRefeshMouseClicked
 
-    private void btnBookingListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingListActionPerformed
-        BookingListView bookingListView = new BookingListView();
-        bookingListView.setVisible(true);
-        bookingListView.setCheckin();
-        this.dispose();
-    }//GEN-LAST:event_btnBookingListActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -565,7 +546,6 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBookingList;
     private javax.swing.JLabel btnHome;
     private javax.swing.JButton btnNhanPhong;
     private javax.swing.JLabel btnRefesh;

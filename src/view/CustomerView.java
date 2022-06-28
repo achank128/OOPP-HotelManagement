@@ -422,7 +422,6 @@ public class CustomerView extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-
         //reset text field
         txtID.setText("");
         txtName.setText("");
