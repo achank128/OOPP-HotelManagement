@@ -11,8 +11,6 @@ import controller.CheckOutDAO;
 import controller.CustomerDAO;
 import controller.RoomDAO;
 import controller.ServiceDAO;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import model.Bill;
 import model.BookingRoom;
@@ -133,7 +131,6 @@ public class BookServiceView extends javax.swing.JFrame {
         txtRoomID = new javax.swing.JTextField();
         txtBed = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        txtDateUsed = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
         txtTimeFrom = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
@@ -154,6 +151,7 @@ public class BookServiceView extends javax.swing.JFrame {
         txtCompensation = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtDateTo = new javax.swing.JTextField();
+        dcDateUse = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -242,8 +240,6 @@ public class BookServiceView extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setText("Ngày Dùng(dịch vụ):");
 
-        txtDateUsed.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("Giờ Check In:");
@@ -322,7 +318,9 @@ public class BookServiceView extends javax.swing.JFrame {
             tblService.getColumnModel().getColumn(3).setMinWidth(150);
         }
 
-        btnAddService.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAddService.setBackground(new java.awt.Color(0, 113, 194));
+        btnAddService.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAddService.setForeground(new java.awt.Color(255, 255, 255));
         btnAddService.setText("Thêm Dịch Vụ");
         btnAddService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,6 +355,8 @@ public class BookServiceView extends javax.swing.JFrame {
                 txtDateToActionPerformed(evt);
             }
         });
+
+        dcDateUse.setDateFormatString("dd/MM/yyyy");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -419,9 +419,9 @@ public class BookServiceView extends javax.swing.JFrame {
                             .addComponent(txtRoomID, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtBed, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDateUsed, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
+                            .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dcDateUse, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3)
                             .addGroup(layout.createSequentialGroup()
@@ -450,6 +450,23 @@ public class BookServiceView extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddService, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtQuanity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel20))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtCompensation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel23))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel7)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -486,34 +503,16 @@ public class BookServiceView extends javax.swing.JFrame {
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtBed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txtDateUsed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel16)))
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtBed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel16)
+                                    .addComponent(dcDateUse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26, 26, 26)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNote, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel17)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAddService, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtQuanity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel20))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtCompensation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel23))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel7))
+                                    .addComponent(jLabel17))))))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -526,6 +525,8 @@ public class BookServiceView extends javax.swing.JFrame {
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dcDateUse, txtBed});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -550,7 +551,8 @@ public class BookServiceView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHome1MouseClicked
 
     private void btnRefeshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefeshMouseClicked
-        txtDateUsed.setText("");
+        //txtDateUsed.setText("");
+        dcDateUse.setDate(null);
         txtNote.setText("");
         txtCompensation.setText("0");
         txtQuanity.setText("");
@@ -566,32 +568,29 @@ public class BookServiceView extends javax.swing.JFrame {
         sv = listSv.get(selectedIndex);
         sb.setBillID(txtMaHD.getText());
         sb.setServiceID(sv.getID());
-        try {
-            sb.setServiceDay(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateUsed.getText()));
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(rootPane,
-                    "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)  \n Vui lòng điền đầy đủ và chính xác.");
-            ex.printStackTrace();
-        }
+        sb.setServiceDay(dcDateUse.getDate());
+//        try {
+//            sb.setServiceDay(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateUsed.getText()));
+//        } catch (ParseException ex) {
+//            JOptionPane.showMessageDialog(rootPane,
+//                    "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)  \n Vui lòng điền đầy đủ và chính xác.");
+//            ex.printStackTrace();
+//        }
         sb.setServiceAmount(Integer.parseInt(txtQuanity.getText()));
         sb.setServiceNote(txtNote.getText());
         sb.setCompensation(Float.parseFloat(txtCompensation.getText()));
 
-        if (txtQuanity.equals("") || txtDateUsed.equals("")) {
-            JOptionPane.showMessageDialog(rootPane,
-                    "Vui lòng điền đầy đủ thông tin ngày dùng và số lượng!");
+        if (ServiceDAO.addServiceBill(sb)) {
+            JOptionPane.showMessageDialog(rootPane, "Đặt dịch vụ thành công!");
+            //txtDateUsed.setText("");
+            dcDateUse.setDate(null);
+            txtNote.setText("");
+            txtCompensation.setText("0");
+            txtQuanity.setText("");
+            showServiceBookedTable();
         } else {
-            if (ServiceDAO.addServiceBill(sb)) {
-                JOptionPane.showMessageDialog(rootPane, "Đặt dịch vụ thành công!");
-                txtDateUsed.setText("");
-                txtNote.setText("");
-                txtCompensation.setText("0");
-                txtQuanity.setText("");
-                showServiceBookedTable();
-            } else {
-                JOptionPane.showMessageDialog(rootPane,
-                        "Đặt dịch vụ không thành công! Vui lòng kiểm tra lại thông tin.");
-            }
+            JOptionPane.showMessageDialog(rootPane,
+                    "Đặt dịch vụ không thành công! Vui lòng kiểm tra lại thông tin.");
         }
 
 
@@ -895,6 +894,7 @@ public class BookServiceView extends javax.swing.JFrame {
     private javax.swing.JButton btnAddService;
     private javax.swing.JLabel btnHome1;
     private javax.swing.JLabel btnRefesh;
+    private com.toedter.calendar.JDateChooser dcDateUse;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -923,7 +923,6 @@ public class BookServiceView extends javax.swing.JFrame {
     private javax.swing.JTextField txtCompensation;
     private javax.swing.JTextField txtDateFrom;
     private javax.swing.JTextField txtDateTo;
-    private javax.swing.JTextField txtDateUsed;
     private javax.swing.JTextField txtMaHD;
     private javax.swing.JTextField txtNote;
     private javax.swing.JTextField txtQuanity;

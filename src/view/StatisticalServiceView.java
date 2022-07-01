@@ -6,11 +6,13 @@ package view;
 
 import controller.StatisticalDAO;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.StatisticalDV;
+import model.StatisticalService;
 
 /**
  *
@@ -18,7 +20,8 @@ import model.StatisticalDV;
  */
 public class StatisticalServiceView extends javax.swing.JFrame {
 
-    private ArrayList<StatisticalDV> list;
+    private ArrayList<StatisticalService> list;
+    private StatisticalDAO stDAO = new StatisticalDAO();
     DefaultTableModel model;
 
     /**
@@ -33,7 +36,7 @@ public class StatisticalServiceView extends javax.swing.JFrame {
         list = stDAO.getListDTDV();
         model = (DefaultTableModel) tblDTDV.getModel();
         model.setColumnIdentifiers(new Object[]{
-            "STT", "ID", "Tên Dịch Vụ", "Ghi chú", "Giá", "Số lượng", "Thành tiền"
+            "STT", "ID", "Tên Dịch Vụ", "Ngày Dùng", "Giá", "Ghi chú", "Số lượng", "Thành tiền"
         });
         showTable();
         SumDTDV();
@@ -41,19 +44,30 @@ public class StatisticalServiceView extends javax.swing.JFrame {
 
     public void showTable() {
         int i = 1;
-        for (StatisticalDV r : list) {
+        for (StatisticalService r : list) {
             model.addRow(new Object[]{
-                i++, r.getID_DV(), r.getTen_DV(), r.getGhiChu(), r.getGia_DV(),
-                r.getSoLuong(), r.getThanhtien()
+                i++, r.getID_DV(), r.getTen_DV(), r.getNgayDung(), r.getGia_DV(), r.getSoLuong(),
+                 r.getGhiChu(), r.getThanhtien()
+            });
+        }
+    }
+
+    public void showTable1() {
+        int i = 1;
+        model.setRowCount(0);
+        for (StatisticalService r : list1) {
+            model.addRow(new Object[]{
+                i++, r.getID_DV(), r.getTen_DV(), r.getNgayDung(), r.getGia_DV(), r.getSoLuong(),
+                 r.getGhiChu(), r.getThanhtien()
             });
         }
     }
 
     public void SumDTDV() {
-        DecimalFormat x = new DecimalFormat("###,###,###,###,###,###");
+        DecimalFormat x = new DecimalFormat("###,###,###,###,###,###,###");
         float Tong = 0;
         for (int i = 0; i < tblDTDV.getRowCount(); i++) {
-            Tong += Float.parseFloat(tblDTDV.getValueAt(i, 6).toString());
+            Tong += Float.parseFloat(tblDTDV.getValueAt(i, 7).toString());
         }
         txtDTDV.setText(x.format(Tong) + " " + "VND");
     }
@@ -75,6 +89,11 @@ public class StatisticalServiceView extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         btnHome7 = new javax.swing.JLabel();
         btnRefesh7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        ThongKeDV = new javax.swing.JButton();
+        dcDateFrom = new com.toedter.calendar.JDateChooser();
+        dcDateTo = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,7 +141,7 @@ public class StatisticalServiceView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnRefesh7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 803, Short.MAX_VALUE)
+                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHome7)
                 .addContainerGap())
@@ -138,34 +157,79 @@ public class StatisticalServiceView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Từ ngày:");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Đến ngày:");
+
+        ThongKeDV.setBackground(new java.awt.Color(0, 113, 194));
+        ThongKeDV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ThongKeDV.setForeground(new java.awt.Color(255, 255, 255));
+        ThongKeDV.setText("Xem Thống kê");
+        ThongKeDV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ThongKeDVActionPerformed(evt);
+            }
+        });
+
+        dcDateFrom.setDateFormatString("dd/MM/yyyy");
+        dcDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        dcDateTo.setDateFormatString("dd/MM/yyyy");
+        dcDateTo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(txtDTDV, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(dcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98)
+                .addComponent(ThongKeDV, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDTDV, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addComponent(jScrollPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
-                .addGap(17, 17, 17)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel3)
+                        .addComponent(ThongKeDV, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDTDV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dcDateFrom, dcDateTo, jLabel3});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -182,8 +246,20 @@ public class StatisticalServiceView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHome7MouseClicked
 
     private void btnRefesh7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefesh7MouseClicked
-
+        dcDateFrom.setDate(null);
+        dcDateTo.setDate(null);
     }//GEN-LAST:event_btnRefesh7MouseClicked
+    private ArrayList<StatisticalService> list1;
+    private void ThongKeDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongKeDVActionPerformed
+        StatisticalService ss = new StatisticalService();
+        ss.setDateFrom(dcDateFrom.getDate());
+        ss.setDateTo(dcDateTo.getDate());
+        list1 = stDAO.getListDTDV(ss);
+        showTable1();
+        SumDTDV();
+
+
+    }//GEN-LAST:event_ThongKeDVActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,10 +298,15 @@ public class StatisticalServiceView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ThongKeDV;
     private javax.swing.JLabel btnHome7;
     private javax.swing.JLabel btnRefesh7;
+    private com.toedter.calendar.JDateChooser dcDateFrom;
+    private com.toedter.calendar.JDateChooser dcDateTo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDTDV;

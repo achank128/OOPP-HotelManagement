@@ -8,6 +8,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import controller.StatisticalDAO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.StatisticalRoom;
@@ -50,6 +52,17 @@ public class StatisticalRoomView extends javax.swing.JFrame {
         }
     }
 
+    public void showTable1() {
+        int i = 1;
+        model.setRowCount(0);
+        for (StatisticalRoom r : list1) {
+            model.addRow(new Object[]{
+                i++, r.getID(), r.getTen_R(), r.getLoai_R(), r.getSoGiuong_R(), r.getGia_R(),
+                r.getNgayNhan(), r.getNgayTra(), r.getSoDem(), r.getThanhtien()
+            });
+        }
+    }
+
     public void SumDT() {
         DecimalFormat x = new DecimalFormat("###,###,###,###,###,###,###,###,###");
         float Tong = 0;
@@ -76,6 +89,11 @@ public class StatisticalRoomView extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         btnHome4 = new javax.swing.JLabel();
         btnRefesh4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        ThongKe = new javax.swing.JButton();
+        dcDateFrom = new com.toedter.calendar.JDateChooser();
+        dcDateTo = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,28 +157,77 @@ public class StatisticalRoomView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("Từ ngày:");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Đến ngày:");
+
+        ThongKe.setBackground(new java.awt.Color(0, 113, 194));
+        ThongKe.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ThongKe.setForeground(new java.awt.Color(255, 255, 255));
+        ThongKe.setText("Xem Thống kê");
+        ThongKe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ThongKeActionPerformed(evt);
+            }
+        });
+
+        dcDateFrom.setDateFormatString("dd/MM/yyyy");
+        dcDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        dcDateTo.setDateFormatString("dd/MM/yyyy");
+        dcDateTo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(txtDT, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDT, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(ThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(ThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(dcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(dcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,8 +249,18 @@ public class StatisticalRoomView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHome4MouseClicked
 
     private void btnRefesh4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefesh4MouseClicked
-
+        dcDateFrom.setDate(null);
+        dcDateTo.setDate(null);
     }//GEN-LAST:event_btnRefesh4MouseClicked
+    private ArrayList<StatisticalRoom> list1;
+    private void ThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThongKeActionPerformed
+        StatisticalRoom sr = new StatisticalRoom();
+        sr.setDateFrom(dcDateFrom.getDate());
+        sr.setDateTo(dcDateTo.getDate());
+        list1 = stDAO.getListDT(sr);
+        showTable1();
+        SumDT();
+    }//GEN-LAST:event_ThongKeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,10 +298,15 @@ public class StatisticalRoomView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ThongKe;
     private javax.swing.JLabel btnHome4;
     private javax.swing.JLabel btnRefesh4;
+    private com.toedter.calendar.JDateChooser dcDateFrom;
+    private com.toedter.calendar.JDateChooser dcDateTo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTHK;

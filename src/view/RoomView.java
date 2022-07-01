@@ -120,7 +120,9 @@ public class RoomView extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Giá Phòng(/đêm):");
 
-        add.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        add.setBackground(new java.awt.Color(0, 113, 194));
+        add.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        add.setForeground(new java.awt.Color(255, 255, 255));
         add.setText("Thêm Mới");
         add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +130,9 @@ public class RoomView extends javax.swing.JFrame {
             }
         });
 
-        edit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        edit.setBackground(new java.awt.Color(0, 113, 194));
+        edit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        edit.setForeground(new java.awt.Color(255, 255, 255));
         edit.setText("Chỉnh Sửa");
         edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,7 +140,9 @@ public class RoomView extends javax.swing.JFrame {
             }
         });
 
-        delete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        delete.setBackground(new java.awt.Color(0, 113, 194));
+        delete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        delete.setForeground(new java.awt.Color(255, 255, 255));
         delete.setText("Xóa");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +160,9 @@ public class RoomView extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblRoom);
 
-        update.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        update.setBackground(new java.awt.Color(0, 113, 194));
+        update.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        update.setForeground(new java.awt.Color(255, 255, 255));
         update.setText("Cập Nhật");
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,7 +170,9 @@ public class RoomView extends javax.swing.JFrame {
             }
         });
 
+        btnTK.setBackground(new java.awt.Color(0, 113, 194));
         btnTK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnTK.setForeground(new java.awt.Color(255, 255, 255));
         btnTK.setText("Tìm Kiếm");
         btnTK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,7 +276,7 @@ public class RoomView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -281,7 +291,7 @@ public class RoomView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtBed, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtType, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {add, delete, edit, update});
@@ -319,7 +329,7 @@ public class RoomView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(update)
+                                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(add)
@@ -457,9 +467,8 @@ public class RoomView extends javax.swing.JFrame {
         }
     }
     private void btnTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTKActionPerformed
-        listTK = roomDAO.getListTKRoom(txtID.getText(), txtType.getText(), txtBed.getText());
-        showResultTK();
-
+        list = roomDAO.getListTKRoom(txtID.getText(), txtType.getText(), txtBed.getText());
+        showResult();
     }//GEN-LAST:event_btnTKActionPerformed
 
     private ArrayList<Room> list1, list2, list3, list4;

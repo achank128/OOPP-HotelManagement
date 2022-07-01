@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+import java.util.Date;
 import model.Room;
 /**
  *
@@ -11,8 +12,27 @@ import model.Room;
 public class StatisticalRoom {
     private String ID,Ten_R,Loai_R;
     private int SoGiuong_R;
+    private Date DateFrom, DateTo;
     private float Gia_R,SoDem,Thanhtien;
 
+    public Date getDateFrom() {
+        return DateFrom;
+    }
+
+    public void setDateFrom(Date DateFrom) {
+        this.DateFrom = DateFrom;
+    }
+
+    public Date getDateTo() {
+        return DateTo;
+    }
+
+    public void setDateTo(Date DateTo) {
+        this.DateTo = DateTo;
+    }
+
+    
+    
     public float getThanhtien() {
         return Thanhtien;
     }

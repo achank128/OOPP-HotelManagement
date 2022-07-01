@@ -4,14 +4,33 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author HP
  */
-public class StatisticalDV {
+public class StatisticalService {
     private String ID_HD,Ten_DV,ID_DV,NgayDung,GhiChu;
     private float Gia_DV,DenBu,Thanhtien;
     private int SoLuong;
+    private Date dateFrom, dateTo;
+
+    public Date getDateFrom() {
+        return dateFrom;
+    }
+
+    public void setDateFrom(Date dateFrom) {
+        this.dateFrom = dateFrom;
+    }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
+    }
 
     public float getThanhtien() {
         return Thanhtien;

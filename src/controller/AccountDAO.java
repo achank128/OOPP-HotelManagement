@@ -42,7 +42,6 @@ public class AccountDAO {
     
     public Account login(Account acc){
         ArrayList<Account> alist = this.getAllAccount();  
-        System.out.println("helloeee");
         for (Account a : alist) {            
             if(acc.getUsername().equals(a.getUsername())){
                 if(acc.getPassword().equals(a.getPassword())){
@@ -51,6 +50,31 @@ public class AccountDAO {
             }         
         }              
         return null;
+    }
+    
+    public Account register(Account acc){
+        Account a = new Account();
+        String insert = "Insert into tbl_Account(username, pass, ten, chucvu, sdt) values(?,?,?,?,?)";
+        try {
+            PreparedStatement ps = conn.prepareStatement(insert);
+            ps.setString(1, acc.getUsername());
+            ps.setString(2, acc.getPassword());
+            ps.setString(3, acc.getName());
+            ps.setString(4, acc.getPosition());
+            ps.setString(5, acc.getPhone());
+            ResultSet rs = ps.executeQuery();
+            rs.next();       
+            a.setUsername(rs.getString("username"));
+            a.setName(rs.getString("ten"));
+            a.setPassword(rs.getString("pass"));
+            a.setPosition(rs.getString("chucvu"));
+            a.setPhone(rs.getString("sdt"));
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; 
+        }
+        return a;
     }
     
     public String statusRoomInfo(String idr){
