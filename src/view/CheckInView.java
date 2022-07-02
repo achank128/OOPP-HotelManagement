@@ -95,7 +95,6 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
         txtMahd = new javax.swing.JTextField();
         txtKH = new javax.swing.JTextField();
         txtSdt = new javax.swing.JTextField();
-        txtChechinDate = new javax.swing.JTextField();
         txtMaDat = new javax.swing.JTextField();
         txtRoomID = new javax.swing.JTextField();
         txtLoaiPhong = new javax.swing.JTextField();
@@ -120,13 +119,15 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
         btnHome = new javax.swing.JLabel();
         btnRefesh = new javax.swing.JLabel();
         lbDateFrom = new javax.swing.JLabel();
-        btnBookingList = new javax.swing.JButton();
+        dcDateFrom = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CHECK IN");
         setBackground(new java.awt.Color(255, 255, 255));
 
+        btnNhanPhong.setBackground(new java.awt.Color(0, 113, 194));
         btnNhanPhong.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnNhanPhong.setForeground(new java.awt.Color(255, 255, 255));
         btnNhanPhong.setText("Nhận Phòng");
         btnNhanPhong.setToolTipText("Click to save");
         btnNhanPhong.addActionListener(new java.awt.event.ActionListener() {
@@ -171,19 +172,28 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Mã Hóa Đơn:");
 
+        txtMahd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         txtKH.setEditable(false);
+        txtKH.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         txtSdt.setEditable(false);
+        txtSdt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         txtMaDat.setEditable(false);
+        txtMaDat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         txtRoomID.setEditable(false);
+        txtRoomID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         txtLoaiPhong.setEditable(false);
+        txtLoaiPhong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         txtSoGiuong.setEditable(false);
+        txtSoGiuong.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         txtGia.setEditable(false);
+        txtGia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel7.setText("Khách Hàng Ở Tại Phòng:");
@@ -206,6 +216,9 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
             }
         });
 
+        txtAddKHStay.setBackground(new java.awt.Color(0, 113, 194));
+        txtAddKHStay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtAddKHStay.setForeground(new java.awt.Color(255, 255, 255));
         txtAddKHStay.setText("Thêm Khách Hàng ");
         txtAddKHStay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,6 +229,8 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
         jbltra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jbltra.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jbltra.setText("Giờ Check In:");
+
+        txtCheckinTime.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         tblStay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,22 +289,17 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
 
         lbDateFrom.setText("yyyy-dd-mm");
 
-        btnBookingList.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnBookingList.setText("Chọn thông tin đặt phòng");
-        btnBookingList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBookingListActionPerformed(evt);
-            }
-        });
+        dcDateFrom.setDateFormatString("dd/MM/yyyy");
+        dcDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -318,9 +328,8 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
                             .addComponent(txtAddKHStay, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnBookingList)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(287, 825, Short.MAX_VALUE)
                         .addComponent(btnNhanPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -339,8 +348,8 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
                             .addComponent(txtKH, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtChechinDate, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lbDateFrom)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,9 +393,9 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtChechinDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbDateFrom))
+                            .addComponent(lbDateFrom)
+                            .addComponent(dcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbltra, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -433,12 +442,10 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
                             .addComponent(txtCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16))
                         .addGap(18, 18, 18)
-                        .addComponent(txtAddKHStay, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtAddKHStay, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnNhanPhong, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                    .addComponent(btnBookingList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnNhanPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -451,11 +458,7 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
         b.setBillID(txtMahd.getText());
         b.setBookingID(txtMaDat.getText());
         b.setTimeFrom(txtCheckinTime.getText());
-        try {
-            b.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtChechinDate.getText()));
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
+        b.setDateFrom(dcDateFrom.getDate());
         if (checkinDAO.addBill(b)) {
             for (CustomerStay cs : customerstays) {
                 if (checkinDAO.addCustomerStay(cs)) {
@@ -468,6 +471,8 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
             new RoomDAO().updateStatusRoom("Đang sử dụng", txtRoomID.getText());
             new BookingRoomDAO().updateStatusBooking(b.getBookingID());
             new CheckOutDAO().updateStatusBill(b.getBillID(), "0");
+            new HomeView().setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Check In thất bại! Vui lòng kiểm tra lại thông tin.");
         }
@@ -510,7 +515,7 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_btnHomeMouseClicked
 
     private void btnRefeshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefeshMouseClicked
-        txtChechinDate.setText("");
+        dcDateFrom.setDate(null);
         txtCheckinTime.setText("");
         txtTenKHstay.setText("");
         txtCountry.setText("");
@@ -519,13 +524,6 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
         customerstays.clear();
         showResultStay();
     }//GEN-LAST:event_btnRefeshMouseClicked
-
-    private void btnBookingListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookingListActionPerformed
-        BookingListView bookingListView = new BookingListView();
-        bookingListView.setVisible(true);
-        bookingListView.setCheckin();
-        this.dispose();
-    }//GEN-LAST:event_btnBookingListActionPerformed
 
     /**
      * @param args the command line arguments
@@ -565,10 +563,10 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBookingList;
     private javax.swing.JLabel btnHome;
     private javax.swing.JButton btnNhanPhong;
     private javax.swing.JLabel btnRefesh;
+    private com.toedter.calendar.JDateChooser dcDateFrom;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -591,7 +589,6 @@ public class CheckInView extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JTable tblStay;
     private javax.swing.JButton txtAddKHStay;
     private javax.swing.JTextField txtCCCD;
-    private javax.swing.JTextField txtChechinDate;
     private javax.swing.JTextField txtCheckinTime;
     private javax.swing.JTextField txtCountry;
     private javax.swing.JTextField txtGia;

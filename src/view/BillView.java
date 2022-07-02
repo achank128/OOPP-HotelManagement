@@ -94,7 +94,6 @@ public class BillView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        txtDateFrom = new javax.swing.JTextField();
         btnSearchBill = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblBill = new javax.swing.JTable();
@@ -106,12 +105,13 @@ public class BillView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         cbStatus = new javax.swing.JComboBox<>();
         txtSearch = new javax.swing.JTextField();
-        txtDateTo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         btnHome1 = new javax.swing.JLabel();
         btnRefesh = new javax.swing.JLabel();
+        dcDateFrom = new com.toedter.calendar.JDateChooser();
+        dcDateTo = new com.toedter.calendar.JDateChooser();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,9 +132,9 @@ public class BillView extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Ngày Check In:");
 
-        txtDateFrom.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
+        btnSearchBill.setBackground(new java.awt.Color(0, 113, 194));
         btnSearchBill.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnSearchBill.setForeground(new java.awt.Color(255, 255, 255));
         btnSearchBill.setText("Tìm Kiếm");
         btnSearchBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +168,9 @@ public class BillView extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Danh sách hóa đơn");
 
+        btnViewBill.setBackground(new java.awt.Color(0, 113, 194));
         btnViewBill.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnViewBill.setForeground(new java.awt.Color(255, 255, 255));
         btnViewBill.setText("Xem Chi Tiết");
         btnViewBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,8 +195,6 @@ public class BillView extends javax.swing.JFrame {
                 txtSearchActionPerformed(evt);
             }
         });
-
-        txtDateTo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Ngày Check Out:");
@@ -244,6 +244,10 @@ public class BillView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        dcDateFrom.setDateFormatString("dd/MM/yyyy");
+
+        dcDateTo.setDateFormatString("dd/MM/yyyy\n");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -254,24 +258,26 @@ public class BillView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane3)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1164, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addGap(12, 12, 12)
-                                            .addComponent(jLabel4)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtDateFrom))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(txtDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(310, 575, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(dcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(12, 12, 12)
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(dcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(jScrollPane2)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel7)
@@ -292,16 +298,16 @@ public class BillView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(dcDateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(dcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -314,11 +320,9 @@ public class BillView extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(btnViewBill, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtDateFrom, txtDateTo});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -337,28 +341,8 @@ public class BillView extends javax.swing.JFrame {
 
     private void cbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbStatusActionPerformed
         Bill b = new Bill();     
-        if (txtDateFrom.getText().equals("")) {
-            b.setDateFrom(null);
-        } else {
-            try {
-                b.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateFrom.getText()));
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(rootPane,
-                        "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)");
-                ex.printStackTrace();
-            }
-        }
-        if (txtDateTo.getText().equals("")) {
-            b.setDateTo(null);
-        } else {
-            try {
-                b.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateTo.getText()));
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(rootPane,
-                        "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)");
-                ex.printStackTrace();
-            }
-        }
+        b.setDateFrom(dcDateFrom.getDate());
+        b.setDateTo(dcDateTo.getDate());
         String status = "";
         int index = cbStatus.getSelectedIndex();
         if (index == 1) {
@@ -374,28 +358,8 @@ public class BillView extends javax.swing.JFrame {
 
         Bill b = new Bill();
         b.setRoomID(txtSearch.getText());
-        if (txtDateFrom.getText().equals("")) {
-            b.setDateFrom(null);
-        } else {
-            try {
-                b.setDateFrom(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateFrom.getText()));
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(rootPane,
-                        "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)");
-                ex.printStackTrace();
-            }
-        }
-        if (txtDateTo.getText().equals("")) {
-            b.setDateTo(null);
-        } else {
-            try {
-                b.setDateTo(new SimpleDateFormat("dd/MM/yyyy").parse(txtDateTo.getText()));
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(rootPane,
-                        "Thông tin ngày chưa phù hợp hoặc chưa đúng định dạng(dd/mm/yyyy)");
-                ex.printStackTrace();
-            }
-        }
+        b.setDateFrom(dcDateFrom.getDate());
+        b.setDateTo(dcDateTo.getDate());
         String status = "";
         int index = cbStatus.getSelectedIndex();
         if (index == 1) {
@@ -423,8 +387,9 @@ public class BillView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHome1MouseClicked
 
     private void btnRefeshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefeshMouseClicked
-        txtDateFrom.setText("");
-        txtDateTo.setText("");
+        dcDateFrom.setDate(null);
+        dcDateTo.setDate(null);
+        txtSearch.setText("");
 
     }//GEN-LAST:event_btnRefeshMouseClicked
 
@@ -469,6 +434,8 @@ public class BillView extends javax.swing.JFrame {
     private javax.swing.JButton btnSearchBill;
     private javax.swing.JButton btnViewBill;
     private javax.swing.JComboBox<String> cbStatus;
+    private com.toedter.calendar.JDateChooser dcDateFrom;
+    private com.toedter.calendar.JDateChooser dcDateTo;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -482,8 +449,6 @@ public class BillView extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable tblBill;
     private javax.swing.JTable tblService;
-    private javax.swing.JTextField txtDateFrom;
-    private javax.swing.JTextField txtDateTo;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,7 +24,7 @@ import model.RoomStatus;
  *
  * @author khacc
  */
-public class HomeView extends javax.swing.JFrame {
+public class HomeLoginView extends javax.swing.JFrame {
 
     private ArrayList<RoomStatus> roomStatus = new ArrayList<RoomStatus>();
     private RoomDAO roomDAO = new RoomDAO();
@@ -35,11 +35,11 @@ public class HomeView extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
-    public HomeView() {
+    public HomeLoginView() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        login.setVisible(false);
-        sroom.setVisible(true);
+        login.setVisible(true);
+        sroom.setVisible(false);
         signup.setVisible(false);
         btnSR.setVisible(false);
         btnSS.setVisible(false);
@@ -157,7 +157,6 @@ public class HomeView extends javax.swing.JFrame {
         Background = new javax.swing.JPanel();
         Top = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        navHome = new javax.swing.JLabel();
         navLogin = new javax.swing.JLabel();
         Sidebar = new javax.swing.JTabbedPane();
         jPanel10 = new javax.swing.JPanel();
@@ -242,13 +241,6 @@ public class HomeView extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Booking.com");
 
-        navHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-home-32-view.png"))); // NOI18N
-        navHome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                navHomeMouseClicked(evt);
-            }
-        });
-
         navLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-account-32.png"))); // NOI18N
         navLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -265,18 +257,14 @@ public class HomeView extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(navLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(navHome)
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(navLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(TopLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                    .addComponent(navHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1358,9 +1346,9 @@ public class HomeView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,
                         "Xin chào " + account.getName(), "Login thành công", JOptionPane.INFORMATION_MESSAGE);
                 this.position = account.getPosition();
-                login.setVisible(false);
-                signup.setVisible(false);
-                sroom.setVisible(true);
+                HomeView homeView = new HomeView();
+                homeView.setVisible(true);
+                this.dispose();
             }
         }
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -1370,12 +1358,6 @@ public class HomeView extends javax.swing.JFrame {
         sroom.setVisible(false);
         signup.setVisible(true);
     }//GEN-LAST:event_jLabel16MouseClicked
-
-    private void navHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navHomeMouseClicked
-        login.setVisible(false);
-        signup.setVisible(false);
-        sroom.setVisible(true);
-    }//GEN-LAST:event_navHomeMouseClicked
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         if (txtUsername.getText().equals("") || txtPassword.getText().equals("") || txtPosition.getText().equals("")) {
@@ -1396,9 +1378,9 @@ public class HomeView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,
                         "Đăng ký thành công!, xin chào " + acc.getName(), "Login thành công", JOptionPane.INFORMATION_MESSAGE);
                 this.position = a.getPosition();
-                login.setVisible(false);
-                signup.setVisible(false);
-                sroom.setVisible(true);
+                HomeView homeView = new HomeView();
+                homeView.setVisible(true);
+                this.dispose();
             }
         }
     }//GEN-LAST:event_btnSignupActionPerformed
@@ -1482,21 +1464,23 @@ public class HomeView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HomeLoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeView().setVisible(true);
+                new HomeLoginView().setVisible(true);
             }
         });
     }
@@ -1566,7 +1550,6 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel login;
-    private javax.swing.JLabel navHome;
     private javax.swing.JLabel navLogin;
     private javax.swing.JPanel signup;
     private javax.swing.JPanel srContent;

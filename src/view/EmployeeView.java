@@ -161,7 +161,9 @@ public class EmployeeView extends javax.swing.JFrame {
 
         txtSDT.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        btnadd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnadd.setBackground(new java.awt.Color(0, 113, 194));
+        btnadd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnadd.setForeground(new java.awt.Color(255, 255, 255));
         btnadd.setText("Thêm Mới");
         btnadd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,7 +171,9 @@ public class EmployeeView extends javax.swing.JFrame {
             }
         });
 
-        btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnDelete.setBackground(new java.awt.Color(0, 113, 194));
+        btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("Xóa");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +181,9 @@ public class EmployeeView extends javax.swing.JFrame {
             }
         });
 
-        btnEdit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEdit.setBackground(new java.awt.Color(0, 113, 194));
+        btnEdit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Chỉnh Sửa");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +191,9 @@ public class EmployeeView extends javax.swing.JFrame {
             }
         });
 
-        btnUpdate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnUpdate.setBackground(new java.awt.Color(0, 113, 194));
+        btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setText("Cập Nhật");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,7 +201,9 @@ public class EmployeeView extends javax.swing.JFrame {
             }
         });
 
+        tbnTK.setBackground(new java.awt.Color(0, 113, 194));
         tbnTK.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tbnTK.setForeground(new java.awt.Color(255, 255, 255));
         tbnTK.setText("Tìm Kiếm");
         tbnTK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,8 +284,8 @@ public class EmployeeView extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnEdit)
                         .addGap(18, 18, 18)
-                        .addComponent(btnUpdate)
-                        .addGap(74, 74, 74)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
                         .addComponent(tbnTK)
                         .addGap(18, 18, 18)
                         .addComponent(txtTK))
@@ -380,21 +390,22 @@ public class EmployeeView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
                         .addGap(4, 4, 4)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnadd)
-                        .addComponent(btnDelete)
-                        .addComponent(btnEdit)
-                        .addComponent(btnUpdate)
-                        .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tbnTK))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnadd)
+                    .addComponent(btnDelete)
+                    .addComponent(btnEdit)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tbnTK, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbbSX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDelete, btnEdit, btnUpdate, btnadd});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

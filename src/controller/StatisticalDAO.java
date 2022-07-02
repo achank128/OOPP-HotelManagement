@@ -8,9 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
-import model.StatisticalDV;
+import model.StatisticalService;
 import model.StatisticalRoom;
+import java.sql.Date;
 
 /**
  *
@@ -54,7 +54,7 @@ public class StatisticalDAO {
         return list;       
     }
     
-    public ArrayList<StatisticalRoom> getListDT(String st,String st1){
+    public ArrayList<StatisticalRoom> getListDT(StatisticalRoom sr){
         ArrayList<StatisticalRoom> list = new ArrayList<>();
         String select = """
                         select a.ID_R,a.Ten_R,a.Loai_R,a.SoGiuong_R,a.Gia_R,e.CheckinDate,
@@ -64,8 +64,8 @@ public class StatisticalDAO {
                         """;
         try {
             PreparedStatement ps = conn.prepareStatement(select);
-            ps.setString(1, st);
-            ps.setString(2, st1);
+            ps.setDate(1, new Date(sr.getDateFrom().getTime()));
+            ps.setDate(2, new Date(sr.getDateTo().getTime()));
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 StatisticalRoom r = new StatisticalRoom();
@@ -90,8 +90,8 @@ public class StatisticalDAO {
         return list;       
     }
     
-    public ArrayList<StatisticalDV> getListDTDV(){
-        ArrayList<StatisticalDV> listDV = new ArrayList<>();
+    public ArrayList<StatisticalService> getListDTDV(){
+        ArrayList<StatisticalService> listDV = new ArrayList<>();
         String select = """
                         select a.ID_DV,b.Ten_DV,a.NgayDung,b.Gia_DV ,a.SoLuong as SoLuong,b.GhiChu_DV,Sum(SoLuong*Gia_DV+a.DenBu) as Thanhtien
                         from tbl_ChiTietHD_DV a,tbl_DV b where b.ID_DV = a.ID_DV  
@@ -101,7 +101,7 @@ public class StatisticalDAO {
             PreparedStatement ps = conn.prepareStatement(select);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                StatisticalDV r = new StatisticalDV();
+                StatisticalService r = new StatisticalService();
             //doc du lieu tu sql ra java               
                 r.setID_DV(rs.getString("ID_DV"));
                 r.setTen_DV(rs.getString("Ten_DV"));
@@ -121,8 +121,8 @@ public class StatisticalDAO {
         return listDV;       
     }
     
-    public ArrayList<StatisticalDV> getListDTDV(String dateFrom, String dateTo){
-        ArrayList<StatisticalDV> listDV = new ArrayList<>();
+    public ArrayList<StatisticalService> getListDTDV(StatisticalService ss){
+        ArrayList<StatisticalService> listDV = new ArrayList<>();
         String select = """
                         select a.ID_DV,b.Ten_DV,a.NgayDung,b.GhiChu_DV,b.Gia_DV,a.SoLuong as SoLuong,Sum(SoLuong*Gia_DV+a.DenBu) as Thanhtien
                         from tbl_ChiTietHD_DV a,tbl_DV b where b.ID_DV = a.ID_DV and NgayDung between ? and ? 
@@ -130,11 +130,11 @@ public class StatisticalDAO {
                         """;
         try {
             PreparedStatement ps = conn.prepareStatement(select);
-            ps.setString(1, dateFrom);
-            ps.setString(2, dateTo);
+            ps.setDate(1, new Date(ss.getDateFrom().getTime()));
+            ps.setDate(2, new Date(ss.getDateTo().getTime()));
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                StatisticalDV r = new StatisticalDV();
+                StatisticalService r = new StatisticalService();
             //doc du lieu tu sql ra java               
                 r.setID_DV(rs.getString("ID_DV"));
                 r.setTen_DV(rs.getString("Ten_DV"));
