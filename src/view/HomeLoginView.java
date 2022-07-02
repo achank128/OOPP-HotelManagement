@@ -1278,8 +1278,7 @@ public class HomeLoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStatisticalMouseExited
 
     private void btnBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookMouseClicked
-        new BookRoomView().setVisible(true);
-        this.dispose();
+       
     }//GEN-LAST:event_btnBookMouseClicked
 
     private void btnCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckinActionPerformed
@@ -1310,21 +1309,16 @@ public class HomeLoginView extends javax.swing.JFrame {
 
 
     private void btnBookServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookServiceMouseClicked
-        ListBillView lv = new ListBillView();
-        lv.setVisible(true);
-        lv.setBookService();
-        this.dispose();
+       
     }//GEN-LAST:event_btnBookServiceMouseClicked
 
 
     private void btnBookingListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookingListMouseClicked
-        new BookingListView().setVisible(true);
-        this.dispose();
+       
     }//GEN-LAST:event_btnBookingListMouseClicked
 
     private void btnCustListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustListMouseClicked
-        new CustomerView().setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_btnCustListMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -1398,53 +1392,40 @@ public class HomeLoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_navLoginMouseClicked
 
     private void btnCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMouseClicked
-        BookingListView bookingListView = new BookingListView();
-        bookingListView.setVisible(true);
-        bookingListView.setCheckin();
-        this.dispose();
+        
     }//GEN-LAST:event_btnCheckinMouseClicked
 
     private void btnCheckoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckoutMouseClicked
-        ListBillView lv = new ListBillView();
-        lv.setVisible(true);
-        lv.setCheckOut();
-        this.dispose();
+        
     }//GEN-LAST:event_btnCheckoutMouseClicked
 
     private void btnRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRoomMouseClicked
-        new RoomView().setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_btnRoomMouseClicked
 
     private void btnSRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSRActionPerformed
-        new StatisticalRoomView().setVisible(true);
-        this.dispose();
+       
     }//GEN-LAST:event_btnSRActionPerformed
 
     private void btnSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSSActionPerformed
-        new StatisticalServiceView().setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_btnSSActionPerformed
 
     private void btnStatisticalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatisticalMouseClicked
-        btnSR.setVisible(true);
-        btnSS.setVisible(true);
+        
     }//GEN-LAST:event_btnStatisticalMouseClicked
 
 
     private void btnEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmployeeMouseClicked
-        new EmployeeView().setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_btnEmployeeMouseClicked
 
     private void btnServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServiceMouseClicked
-        new ServiceView().setVisible(true);
-        this.dispose();
+       
     }//GEN-LAST:event_btnServiceMouseClicked
 
     private void btnBillListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBillListMouseClicked
-        new BillView().setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_btnBillListMouseClicked
 
     /**
