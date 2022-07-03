@@ -5,11 +5,8 @@
 package view;
 
 import controller.CheckInDAO;
-import controller.BookingRoomDAO;
 import controller.CheckOutDAO;
 import controller.ServiceDAO;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
