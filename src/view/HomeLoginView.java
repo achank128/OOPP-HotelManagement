@@ -860,7 +860,9 @@ public class HomeLoginView extends javax.swing.JFrame {
 
         txtUsernameLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnLogin.setBackground(new java.awt.Color(0, 113, 194));
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Log in");
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -967,7 +969,9 @@ public class HomeLoginView extends javax.swing.JFrame {
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        btnSignup.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnSignup.setBackground(new java.awt.Color(0, 113, 194));
+        btnSignup.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnSignup.setForeground(new java.awt.Color(255, 255, 255));
         btnSignup.setText("Sign up");
         btnSignup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSignup.addActionListener(new java.awt.event.ActionListener() {
@@ -1278,7 +1282,7 @@ public class HomeLoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStatisticalMouseExited
 
     private void btnBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookMouseClicked
-       
+       JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnBookMouseClicked
 
     private void btnCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckinActionPerformed
@@ -1309,16 +1313,16 @@ public class HomeLoginView extends javax.swing.JFrame {
 
 
     private void btnBookServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookServiceMouseClicked
-       
+       JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnBookServiceMouseClicked
 
 
     private void btnBookingListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBookingListMouseClicked
-       
+       JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnBookingListMouseClicked
 
     private void btnCustListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCustListMouseClicked
-        
+        JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnCustListMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
@@ -1392,40 +1396,39 @@ public class HomeLoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_navLoginMouseClicked
 
     private void btnCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMouseClicked
-        
+        JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnCheckinMouseClicked
 
     private void btnCheckoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckoutMouseClicked
-        
+        JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnCheckoutMouseClicked
 
     private void btnRoomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRoomMouseClicked
-        
+        JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnRoomMouseClicked
 
     private void btnSRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSRActionPerformed
-       
+       JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnSRActionPerformed
 
     private void btnSSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSSActionPerformed
-        
+        JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnSSActionPerformed
 
     private void btnStatisticalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatisticalMouseClicked
-        
+        JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnStatisticalMouseClicked
 
-
     private void btnEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEmployeeMouseClicked
-        
+        JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnEmployeeMouseClicked
 
     private void btnServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServiceMouseClicked
-       
+       JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnServiceMouseClicked
 
     private void btnBillListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBillListMouseClicked
-        
+        JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnBillListMouseClicked
 
     /**
