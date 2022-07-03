@@ -110,8 +110,8 @@ public class BillView extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         btnHome1 = new javax.swing.JLabel();
         btnRefesh = new javax.swing.JLabel();
-        dcDateFrom = new com.toedter.calendar.JDateChooser();
-        dcDateTo = new com.toedter.calendar.JDateChooser();
+        dcDateFrom = new org.netbeans.modules.form.InvalidComponent();
+        dcDateTo = new org.netbeans.modules.form.InvalidComponent();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -244,10 +244,6 @@ public class BillView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        dcDateFrom.setDateFormatString("dd/MM/yyyy");
-
-        dcDateTo.setDateFormatString("dd/MM/yyyy\n");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,17 +263,15 @@ public class BillView extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(btnSearchBill, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(dcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(12, 12, 12)
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(dcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(dcDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(dcDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane2)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel7)
@@ -434,8 +428,8 @@ public class BillView extends javax.swing.JFrame {
     private javax.swing.JButton btnSearchBill;
     private javax.swing.JButton btnViewBill;
     private javax.swing.JComboBox<String> cbStatus;
-    private com.toedter.calendar.JDateChooser dcDateFrom;
-    private com.toedter.calendar.JDateChooser dcDateTo;
+    private org.netbeans.modules.form.InvalidComponent dcDateFrom;
+    private org.netbeans.modules.form.InvalidComponent dcDateTo;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
