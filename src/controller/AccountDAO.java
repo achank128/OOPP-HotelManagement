@@ -62,19 +62,12 @@ public class AccountDAO {
             ps.setString(3, acc.getName());
             ps.setString(4, acc.getPosition());
             ps.setString(5, acc.getPhone());
-            ResultSet rs = ps.executeQuery();
-            rs.next();       
-            a.setUsername(rs.getString("username"));
-            a.setName(rs.getString("ten"));
-            a.setPassword(rs.getString("pass"));
-            a.setPosition(rs.getString("chucvu"));
-            a.setPhone(rs.getString("sdt"));
+            ps.executeQuery();
             
         } catch (Exception e) {
-            e.printStackTrace();
-            return null; 
+            e.printStackTrace(); 
         }
-        return a;
+        return acc;
     }
     
     public String statusRoomInfo(String idr){

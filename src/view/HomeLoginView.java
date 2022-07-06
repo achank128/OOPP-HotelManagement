@@ -157,7 +157,6 @@ public class HomeLoginView extends javax.swing.JFrame {
         Background = new javax.swing.JPanel();
         Top = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        navLogin = new javax.swing.JLabel();
         Sidebar = new javax.swing.JTabbedPane();
         jPanel10 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -215,7 +214,6 @@ public class HomeLoginView extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JTextField();
         btnSignup = new javax.swing.JButton();
         btnLoginsi = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -225,6 +223,7 @@ public class HomeLoginView extends javax.swing.JFrame {
         txtPhone = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         txtPosition = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
         sroom = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
@@ -241,13 +240,6 @@ public class HomeLoginView extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Booking.com");
 
-        navLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-account-32.png"))); // NOI18N
-        navLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                navLoginMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout TopLayout = new javax.swing.GroupLayout(Top);
         Top.setLayout(TopLayout);
         TopLayout.setHorizontalGroup(
@@ -255,13 +247,10 @@ public class HomeLoginView extends javax.swing.JFrame {
             .addGroup(TopLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(navLogin)
-                .addContainerGap())
+                .addContainerGap(822, Short.MAX_VALUE))
         );
         TopLayout.setVerticalGroup(
             TopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(TopLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
@@ -967,8 +956,6 @@ public class HomeLoginView extends javax.swing.JFrame {
         jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel32.setText("Password:");
 
-        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
         btnSignup.setBackground(new java.awt.Color(0, 113, 194));
         btnSignup.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSignup.setForeground(new java.awt.Color(255, 255, 255));
@@ -1007,6 +994,8 @@ public class HomeLoginView extends javax.swing.JFrame {
 
         txtPosition.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout signupLayout = new javax.swing.GroupLayout(signup);
         signup.setLayout(signupLayout);
         signupLayout.setHorizontalGroup(
@@ -1031,16 +1020,16 @@ public class HomeLoginView extends javax.swing.JFrame {
                                     .addComponent(jLabel31)
                                     .addComponent(jLabel33))
                                 .addGap(18, 18, 18)
-                                .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 345, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                                    .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                                    .addComponent(txtPosition, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)))
                             .addGroup(signupLayout.createSequentialGroup()
                                 .addGap(171, 171, 171)
                                 .addComponent(btnSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 177, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         signupLayout.setVerticalGroup(
@@ -1063,8 +1052,8 @@ public class HomeLoginView extends javax.swing.JFrame {
                     .addComponent(jLabel31))
                 .addGap(18, 18, 18)
                 .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel32))
+                    .addComponent(jLabel32)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(signupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel34)
@@ -1075,7 +1064,7 @@ public class HomeLoginView extends javax.swing.JFrame {
                     .addComponent(jLabel35))
                 .addGap(18, 18, 18)
                 .addComponent(btnSignup, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(303, Short.MAX_VALUE))
         );
 
         sroom.setBackground(new java.awt.Color(255, 255, 255));
@@ -1389,12 +1378,6 @@ public class HomeLoginView extends javax.swing.JFrame {
         login.setVisible(true);
     }//GEN-LAST:event_btnLoginsiMouseClicked
 
-    private void navLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navLoginMouseClicked
-        sroom.setVisible(false);
-        signup.setVisible(false);
-        login.setVisible(true);
-    }//GEN-LAST:event_navLoginMouseClicked
-
     private void btnCheckinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCheckinMouseClicked
         JOptionPane.showMessageDialog(rootPane, "Ðăng nhập để sử dụng chức năng này!");
     }//GEN-LAST:event_btnCheckinMouseClicked
@@ -1534,12 +1517,11 @@ public class HomeLoginView extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel login;
-    private javax.swing.JLabel navLogin;
     private javax.swing.JPanel signup;
     private javax.swing.JPanel srContent;
     private javax.swing.JPanel sroom;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JPasswordField txtPasswordLogin;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtPosition;
