@@ -152,6 +152,9 @@ public class ServiceDAO {
                 //doc du lieu tu sql ra java
                 DV.setID(rs.getString("ID_DV"));
                 DV.setName(rs.getString("Ten_DV"));
+                DV.setPrice(rs.getString("Gia_DV"));
+                DV.setNote(rs.getString("GhiChu_DV"));
+             
                 //thêm vào trong danh sách
                 list_TK.add(DV);
             }

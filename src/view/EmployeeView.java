@@ -492,6 +492,7 @@ public class EmployeeView extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         Employee r = new Employee();
+        txtIDNV.setEditable(false);
         r.setID(txtIDNV.getText());
         r.setHo(txtHONV.getText());
         r.setTen(txtTEN.getText());
@@ -533,18 +534,6 @@ public class EmployeeView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tbnTKActionPerformed
 
-    private ArrayList<Employee> list1, list2, list3, list4;
-
-    private void showResultSort(ArrayList<Employee> l) {
-        model.setRowCount(0);
-        int i = 1;
-        for (Employee nv : l) {
-            model.addRow(new Object[]{
-                i++, nv.getID(), nv.getHo(), nv.getTen(),
-                nv.getCCCD(), nv.getCV(), nv.getLuong(), nv.getGT(), nv.getDC(), nv.getSDT()
-            });
-        }
-    }
 
     private void cbbSXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSXActionPerformed
         EmployeeDAO SXDAO = new EmployeeDAO();
@@ -552,19 +541,17 @@ public class EmployeeView extends javax.swing.JFrame {
         if (index == 0) {
             showResult();
         } else if (index == 1) {
-            list1 = SXDAO.getListCBBSX1();
-            showResultSort(list1);
+            list = SXDAO.getListCBBSX1();
+            showResult();
         } else if (index == 2) {
-            list2 = SXDAO.getListCBBSX2();
-            showResultSort(list2);
-
+            list = SXDAO.getListCBBSX2();
+            showResult();
         } else if (index == 3) {
-            list3 = SXDAO.getListCBBSX3();
-            showResultSort(list3);
-
+            list = SXDAO.getListCBBSX3();
+            showResult();
         } else if (index == 4) {
-            list4 = SXDAO.getListCBBSX4();
-            showResultSort(list4);
+            list = SXDAO.getListCBBSX4();
+            showResult();
         }
     }//GEN-LAST:event_cbbSXActionPerformed
 
@@ -589,7 +576,6 @@ public class EmployeeView extends javax.swing.JFrame {
         txtCV.setText("");
         txtSDT.setText("");
         txtDC.setText("");
-
         txtTK.setText("");
         list = employeeDAO.getListNV();
         showResult();

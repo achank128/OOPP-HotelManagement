@@ -265,7 +265,7 @@ public class EmployeeDAO {
 
     public boolean deleteNV(String id) {
         try {
-            String delete = "delete tbl_NV where ID_NV =?";
+            String delete = "delete tbl_NV where ID_NV=?";
             PreparedStatement ps = conn.prepareStatement(delete);
             ps.setString(1, id);
             return ps.executeUpdate() > 0;
@@ -276,9 +276,9 @@ public class EmployeeDAO {
     }
 
     public boolean editNV(Employee r, String id) {
+        System.out.println(id);
         try {
-            String editR = "update tbl_HotelRoom set "
-                    + "Ho_NV=?, Ten_NV=?, CCCD_NV=?, ChucVu=?, Luong=?,GT=?,DC_NV=?,SDT_NV=? where ID_NV=?";
+            String editR = "update tbl_NV set Ho_NV=?,Ten_NV=?,CCCD_NV=?,ChucVu=?,Luong=?,GT=?,DC_NV=?,SDT_NV=? where ID_NV=?";
             PreparedStatement ps = conn.prepareStatement(editR);
             ps.setString(1, r.getHo());
             ps.setString(2, r.getTen());

@@ -61,10 +61,7 @@ public class BookRoomView extends javax.swing.JFrame {
         
         txtClientId.setText(b.getCustID());
         txtCustumerName.setText(c.getName());
-        txtPhoneNumber.setText(c.getPhone());
-        
-        //txtDateForm.setText(b.getDateFrom().toString());
-        //txtDateTo.setText(b.getDateTo().toString());        
+        txtPhoneNumber.setText(c.getPhone());      
         dcDateFrom.setDate(b.getDateFrom());
         dcDateTo.setDate(b.getDateTo());
 
